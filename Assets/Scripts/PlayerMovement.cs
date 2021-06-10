@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 // TODO: VR-player support
@@ -8,6 +9,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private CharacterController playerController;
     public float playerSpeed = 5;
 
+    [SerializeField] private Animator animator;
     private Vector3 _moveDirection;
 
     // Bottom of the player object
@@ -27,6 +29,8 @@ public class PlayerMovement : MonoBehaviour
     private void Update()
     {
         GetKeyboardInput();
+
+        animator.SetBool("walking", playerController.velocity.magnitude > 0);
     }
 
     private void FixedUpdate()
