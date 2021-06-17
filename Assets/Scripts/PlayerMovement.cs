@@ -1,65 +1,69 @@
-using System;
 using UnityEngine;
 
 // TODO: VR-player support
-// TODO: Add Animation Controller
 // TODO: Should be able to get a temporary speed boost or temporary slow down
 public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] private CharacterController playerController;
-    public float playerSpeed = 5;
-
     [SerializeField] private Animator animator;
-    private Vector3 _moveDirection;
+    public float playerSpeed = 5;
 
     // Bottom of the player object
     [SerializeField] private Transform groundCheck;
 
     // Map/Environment the player is walking on
     [SerializeField] private LayerMask groundMask;
-    
-    private const float GroundDistance = 0.4f;
-    private const float Gravity = -8;
+
+    private const float GroundDistance = 0f;
+    private const float Gravity = -10;
     private float _verticalVelocity;
 
-    // Keyboard/Controller Input used as Vertical and Horizontal Movement
-    private float _moveX;
-    private float _moveZ;
+    private Vector3 _moveDirection;
+    private Vector3 _startPosition;
+
+    private void Awake()
+    {
+        _startPosition = transform.position;
+    }
 
     private void Update()
     {
         GetKeyboardInput();
-
-        animator.SetBool("walking", playerController.velocity.magnitude > 0);
-    }
-
-    private void FixedUpdate()
-    {
         Movement();
+        animator.SetBool("walking", IsWalking());
     }
 
     private void GetKeyboardInput()
     {
-        _moveX = Input.GetAxis("Horizontal");
-        _moveZ = Input.GetAxis("Vertical");
-
-        var self = transform;
-        _moveDirection = self.right * _moveX + self.forward * _moveZ;
+        _moveDirection = transform.right * Input.GetAxis("Horizontal") + transform.forward * Input.GetAxis("Vertical");
+        _moveDirection = Vector3.ClampMagnitude(_moveDirection, 1);
     }
 
     private void Movement()
     {
-        // No Vertical Velocity (Gravity) if the player is already touching the ground
-        if (Physics.CheckSphere(groundCheck.position, GroundDistance, groundMask) && _verticalVelocity < 0)
+        // In case the player ever falls out of bounds, he will be reset to his spawning point
+        if (transform.position.y < -50)
         {
-            _verticalVelocity = 0;
+            transform.position = _startPosition;
         }
         else
         {
+            if (Physics.CheckSphere(groundCheck.position, GroundDistance, groundMask))
+            {
+                // No vertical velocity / gravity when standing on ground
+                _verticalVelocity = 0;
+            }
+
+            // Gravity
             _verticalVelocity += Gravity * Time.deltaTime;
             playerController.Move(new Vector3(0, _verticalVelocity, 0) * Time.deltaTime);
-        }
 
-        playerController.Move(playerSpeed * Time.deltaTime * _moveDirection);
+            playerController.Move(playerSpeed * Time.deltaTime * _moveDirection);
+        }
+    }
+
+    private bool IsWalking()
+    {
+        return playerController.velocity.magnitude > 0;
     }
 }

@@ -15,10 +15,11 @@ public class CameraMovement : MonoBehaviour
     private float _mouseX;
     private float _mouseY;
 
-    private void Start()
+    private void Awake()
     {
         // Hiding Mouse Cursor
         Cursor.lockState = CursorLockMode.Locked;
+        transform.localRotation = Quaternion.Euler(0, 0, 0);
     }
 
     private void Update()
