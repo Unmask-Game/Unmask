@@ -56,6 +56,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   features:
   - {fileID: 7638171940646714543}
+  - {fileID: -3243605471072732155}
   - {fileID: 9213587192835225897}
   - {fileID: 2708044180270454675}
   - {fileID: -8180975308951223575}
@@ -63,7 +64,6 @@ MonoBehaviour:
   - {fileID: -558948840402003005}
   - {fileID: 8248615062594169349}
   - {fileID: -5586814057531807889}
-  - {fileID: -3243605471072732155}
   m_renderMode: 1
   m_depthSubmissionMode: 0
 --- !u!114 &-8576644333166290017
@@ -80,11 +80,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   features:
   - {fileID: -2324073508833352823}
+  - {fileID: -8890361283348280337}
   - {fileID: 5512499966642887295}
   - {fileID: 8257533349755282907}
   - {fileID: -7735822653729158079}
   - {fileID: -8358413355440567454}
-  - {fileID: -8890361283348280337}
   - {fileID: 5690922927667623896}
   m_renderMode: 1
   m_depthSubmissionMode: 0
@@ -405,19 +405,19 @@ MonoBehaviour:
   m_Name: Standalone
   m_EditorClassIdentifier: 
   features:
+  - {fileID: 2054758488639178567}
   - {fileID: -477197120865943992}
+  - {fileID: -5150692878839452355}
   - {fileID: 2208941483940049048}
   - {fileID: -6356630986117917228}
   - {fileID: 8912648658126508494}
   - {fileID: 4280679046461083750}
   - {fileID: -1220513206549092652}
-  - {fileID: 2054758488639178567}
-  - {fileID: 3129302844394608414}
   - {fileID: -3950532871847814684}
-  - {fileID: -5150692878839452355}
   - {fileID: -4428293216075081410}
-  m_renderMode: 1
-  m_depthSubmissionMode: 0
+  - {fileID: 3129302844394608414}
+  m_renderMode: 0
+  m_depthSubmissionMode: 1
 --- !u!114 &-4428293216075081410
 MonoBehaviour:
   m_ObjectHideFlags: 0
