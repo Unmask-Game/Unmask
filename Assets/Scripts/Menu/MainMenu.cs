@@ -11,7 +11,7 @@ public class MainMenu : MonoBehaviourPunCallbacks
     const string chars = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
     public void CreateRoom()
     {
-        if (PhotonNetwork.NetworkClientState != ClientState.ConnectingToMasterServer)
+        if (PhotonNetwork.NetworkClientState != ClientState.Authenticating)
         {
             PhotonNetwork.NickName = SettingsManager.Instance.GetUsername();
             PhotonNetwork.ConnectUsingSettings();
