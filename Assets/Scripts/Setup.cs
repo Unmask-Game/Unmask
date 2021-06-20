@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using ParrelSync;
+using Photon.Pun;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.XR.Management;
@@ -9,7 +11,10 @@ public class Setup : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        VRManager.Instance.StartXR(SceneManager.GetActiveScene().buildIndex + 1);
+        if (!ClonesManager.IsClone())
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 3);
+        else
+            VRManager.Instance.StartXR(SceneManager.GetActiveScene().buildIndex + 1);
     }
     
     private static string GetArg(string name)

@@ -14,16 +14,21 @@ public class RoomMenu : MonoBehaviourPunCallbacks
     {
         roomCodeText.text = PhotonNetwork.CurrentRoom.Name;
         playerNames = GameObject.FindGameObjectsWithTag("PlayerName");
-        drawPlayers();
+        DrawPlayers();
     }
     
     public override void OnPlayerEnteredRoom(Player newPlayer)
     {
         Debug.Log(newPlayer.NickName + " joined!");
-        drawPlayers();
+        DrawPlayers();
     }
 
-    private void drawPlayers()
+    public override void OnPlayerLeftRoom(Player otherPlayer)
+    {
+        DrawPlayers();
+    }
+
+    void DrawPlayers()
     {
         int index = 0;
         foreach (var player in PhotonNetwork.CurrentRoom.Players)

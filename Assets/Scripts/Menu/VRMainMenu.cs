@@ -1,18 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine;
 using Photon.Pun;
 using Photon.Realtime;
-using TMPro;
-using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class MainMenu : MonoBehaviourPunCallbacks
+public class VRMainMenu : MonoBehaviourPunCallbacks
 {
     
-    [SerializeField]
-    private TMP_InputField roomNameText;
-
-    public void JoinRoom()
+    const string chars = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
+    public void CreateRoom()
     {
         if (PhotonNetwork.NetworkClientState != ClientState.Authenticating)
         {
@@ -20,16 +17,25 @@ public class MainMenu : MonoBehaviourPunCallbacks
             PhotonNetwork.ConnectUsingSettings();
         }
     }
-    
+
     public override void OnConnectedToMaster()
     {
-        Debug.Log("Joining room");
-        PhotonNetwork.JoinRoom(roomNameText.text);
+        PhotonNetwork.CreateRoom(generateRoomName(), new RoomOptions() { MaxPlayers = 4 });
     }
 
-    public override void OnJoinedRoom()
+    public override void OnCreatedRoom()
     {
-        Debug.Log("Joined room");
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+    }
+    
+    private string generateRoomName()
+    {
+        string roomName = "";
+        for (int i = 0; i < 5; i++)
+        {
+            roomName += chars[Random.Range(0, chars.Length)];
+        }
+
+        return roomName;
     }
 }
