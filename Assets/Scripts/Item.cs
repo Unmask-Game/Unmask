@@ -15,8 +15,8 @@ public abstract class Item : MonoBehaviour
     public Vector3 positionOnMap;
     public Quaternion originalRotation;
     public Vector3 originalScale;
-    public Rigidbody rigidbody;
-    public BoxCollider collider;
+    public Rigidbody itemBody;
+    public BoxCollider itemCollider;
     public Vector3 equippedSize;
 
     private void Awake()
@@ -25,14 +25,15 @@ public abstract class Item : MonoBehaviour
         positionOnMap = self.localPosition;
         originalRotation = self.rotation;
         originalScale = self.localScale;
-        rigidbody = gameObject.GetComponent<Rigidbody>();
-        collider = rigidbody.GetComponent<BoxCollider>();
+        itemBody = gameObject.GetComponent<Rigidbody>();
+        itemCollider = itemBody.GetComponent<BoxCollider>();
         
     }
     
     public void Attack()
     {
-        //animator.doSomething();
+        // animator.doSomething();
+        Debug.Log("Attack");
         //TODO: Colliders / Raycast and stuff
     }
     
@@ -47,8 +48,8 @@ public abstract class Item : MonoBehaviour
         self.parent = parent;
         self.position = parent.position;
         self.rotation = parent.rotation;
-        rigidbody.isKinematic = true;
-        collider.isTrigger = false;
+        itemBody.isKinematic = true;
+        itemCollider.isTrigger = false;
     }
 
     // Instantiate new GameObject on that position???
@@ -63,7 +64,7 @@ public abstract class Item : MonoBehaviour
         self.position = newItem.position;
         self.rotation = originalRotation;
         self.localScale = originalScale;
-        rigidbody.isKinematic = false;
-        collider.isTrigger = true;
+        itemBody.isKinematic = false;
+        itemCollider.isTrigger = true;
     }
 }

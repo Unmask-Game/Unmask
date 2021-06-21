@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 // TODO: VR-player support
@@ -5,7 +6,8 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] private CharacterController playerController;
-    [SerializeField] private Animator animator;
+    private ItemController _items;
+    private float _originalSpeed;
     public float playerSpeed = 5;
 
     // Bottom of the player object
@@ -24,13 +26,18 @@ public class PlayerMovement : MonoBehaviour
     private void Awake()
     {
         _startPosition = transform.position;
+        _originalSpeed = playerSpeed;
+    }
+
+    private void Start()
+    {
+        _items = GetComponent<ItemController>();
     }
 
     private void Update()
     {
         GetKeyboardInput();
         Movement();
-        animator.SetBool("walking", IsWalking());
     }
 
     private void GetKeyboardInput()
@@ -58,11 +65,12 @@ public class PlayerMovement : MonoBehaviour
             _verticalVelocity += Gravity * Time.deltaTime;
             playerController.Move(new Vector3(0, _verticalVelocity, 0) * Time.deltaTime);
 
+            playerSpeed = _items.IsAttacking() ? _originalSpeed / 3 : _originalSpeed;
             playerController.Move(playerSpeed * Time.deltaTime * _moveDirection);
         }
     }
 
-    private bool IsWalking()
+    public bool IsWalking()
     {
         return playerController.velocity.magnitude > 0;
     }

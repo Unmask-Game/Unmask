@@ -14,11 +14,13 @@ public class CameraMovement : MonoBehaviour
     // Mouse Input
     private float _mouseX;
     private float _mouseY;
+    private bool _cursorIsLocked;
 
     private void Awake()
     {
         // Hiding Mouse Cursor
-        Cursor.lockState = CursorLockMode.Locked;
+        _cursorIsLocked = true;
+        //Cursor.lockState = CursorLockMode.Locked;
         transform.localRotation = Quaternion.Euler(0, 0, 0);
     }
 
@@ -33,5 +35,12 @@ public class CameraMovement : MonoBehaviour
 
         transform.localRotation = Quaternion.Euler(_xRot, 0, 0);
         player.Rotate(Vector3.up * _mouseX);
+        
+        // Unlocking cursor, if settings are opened
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            _cursorIsLocked = !_cursorIsLocked;
+        }
+        Cursor.lockState = _cursorIsLocked ? CursorLockMode.Locked : CursorLockMode.None;
     }
 }

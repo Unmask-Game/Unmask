@@ -13,6 +13,14 @@ public class ItemController : MonoBehaviour
     private KeyCode _pickUp;
     private KeyCode _attack;
 
+    private const float PickUpCooldown = 0.4f;
+    private const float SwitchCooldown = 0.1f;
+    private const float AttackCooldown = 0.6f;
+
+    private float _attackCooldownExpiry;
+    private float _switchCooldownExpiry;
+    private float _pickUpCooldownExpiry;
+
     private void Start()
     {
         // make this changeable in settings
@@ -22,60 +30,84 @@ public class ItemController : MonoBehaviour
 
     private void Update()
     {
-        // Item pick-up
-        if (_itemToBePickedUp && Input.GetKeyDown(_pickUp))
+        if (Time.time > _pickUpCooldownExpiry)
         {
-            // Check Type of Item (Arrest/Damage Type)
-            ref var slot = ref _itemToBePickedUp.itemType == Damage ? ref _damageSlot : ref _arrestSlot;
+            // Item pick-up
+            if (_itemToBePickedUp && Input.GetKeyDown(_pickUp))
+            {
+                // Check Type of Item (Arrest/Damage Type)
+                ref var slot = ref _itemToBePickedUp.itemType == Damage ? ref _damageSlot : ref _arrestSlot;
 
-            if (slot)
-            {
-                slot.OnDrop(_itemToBePickedUp);
-                var dropped = slot;
-                slot = _itemToBePickedUp;
-                slot.OnPickUp(itemPlace);
-                SetCurrentItem(ref slot);
-                if (!dropped.gameObject.activeSelf)
+                if (slot)
                 {
-                    dropped.gameObject.SetActive(true);
+                    slot.OnDrop(_itemToBePickedUp);
+                    var dropped = slot;
+                    slot = _itemToBePickedUp;
+                    slot.OnPickUp(itemPlace);
+                    SetCurrentItem(ref slot);
+                    if (!dropped.gameObject.activeSelf)
+                    {
+                        dropped.gameObject.SetActive(true);
+                    }
                 }
-            }
-            else
-            {
-                slot = _itemToBePickedUp;
-                slot.OnPickUp(itemPlace);
-                SetCurrentItem(ref slot);
+                else
+                {
+                    slot = _itemToBePickedUp;
+                    slot.OnPickUp(itemPlace);
+                    SetCurrentItem(ref slot);
+                }
+
+                _pickUpCooldownExpiry = Time.time + PickUpCooldown;
             }
         }
 
         if (!_currentItem) return;
 
-        // Switch items 
-        if (Input.GetAxis("Mouse ScrollWheel") < 0f || Input.GetAxis("Mouse ScrollWheel") > 0f)
+        if (Time.time > _switchCooldownExpiry)
         {
-            SetCurrentItem(ref _currentItem.itemType == Damage ? ref _arrestSlot : ref _damageSlot);
+            bool cooldownNeeded;
+            // Switch items 
+            if (Input.GetAxis("Mouse ScrollWheel") < 0f || Input.GetAxis("Mouse ScrollWheel") > 0f)
+            {
+                cooldownNeeded =
+                    SetCurrentItem(ref _currentItem.itemType == Damage ? ref _arrestSlot : ref _damageSlot);
+            }
+            else if (Input.GetKeyDown(KeyCode.Alpha1))
+            {
+                cooldownNeeded = SetCurrentItem(ref _damageSlot);
+            }
+            else if (Input.GetKeyDown(KeyCode.Alpha2))
+            {
+                cooldownNeeded = SetCurrentItem(ref _arrestSlot);
+            }
+            else
+            {
+                cooldownNeeded = false;
+            }
+
+            if (cooldownNeeded)
+            {
+                _switchCooldownExpiry = Time.time + SwitchCooldown;
+            }
         }
-        else if (Input.GetKeyDown(KeyCode.Alpha1))
-        {
-            SetCurrentItem(ref _damageSlot);
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha2))
-        {
-            SetCurrentItem(ref _arrestSlot);
-        }
-        
+
         // Attack with item (maybe in FixedUpdate?)
-        if (Input.GetKeyDown(_attack))
-        {
-            _currentItem.Attack();
-        }
+        if (Time.time < _attackCooldownExpiry) return;
+        if (!Input.GetKeyDown(_attack)) return;
+        _currentItem.Attack();
+        _attackCooldownExpiry = Time.time + AttackCooldown;
+    }
+    
+    public bool IsAttacking()
+    {
+        if (Time.time <= 0) return false;
+        return Time.time <= _attackCooldownExpiry;
     }
 
-    private void SetCurrentItem(ref Item slot)
+    private bool SetCurrentItem(ref Item slot)
     {
-        if (!slot) return;
-        // vllt auch: || slot == _currentItem
-        
+        if (!slot || slot == _currentItem) return false;
+
         if (_currentItem)
         {
             _currentItem.gameObject.SetActive(false);
@@ -89,6 +121,7 @@ public class ItemController : MonoBehaviour
 
         hud.DeselectSlot(slot.itemType == Damage ? 1 : 0);
         hud.SelectSlot(slot.itemType == Damage ? 0 : 1);
+        return true;
     }
 
     private void OnTriggerEnter(Collider other)
