@@ -1,23 +1,30 @@
 using UnityEngine;
+using UnityEngine.UI;
 
-public abstract class Item : MonoBehaviour
+public class Item : MonoBehaviour
 {
     public enum ItemType
     {
         Damage, Arrest 
     }
     
-    public string itemName;
+    public enum ItemName
+    {
+        Baton, Taser, Lasso, Handcuffs
+    }
+
+    public ItemName itemName;
     public ItemType itemType;
-    public string description;
     public Sprite image;
-    public Animator animator;
+
     public Vector3 positionOnMap;
     public Quaternion originalRotation;
     public Vector3 originalScale;
     public Rigidbody itemBody;
     public BoxCollider itemCollider;
-    public Vector3 equippedSize;
+
+    public GameObject onGroundModel;
+    public GameObject equippedModel;
 
     private void Awake()
     {
@@ -25,11 +32,13 @@ public abstract class Item : MonoBehaviour
         positionOnMap = self.localPosition;
         originalRotation = self.rotation;
         originalScale = self.localScale;
-        itemBody = gameObject.GetComponent<Rigidbody>();
+        itemBody = self.GetComponent<Rigidbody>();
         itemCollider = itemBody.GetComponent<BoxCollider>();
         
+        onGroundModel.SetActive(true);
     }
     
+    // TODO: Do Animation / Sound or something else
     public void Attack()
     {
         // animator.doSomething();
@@ -43,28 +52,30 @@ public abstract class Item : MonoBehaviour
         var self = transform;
         var parent = equipPlace.transform;
         
-        //TODO: Change model when picked-up to another model while its equipped
-        
         self.parent = parent;
         self.position = parent.position;
         self.rotation = parent.rotation;
         itemBody.isKinematic = true;
         itemCollider.isTrigger = false;
+        
+        onGroundModel.SetActive(false);
+        equippedModel.SetActive(true);
     }
 
-    // Instantiate new GameObject on that position???
     public void OnDrop(Item otherItem)
     {
+        
         var self = transform;
         var newItem = otherItem.transform;
 
-        //TODO: Change model when dropped 
-        
         self.parent = null;
         self.position = newItem.position;
         self.rotation = originalRotation;
         self.localScale = originalScale;
         itemBody.isKinematic = false;
         itemCollider.isTrigger = true;
+        
+        onGroundModel.SetActive(true);
+        equippedModel.SetActive(false);
     }
 }

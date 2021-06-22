@@ -14,7 +14,11 @@ public class PoliceAnimationController : MonoBehaviour
 
     private void Update()
     {
-        animator.SetBool("attacking", _items.IsAttacking());
+        animator.SetBool("baton_attack", _items.IsAttacking() == Item.ItemName.Baton);
+        /*animator.SetBool("handcuffs_attack", _items.IsAttacking() == Item.ItemName.Handcuffs);
+        animator.SetBool("lasso_attack", _items.IsAttacking() == Item.ItemName.Lasso);
+        animator.SetBool("taser_attack", _items.IsAttacking() == Item.ItemName.Taser);
+        */
         animator.SetBool("walking", _movement.IsWalking());
     }
 }

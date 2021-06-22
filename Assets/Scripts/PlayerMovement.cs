@@ -65,7 +65,7 @@ public class PlayerMovement : MonoBehaviour
             _verticalVelocity += Gravity * Time.deltaTime;
             playerController.Move(new Vector3(0, _verticalVelocity, 0) * Time.deltaTime);
 
-            playerSpeed = _items.IsAttacking() ? _originalSpeed / 3 : _originalSpeed;
+            playerSpeed = _items.IsAttacking() != null ? _originalSpeed / 2 : _originalSpeed;
             playerController.Move(playerSpeed * Time.deltaTime * _moveDirection);
         }
     }

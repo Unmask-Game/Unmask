@@ -98,10 +98,17 @@ public class ItemController : MonoBehaviour
         _attackCooldownExpiry = Time.time + AttackCooldown;
     }
     
-    public bool IsAttacking()
+    public Item.ItemName? IsAttacking()
     {
-        if (Time.time <= 0) return false;
-        return Time.time <= _attackCooldownExpiry;
+        if (Time.time <= 0) return null;
+        if (Time.time <= _attackCooldownExpiry)
+        {
+            return _currentItem.itemName;
+        }
+        else
+        {
+            return null;
+        }
     }
 
     private bool SetCurrentItem(ref Item slot)
