@@ -15,7 +15,7 @@ public class Item : MonoBehaviour
 
     public ItemName itemName;
     public ItemType itemType;
-    public Sprite image;
+    public Sprite sprite;
 
     public Vector3 positionOnMap;
     public Quaternion originalRotation;

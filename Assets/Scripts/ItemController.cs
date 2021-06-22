@@ -1,15 +1,20 @@
 using UnityEngine;
+using UnityEngine.UI;
 using static Item.ItemType;
 
 public class ItemController : MonoBehaviour
 {
     [SerializeField] private GameObject itemPlace;
     [SerializeField] private HUDController hud;
+    [SerializeField] private Image damageSlotImage;
+    [SerializeField] private Image arrestSlotImage;
 
     private Item _itemToBePickedUp;
     private Item _currentItem;
+
     private Item _damageSlot;
     private Item _arrestSlot;
+    
     private KeyCode _pickUp;
     private KeyCode _attack;
 
@@ -20,6 +25,10 @@ public class ItemController : MonoBehaviour
     private float _attackCooldownExpiry;
     private float _switchCooldownExpiry;
     private float _pickUpCooldownExpiry;
+
+    private void Awake()
+    {
+    }
 
     private void Start()
     {
@@ -63,10 +72,10 @@ public class ItemController : MonoBehaviour
 
         if (!_currentItem) return;
 
+        // Switch items 
         if (Time.time > _switchCooldownExpiry)
         {
             bool cooldownNeeded;
-            // Switch items 
             if (Input.GetAxis("Mouse ScrollWheel") < 0f || Input.GetAxis("Mouse ScrollWheel") > 0f)
             {
                 cooldownNeeded =
@@ -86,9 +95,7 @@ public class ItemController : MonoBehaviour
             }
 
             if (cooldownNeeded)
-            {
                 _switchCooldownExpiry = Time.time + SwitchCooldown;
-            }
         }
 
         // Attack with item (maybe in FixedUpdate?)
@@ -126,8 +133,19 @@ public class ItemController : MonoBehaviour
             _currentItem = slot;
         }
 
-        hud.DeselectSlot(slot.itemType == Damage ? 1 : 0);
-        hud.SelectSlot(slot.itemType == Damage ? 0 : 1);
+        if (slot.itemType == Damage)
+        {
+            damageSlotImage.sprite = _currentItem.sprite;
+            damageSlotImage.gameObject.SetActive(true);
+            hud.DeselectSlot(1);
+            hud.SelectSlot(0);
+        } else 
+        {
+            arrestSlotImage.sprite = _currentItem.sprite;
+            arrestSlotImage.gameObject.SetActive(true);
+            hud.DeselectSlot(0);
+            hud.SelectSlot(1);
+        }
         return true;
     }
 

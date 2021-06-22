@@ -612,7 +612,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: 0
   itemType: 0
-  image: {fileID: 0}
+  sprite: {fileID: 21300000, guid: ee02e986ea2f7914c99e78f7d0f8454f, type: 3}
   positionOnMap: {x: 0, y: 0, z: 0}
   originalRotation: {x: 0, y: 0, z: 0, w: 0}
   originalScale: {x: 0, y: 0, z: 0}
@@ -1157,7 +1157,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: 2
   itemType: 1
-  image: {fileID: 0}
+  sprite: {fileID: 0}
   positionOnMap: {x: 0, y: 0, z: 0}
   originalRotation: {x: 0, y: 0, z: 0, w: 0}
   originalScale: {x: 0, y: 0, z: 0}
@@ -2586,6 +2586,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemPlace: {fileID: 445206908}
   hud: {fileID: 550253946}
+  damageSlotImage: {fileID: 795962469}
+  arrestSlotImage: {fileID: 996143714}
 --- !u!114 &1180105913
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2990,7 +2992,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: 0
   itemType: 0
-  image: {fileID: 0}
+  sprite: {fileID: 0}
   positionOnMap: {x: 0, y: 0, z: 0}
   originalRotation: {x: 0, y: 0, z: 0, w: 0}
   originalScale: {x: 0, y: 0, z: 0}
@@ -4524,7 +4526,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: 0
   itemType: 1
-  image: {fileID: 0}
+  sprite: {fileID: 0}
   positionOnMap: {x: 0, y: 0, z: 0}
   originalRotation: {x: 0, y: 0, z: 0, w: 0}
   originalScale: {x: 0, y: 0, z: 0}
@@ -4880,7 +4882,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: 0
   itemType: 0
-  image: {fileID: 0}
+  sprite: {fileID: 0}
   positionOnMap: {x: 0, y: 0, z: 0}
   originalRotation: {x: 0, y: 0, z: 0, w: 0}
   originalScale: {x: 0, y: 0, z: 0}
@@ -5043,7 +5045,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: 0
   itemType: 0
-  image: {fileID: 0}
+  sprite: {fileID: 0}
   positionOnMap: {x: 0, y: 0, z: 0}
   originalRotation: {x: 0, y: 0, z: 0, w: 0}
   originalScale: {x: 0, y: 0, z: 0}
