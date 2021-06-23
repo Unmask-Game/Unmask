@@ -3,18 +3,19 @@ using UnityEngine;
 public class PoliceAnimationController : MonoBehaviour
 {
     [SerializeField] private Animator animator;
-    private PlayerMovement _movement;
+    private PoliceMovement _movement;
     private ItemController _items;
 
     private void Start()
     {
-        _movement = GetComponent<PlayerMovement>();
+        _movement = GetComponent<PoliceMovement>();
         _items = GetComponent<ItemController>();
     }
 
     private void Update()
     {
-        animator.SetBool("baton_attack", _items.IsAttacking() == Item.ItemName.Baton);
+        //animator.SetLayerWeight(1,1);
+        //animator.SetBool("baton_attack", _items.IsAttacking() == Item.ItemName.Baton);
         /*animator.SetBool("handcuffs_attack", _items.IsAttacking() == Item.ItemName.Handcuffs);
         animator.SetBool("lasso_attack", _items.IsAttacking() == Item.ItemName.Lasso);
         animator.SetBool("taser_attack", _items.IsAttacking() == Item.ItemName.Taser);

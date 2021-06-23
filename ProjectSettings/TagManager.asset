@@ -4,8 +4,10 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - Slot
   - SlotSelection
+  - Police
+  - Weapon
+  - TestVRPlayer
   layers:
   - Default
   - TransparentFX

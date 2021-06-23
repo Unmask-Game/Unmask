@@ -5,22 +5,27 @@ using static Item.ItemType;
 public class ItemController : MonoBehaviour
 {
     [SerializeField] private GameObject itemPlace;
+   
     [SerializeField] private HUDController hud;
     [SerializeField] private Image damageSlotImage;
     [SerializeField] private Image arrestSlotImage;
 
+    [SerializeField] private PoliceMovement playerMovement;
+    [SerializeField] private Animator playerAnimator;
+    [SerializeField] private Camera playerCam;
+
     private Item _itemToBePickedUp;
-    private Item _currentItem;
+    public Item currentItem;
 
     private Item _damageSlot;
     private Item _arrestSlot;
-    
+
     private KeyCode _pickUp;
     private KeyCode _attack;
 
     private const float PickUpCooldown = 0.4f;
     private const float SwitchCooldown = 0.1f;
-    private const float AttackCooldown = 0.6f;
+    private const float AttackCooldown = 1.2f;
 
     private float _attackCooldownExpiry;
     private float _switchCooldownExpiry;
@@ -28,6 +33,7 @@ public class ItemController : MonoBehaviour
 
     private void Awake()
     {
+        //_itemPlaceCollider = itemPlace.GetComponentInChildren<BoxCollider>();
     }
 
     private void Start()
@@ -70,7 +76,7 @@ public class ItemController : MonoBehaviour
             }
         }
 
-        if (!_currentItem) return;
+        if (!currentItem) return;
 
         // Switch items 
         if (Time.time > _switchCooldownExpiry)
@@ -79,7 +85,7 @@ public class ItemController : MonoBehaviour
             if (Input.GetAxis("Mouse ScrollWheel") < 0f || Input.GetAxis("Mouse ScrollWheel") > 0f)
             {
                 cooldownNeeded =
-                    SetCurrentItem(ref _currentItem.itemType == Damage ? ref _arrestSlot : ref _damageSlot);
+                    SetCurrentItem(ref currentItem.itemType == Damage ? ref _arrestSlot : ref _damageSlot);
             }
             else if (Input.GetKeyDown(KeyCode.Alpha1))
             {
@@ -101,16 +107,17 @@ public class ItemController : MonoBehaviour
         // Attack with item (maybe in FixedUpdate?)
         if (Time.time < _attackCooldownExpiry) return;
         if (!Input.GetKeyDown(_attack)) return;
-        _currentItem.Attack();
+        playerMovement.SetTemporarySpeed(playerMovement.playerSpeed / 1.2f, AttackCooldown);
         _attackCooldownExpiry = Time.time + AttackCooldown;
+        StartCoroutine(currentItem.Attack(playerCam, playerAnimator));
     }
-    
+
     public Item.ItemName? IsAttacking()
     {
         if (Time.time <= 0) return null;
         if (Time.time <= _attackCooldownExpiry)
         {
-            return _currentItem.itemName;
+            return currentItem.itemName;
         }
         else
         {
@@ -120,32 +127,38 @@ public class ItemController : MonoBehaviour
 
     private bool SetCurrentItem(ref Item slot)
     {
-        if (!slot || slot == _currentItem) return false;
+        if (!slot || slot == currentItem) return false;
 
-        if (_currentItem)
+        if (currentItem)
         {
-            _currentItem.gameObject.SetActive(false);
-            _currentItem = slot;
+            currentItem.gameObject.SetActive(false);
+            currentItem = slot;
             slot.gameObject.SetActive(true);
         }
         else
         {
-            _currentItem = slot;
+            currentItem = slot;
         }
 
         if (slot.itemType == Damage)
         {
-            damageSlotImage.sprite = _currentItem.sprite;
+            damageSlotImage.sprite = currentItem.sprite;
             damageSlotImage.gameObject.SetActive(true);
+            damageSlotImage.CrossFadeAlpha(1f, 0.2f, true);
+            arrestSlotImage.CrossFadeAlpha(0.2f, 0.2f, true);
             hud.DeselectSlot(1);
             hud.SelectSlot(0);
-        } else 
+        }
+        else
         {
-            arrestSlotImage.sprite = _currentItem.sprite;
+            arrestSlotImage.sprite = currentItem.sprite;
             arrestSlotImage.gameObject.SetActive(true);
+            arrestSlotImage.CrossFadeAlpha(1f, 0.2f, true);
+            damageSlotImage.CrossFadeAlpha(0.2f, 0.2f, true);
             hud.DeselectSlot(0);
             hud.SelectSlot(1);
         }
+
         return true;
     }
 

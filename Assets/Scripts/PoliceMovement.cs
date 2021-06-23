@@ -3,12 +3,13 @@ using UnityEngine;
 
 // TODO: VR-player support
 // TODO: Should be able to get a temporary speed boost or temporary slow down
-public class PlayerMovement : MonoBehaviour
+public class PoliceMovement : MonoBehaviour
 {
     [SerializeField] private CharacterController playerController;
     private ItemController _items;
     private float _originalSpeed;
     public float playerSpeed = 5;
+    private float _slowdownExpiry;
 
     // Bottom of the player object
     [SerializeField] private Transform groundCheck;
@@ -64,8 +65,11 @@ public class PlayerMovement : MonoBehaviour
             // Gravity
             _verticalVelocity += Gravity * Time.deltaTime;
             playerController.Move(new Vector3(0, _verticalVelocity, 0) * Time.deltaTime);
-
-            playerSpeed = _items.IsAttacking() != null ? _originalSpeed / 2 : _originalSpeed;
+            
+            if (Time.time > _slowdownExpiry)
+            {
+                playerSpeed = _originalSpeed;
+            }
             playerController.Move(playerSpeed * Time.deltaTime * _moveDirection);
         }
     }
@@ -73,5 +77,12 @@ public class PlayerMovement : MonoBehaviour
     public bool IsWalking()
     {
         return playerController.velocity.magnitude > 0;
+    }
+
+    // Can be used for freezing police players at the start of a round for 10 secs e.g.
+    public void SetTemporarySpeed(float speed, float duration)
+    {
+        playerSpeed = speed;
+        _slowdownExpiry = duration + Time.time;
     }
 }

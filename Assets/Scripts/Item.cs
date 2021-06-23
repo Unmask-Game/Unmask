@@ -1,7 +1,8 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Item : MonoBehaviour
+public abstract class Item : MonoBehaviour
 {
     public enum ItemType
     {
@@ -22,10 +23,12 @@ public class Item : MonoBehaviour
     public Vector3 originalScale;
     public Rigidbody itemBody;
     public BoxCollider itemCollider;
+    public int damage;
+    public float range;
 
     public GameObject onGroundModel;
     public GameObject equippedModel;
-
+    
     private void Awake()
     {
         var self = transform;
@@ -39,13 +42,8 @@ public class Item : MonoBehaviour
     }
     
     // TODO: Do Animation / Sound or something else
-    public void Attack()
-    {
-        // animator.doSomething();
-        Debug.Log("Attack");
-        //TODO: Colliders / Raycast and stuff
-    }
-    
+    public abstract IEnumerator Attack(Camera cam, Animator playerAnimator);
+
     // TODO: Do Animation / Sound or something else
     public void OnPickUp(GameObject equipPlace)
     {
@@ -57,7 +55,7 @@ public class Item : MonoBehaviour
         self.rotation = parent.rotation;
         itemBody.isKinematic = true;
         itemCollider.isTrigger = false;
-        
+
         onGroundModel.SetActive(false);
         equippedModel.SetActive(true);
     }
