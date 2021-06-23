@@ -21,13 +21,14 @@ public abstract class Item : MonoBehaviour
     public Vector3 positionOnMap;
     public Quaternion originalRotation;
     public Vector3 originalScale;
-    public Rigidbody itemBody;
-    public BoxCollider itemCollider;
     public int damage;
     public float range;
 
     public GameObject onGroundModel;
     public GameObject equippedModel;
+    
+    private Rigidbody _itemBody;
+    private BoxCollider _itemCollider;
     
     private void Awake()
     {
@@ -35,8 +36,8 @@ public abstract class Item : MonoBehaviour
         positionOnMap = self.localPosition;
         originalRotation = self.rotation;
         originalScale = self.localScale;
-        itemBody = self.GetComponent<Rigidbody>();
-        itemCollider = itemBody.GetComponent<BoxCollider>();
+        _itemBody = self.GetComponent<Rigidbody>();
+        _itemCollider = _itemBody.GetComponent<BoxCollider>();
         
         onGroundModel.SetActive(true);
     }
@@ -53,8 +54,8 @@ public abstract class Item : MonoBehaviour
         self.parent = parent;
         self.position = parent.position;
         self.rotation = parent.rotation;
-        itemBody.isKinematic = true;
-        itemCollider.isTrigger = false;
+        _itemBody.isKinematic = true;
+        _itemCollider.isTrigger = false;
 
         onGroundModel.SetActive(false);
         equippedModel.SetActive(true);
@@ -70,8 +71,8 @@ public abstract class Item : MonoBehaviour
         self.position = newItem.position;
         self.rotation = originalRotation;
         self.localScale = originalScale;
-        itemBody.isKinematic = false;
-        itemCollider.isTrigger = true;
+        _itemBody.isKinematic = false;
+        _itemCollider.isTrigger = true;
         
         onGroundModel.SetActive(true);
         equippedModel.SetActive(false);

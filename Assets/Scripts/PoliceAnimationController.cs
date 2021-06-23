@@ -20,6 +20,20 @@ public class PoliceAnimationController : MonoBehaviour
         animator.SetBool("lasso_attack", _items.IsAttacking() == Item.ItemName.Lasso);
         animator.SetBool("taser_attack", _items.IsAttacking() == Item.ItemName.Taser);
         */
-        animator.SetBool("walking", _movement.IsWalking());
+        if (_items.currentItem)
+        {
+            if (_items.currentItem.itemName == Item.ItemName.Baton)
+            {
+                animator.SetBool("walking", _movement.IsWalking());
+            }
+            else
+            {
+                animator.SetBool("walking_with_gun", _movement.IsWalking());
+            }
+        }
+        else
+        {
+            animator.SetBool("walking", _movement.IsWalking());
+        }
     }
 }
