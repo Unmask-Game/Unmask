@@ -24,11 +24,13 @@ public class PoliceAnimationController : MonoBehaviour
         {
             if (_items.currentItem.itemName == Item.ItemName.Baton)
             {
+                animator.SetBool("walking_no_baton", false);
                 animator.SetBool("walking", _movement.IsWalking());
             }
             else
             {
-                animator.SetBool("walking_with_gun", _movement.IsWalking());
+                animator.SetBool("walking", false);
+                animator.SetBool("walking_no_baton", _movement.IsWalking());
             }
         }
         else

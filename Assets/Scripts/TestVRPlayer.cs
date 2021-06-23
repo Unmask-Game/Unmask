@@ -23,7 +23,7 @@ public class TestVRPlayer : MonoBehaviour
     public void TakeDamage(int damage)
     {
         resistancePoints -= damage;
-        Debug.Log("Damn, I got hit for -" + damage+" Current RP: "+resistancePoints);
+        Debug.Log("Damn, I got hit for -" + damage+" .... Current RP: "+resistancePoints);
     }
     
 

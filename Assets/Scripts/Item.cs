@@ -29,6 +29,7 @@ public abstract class Item : MonoBehaviour
     
     private Rigidbody _itemBody;
     private BoxCollider _itemCollider;
+    private Animator _animator;
     
     private void Awake()
     {
@@ -38,6 +39,7 @@ public abstract class Item : MonoBehaviour
         originalScale = self.localScale;
         _itemBody = self.GetComponent<Rigidbody>();
         _itemCollider = _itemBody.GetComponent<BoxCollider>();
+        _animator = self.GetComponent<Animator>();
         
         onGroundModel.SetActive(true);
     }
@@ -57,6 +59,7 @@ public abstract class Item : MonoBehaviour
         _itemBody.isKinematic = true;
         _itemCollider.isTrigger = false;
 
+        _animator.enabled = false;
         onGroundModel.SetActive(false);
         equippedModel.SetActive(true);
     }
@@ -73,7 +76,8 @@ public abstract class Item : MonoBehaviour
         self.localScale = originalScale;
         _itemBody.isKinematic = false;
         _itemCollider.isTrigger = true;
-        
+
+        _animator.enabled = true;
         onGroundModel.SetActive(true);
         equippedModel.SetActive(false);
     }
