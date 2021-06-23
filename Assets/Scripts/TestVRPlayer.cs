@@ -1,16 +1,15 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class TestVRPlayer : MonoBehaviour
 {
     public int resistancePoints;
+    private Material material;
     
     // Start is called before the first frame update
     void Awake()
     {
         resistancePoints = 100;
+        material = GetComponent<Renderer>().material;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -24,6 +23,7 @@ public class TestVRPlayer : MonoBehaviour
     {
         resistancePoints -= damage;
         Debug.Log("Damn, I got hit for -" + damage+" .... Current RP: "+resistancePoints);
+        material.color = Random.ColorHSV(0f, 1f, 0.5f, 1f, 0f, 1f);
     }
     
 
