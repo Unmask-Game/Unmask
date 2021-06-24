@@ -14,21 +14,27 @@ public class RoomMenu : MonoBehaviourPunCallbacks
     {
         roomCodeText.text = PhotonNetwork.CurrentRoom.Name;
         playerNames = GameObject.FindGameObjectsWithTag("PlayerName");
-        DrawPlayers();
+        drawPlayers();
+        PhotonNetwork.AutomaticallySyncScene = true;
     }
     
     public override void OnPlayerEnteredRoom(Player newPlayer)
     {
         Debug.Log(newPlayer.NickName + " joined!");
-        DrawPlayers();
+        drawPlayers();
     }
 
     public override void OnPlayerLeftRoom(Player otherPlayer)
     {
-        DrawPlayers();
+        drawPlayers();
     }
 
-    void DrawPlayers()
+    public void StartGame()
+    {
+        PhotonNetwork.LoadLevel(5);
+    }
+
+    void drawPlayers()
     {
         int index = 0;
         foreach (var player in PhotonNetwork.CurrentRoom.Players)
