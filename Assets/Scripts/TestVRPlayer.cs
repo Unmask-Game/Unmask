@@ -23,7 +23,7 @@ public class TestVRPlayer : MonoBehaviour
     {
         resistancePoints -= damage;
         Debug.Log("Damn, I got hit for -" + damage+" .... Current RP: "+resistancePoints);
-        material.color = Random.ColorHSV(0f, 1f, 0.5f, 1f, 0f, 1f);
+        material.color = Random.ColorHSV(0f, 1f, 0.5f, 1f, 0.5f, 1f);
     }
     
 

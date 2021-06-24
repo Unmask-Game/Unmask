@@ -145,7 +145,7 @@ public class ItemController : MonoBehaviour
             damageSlotImage.sprite = currentItem.sprite;
             damageSlotImage.gameObject.SetActive(true);
             damageSlotImage.CrossFadeAlpha(1f, 0.2f, true);
-            arrestSlotImage.CrossFadeAlpha(0.2f, 0.2f, true);
+            arrestSlotImage.CrossFadeAlpha(0.3f, 0.2f, true);
             hud.DeselectSlot(1);
             hud.SelectSlot(0);
         }
@@ -154,7 +154,7 @@ public class ItemController : MonoBehaviour
             arrestSlotImage.sprite = currentItem.sprite;
             arrestSlotImage.gameObject.SetActive(true);
             arrestSlotImage.CrossFadeAlpha(1f, 0.2f, true);
-            damageSlotImage.CrossFadeAlpha(0.2f, 0.2f, true);
+            damageSlotImage.CrossFadeAlpha(0.3f, 0.2f, true);
             hud.DeselectSlot(0);
             hud.SelectSlot(1);
         }
