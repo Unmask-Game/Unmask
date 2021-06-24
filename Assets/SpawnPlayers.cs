@@ -6,11 +6,20 @@ using UnityEngine;
 public class SpawnPlayers : MonoBehaviour
 {
     public GameObject playerPrefab;
-    
+    public GameObject vrSpawnPoint;
+    public GameObject desktop1SpawnPoint;
+
     void Start()
     {
-        Vector2 randomPosition = new Vector2(Random.Range(-5, 5), Random.Range(-5, 5));
-        PhotonNetwork.Instantiate(playerPrefab.name, randomPosition, Quaternion.identity);
+        Vector3 spawnPoint;
+        if (PhotonNetwork.LocalPlayer.ActorNumber == 1)
+        {
+            spawnPoint = vrSpawnPoint.transform.position;
+        } else
+        {
+            spawnPoint = desktop1SpawnPoint.transform.position;
+        }
+        PhotonNetwork.Instantiate(playerPrefab.name, spawnPoint, Quaternion.identity);
     }
     
     void Update()
