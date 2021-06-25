@@ -5,17 +5,18 @@ using static Item.ItemType;
 public class ItemController : MonoBehaviour
 {
     [SerializeField] private GameObject itemPlace;
-   
+
     [SerializeField] private HUDController hud;
     [SerializeField] private Image damageSlotImage;
     [SerializeField] private Image arrestSlotImage;
 
     [SerializeField] private PoliceMovement playerMovement;
     [SerializeField] private Animator playerAnimator;
+    [SerializeField] private AudioManager audioManager;
     [SerializeField] private Camera playerCam;
 
     private Item _itemToBePickedUp;
-    public Item currentItem;
+    [HideInInspector] public Item currentItem;
 
     private Item _damageSlot;
     private Item _arrestSlot;
@@ -104,12 +105,12 @@ public class ItemController : MonoBehaviour
                 _switchCooldownExpiry = Time.time + SwitchCooldown;
         }
 
-        // Attack with item (maybe in FixedUpdate?)
         if (Time.time < _attackCooldownExpiry) return;
         if (!Input.GetKeyDown(_attack)) return;
-        playerMovement.SetTemporarySpeed(playerMovement.playerSpeed / 1.2f, AttackCooldown);
+        // Slowdown if attacking
+        playerMovement.SetTemporarySpeed(playerMovement.playerSpeed / 1.5f, AttackCooldown);
         _attackCooldownExpiry = Time.time + AttackCooldown;
-        StartCoroutine(currentItem.Attack(playerCam, playerAnimator));
+        StartCoroutine(currentItem.Attack(playerCam, playerAnimator, audioManager));
     }
 
     public Item.ItemName? IsAttacking()
@@ -119,10 +120,7 @@ public class ItemController : MonoBehaviour
         {
             return currentItem.itemName;
         }
-        else
-        {
-            return null;
-        }
+        return null;
     }
 
     private bool SetCurrentItem(ref Item slot)

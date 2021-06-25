@@ -4,23 +4,30 @@ using UnityEngine;
 public class TaserScript : Item
 {
     [SerializeField] private ParticleSystem particleEffect;
-    
-    public override IEnumerator Attack(Camera cam, Animator playerAnimator)
+
+    private void Start()
+    {
+        itemName = ItemName.Taser;
+        itemType = ItemType.Damage;
+        Damage = 10;
+        Range = 1.2f;
+    }
+
+    public override IEnumerator Attack(Camera cam, Animator playerAnimator, AudioManager playerAudio)
     {
         playerAnimator.SetLayerWeight(playerAnimator.GetLayerIndex("AttackLayer"), 1);
         playerAnimator.SetTrigger("taser_attack");
+        playerAudio.Play("Taser");
         particleEffect.Play();
         yield return new WaitForSeconds(0.2f);
 
         var ray = cam.ScreenPointToRay(Input.mousePosition);
-        RaycastHit hit;
-
-        if (Physics.Raycast(ray, out hit, range))
+        if (Physics.Raycast(ray, out var hit, Range))
         {
             var objectHit = hit.collider.gameObject;
             if (objectHit.CompareTag("TestVRPlayer"))
             {
-                objectHit.GetComponent<TestVRPlayer>().TakeDamage(damage);
+                objectHit.GetComponent<TestVRPlayer>().TakeDamage(Damage);
             }
         }
     }

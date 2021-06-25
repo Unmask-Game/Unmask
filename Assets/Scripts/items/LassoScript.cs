@@ -1,45 +1,31 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class LassoScript : Item
 {
     private void Start()
     {
-        
+        itemName = ItemName.Lasso;
+        itemType = ItemType.Arrest;
+        Damage = 0;
+        Range = 1.2f;
     }
 
-    void Update()
-    {
-    }
-
-    public override IEnumerator Attack(Camera cam, Animator playerAnimator)
+    public override IEnumerator Attack(Camera cam, Animator playerAnimator, AudioManager playerAudio)
     {
         playerAnimator.SetLayerWeight(playerAnimator.GetLayerIndex("AttackLayer"), 1);
-        //playerAnimator.SetTrigger("baton_attack");
+        //playerAnimator.SetTrigger("lasso_attack");
+        playerAudio.Play("Lasso");
         yield return new WaitForSeconds(0.2f);
 
         var ray = cam.ScreenPointToRay(Input.mousePosition);
-        RaycastHit hit;
-
-        if (Physics.Raycast(ray, out hit, range))
+        if (Physics.Raycast(ray, out var hit, Range))
         {
             var objectHit = hit.collider.gameObject;
             if (objectHit.CompareTag("TestVRPlayer"))
             {
-                objectHit.GetComponent<TestVRPlayer>().TakeDamage(damage);
+                objectHit.GetComponent<TestVRPlayer>().BeArrested();
             }
         }
-
-
-        /*equipPlaceCollider.isTrigger = true;
-        yield return new WaitForSeconds(0.2f);
-        equipPlaceCollider.isTrigger = false;
-        */
-        //playerAnimator.SetLayerWeight(playerAnimator.GetLayerIndex("AttackLayer"),0);
-        // animator.doSomething();
-        //Debug.Log("Attack");
-        //TODO: Colliders / Raycast and stuff
     }
 }

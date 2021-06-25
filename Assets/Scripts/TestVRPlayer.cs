@@ -12,13 +12,6 @@ public class TestVRPlayer : MonoBehaviour
         material = GetComponent<Renderer>().material;
     }
 
-    private void OnTriggerEnter(Collider other)
-    {
-        /*if (!other.gameObject.CompareTag("Weapon")) return;
-        resistancePoints -= other.gameObject.GetComponentInParent<ItemController>().currentItem.damage;
-        Debug.Log("RP: "+resistancePoints);*/
-    }
-
     public void TakeDamage(int damage)
     {
         resistancePoints -= damage;
@@ -26,10 +19,11 @@ public class TestVRPlayer : MonoBehaviour
         material.color = Random.ColorHSV(0f, 1f, 0.5f, 1f, 0.5f, 1f);
     }
     
-
-    // Update is called once per frame
-    void Update()
+    public void BeArrested()
     {
-        
+        if (resistancePoints > 0) return;
+        Debug.Log("Damn, I've been arrested");
+        Destroy(gameObject);
     }
+    
 }
