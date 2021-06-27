@@ -17,6 +17,8 @@ public abstract class Item : MonoBehaviour
         Handcuffs
     }
 
+    protected const float HitNpcCooldown = 15f;
+
     [HideInInspector] public ItemName itemName;
     [HideInInspector] public ItemType itemType;
     public Sprite sprite;
@@ -48,7 +50,41 @@ public abstract class Item : MonoBehaviour
         onGroundModel.SetActive(true);
     }
 
-    public abstract IEnumerator Attack(ItemController itemController, Camera cam, Animator playerAnimator, AudioManager playerAudio);
+    public abstract IEnumerator Attack(ItemController itemController, Camera cam, Animator playerAnimator,
+        AudioManager playerAudio);
+
+    protected void TakeUnderArrest(Camera playerCam, float range)
+    {
+        var ray = playerCam.ScreenPointToRay(Input.mousePosition);
+        if (Physics.Raycast(ray, out var hit, Range))
+        {
+            var objectHit = hit.collider.gameObject;
+            if (objectHit.CompareTag("TestVRPlayer"))
+            {
+                objectHit.GetComponent<TestVRPlayer>().BeArrested();
+            }
+        }
+    }
+
+    protected void InflictDamage(ItemController itemController, Camera playerCam, int damage, float range,
+        AudioSource optionalSound)
+    {
+        var ray = playerCam.ScreenPointToRay(Input.mousePosition);
+        if (Physics.Raycast(ray, out var hit, Range))
+        {
+            var objectHit = hit.collider.gameObject;
+            if (objectHit.CompareTag("TestVRPlayer"))
+            {
+                objectHit.GetComponent<TestVRPlayer>().TakeDamage(Damage);
+                optionalSound?.Play();
+            }
+            else if (objectHit.CompareTag("NPC"))
+            {
+                itemController.AddCooldownNotice(HitNpcCooldown);
+                optionalSound?.Play();
+            }
+        }
+    }
 
     public void OnPickUp(GameObject equipPlace)
     {

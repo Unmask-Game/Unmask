@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class BatonScript : Item
 {
+    
     private void Start()
     {
         itemName = ItemName.Baton;
@@ -11,24 +12,19 @@ public class BatonScript : Item
         Range = 0.7f;
     }
 
-    public override IEnumerator Attack(ItemController itemController, Camera cam, Animator playerAnimator, AudioManager playerAudio)
+    public override IEnumerator Attack(ItemController itemController, Camera cam, Animator playerAnimator,
+        AudioManager playerAudio)
     {
-        playerAnimator.SetLayerWeight(playerAnimator.GetLayerIndex("AttackLayer"), 1);
+        //playerAnimator.SetLayerWeight(playerAnimator.GetLayerIndex("AttackLayer"), 1);
         playerAnimator.SetTrigger("melee_attack");
-        playerAudio.Play("Baton");
+        var sound = playerAudio.GetSound("Baton");
+        sound.pitch = Random.Range(1f, 1.3f);
+        sound.Play();
+
         yield return new WaitForSeconds(WaitForAnimationTime);
 
-        var ray = cam.ScreenPointToRay(Input.mousePosition);
-        if (Physics.Raycast(ray, out var hit, Range))
-        {
-            var objectHit = hit.collider.gameObject;
-            if (objectHit.CompareTag("TestVRPlayer"))
-            {
-                objectHit.GetComponent<TestVRPlayer>().TakeDamage(Damage);
-            } else if (objectHit.CompareTag("NPC"))
-            {
-                itemController.AddCooldownNotice(8);
-            }
-        }
+        var hitSound = playerAudio.GetSound("BatonHit");
+        hitSound.pitch = Random.Range(0.9f, 1.1f);
+        InflictDamage(itemController, cam, Damage, Range, hitSound);
     }
 }

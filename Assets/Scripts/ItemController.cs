@@ -11,7 +11,7 @@ public class ItemController : MonoBehaviour
     [SerializeField] private Image damageSlotImage;
     [SerializeField] private Image arrestSlotImage;
 
-    [SerializeField] private PoliceMovement playerMovement;
+    //[SerializeField] private PoliceMovement playerMovement;
     [SerializeField] private Animator playerAnimator;
     [SerializeField] private AudioManager audioManager;
     [SerializeField] private Camera playerCam;
@@ -28,16 +28,12 @@ public class ItemController : MonoBehaviour
     private const float PickUpCooldown = 0.4f;
     private const float SwitchCooldown = 0.1f;
     private const float AttackCooldown = 1.2f;
+    private const float CooldownAfterAttack = 0.9f;
 
     private float _attackCooldownExpiry;
     private float _switchCooldownExpiry;
     private float _pickUpCooldownExpiry;
     private float _cooldwonNoticeExpiry;
-
-    private void Awake()
-    {
-        //_itemPlaceCollider = itemPlace.GetComponentInChildren<BoxCollider>();
-    }
 
     private void Start()
     {
@@ -114,8 +110,9 @@ public class ItemController : MonoBehaviour
         // Slowdown if attacking ? 
         //playerMovement.SetTemporarySpeed(playerMovement.playerSpeed / 1.5f, AttackCooldown);
         StartCoroutine(currentItem.Attack(this, playerCam, playerAnimator, audioManager));
-        // Cooldowns, so you can't switch items while attacking etc.
-        _attackCooldownExpiry = _pickUpCooldownExpiry = _switchCooldownExpiry = Time.time + AttackCooldown;
+        // Cooldowns, so you can't switch items while attacking etc. (seperated CooldownAfterAttack variable)
+        _pickUpCooldownExpiry = _switchCooldownExpiry = Time.time + CooldownAfterAttack;
+        _attackCooldownExpiry = Time.time + AttackCooldown;
     }
 
     public Item.ItemName? IsAttacking()

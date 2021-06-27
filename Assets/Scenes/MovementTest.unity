@@ -2740,7 +2740,6 @@ MonoBehaviour:
   hud: {fileID: 550253946}
   damageSlotImage: {fileID: 795962469}
   arrestSlotImage: {fileID: 996143714}
-  playerMovement: {fileID: 1180105910}
   playerAnimator: {fileID: 840758006}
   audioManager: {fileID: 1180105912}
   playerCam: {fileID: 470241764}
@@ -2778,6 +2777,21 @@ MonoBehaviour:
     volume: 0.3
     pitch: 1
     audioSource: {fileID: 0}
+  - name: Footstep
+    clip: {fileID: 8300000, guid: bafda42d02f46424ca07faf4901c65ab, type: 3}
+    volume: 0.3
+    pitch: 1
+    audioSource: {fileID: 0}
+  - name: Footstep2
+    clip: {fileID: 8300000, guid: c557b34f7bbe3a4419ab390a1f9c7e41, type: 3}
+    volume: 0.3
+    pitch: 1
+    audioSource: {fileID: 0}
+  - name: BatonHit
+    clip: {fileID: 8300000, guid: c2eedd0aee565814ba441e74530096f0, type: 3}
+    volume: 0.2
+    pitch: 0.9
+    audioSource: {fileID: 0}
 --- !u!114 &1180105913
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2791,6 +2805,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 840758006}
+  audioManager: {fileID: 1180105912}
 --- !u!1001 &1180352870
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4699,7 +4714,7 @@ MonoBehaviour:
     m_LineSpacing: 1
   m_Text: 'Stop hitting innocent bystanders!
 
-    (Cooldown remaining: )'
+    (Cooldown remaining: 0s)'
 --- !u!222 &1572073367
 CanvasRenderer:
   m_ObjectHideFlags: 0

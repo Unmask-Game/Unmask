@@ -30,8 +30,10 @@ public class CoronaBarController : MonoBehaviour
         // get number of stolen masks etc... from another Controller
         //_currentNumberOfStolenMasks = 0;
         _currentNumberOfStolenMasks += 0.001f;
-        
-        _coronaBar.fillAmount = float.IsNaN(_currentNumberOfStolenMasks / _npcNum) ? 0 : _currentNumberOfStolenMasks / _npcNum;
+
+        _coronaBar.fillAmount = float.IsNaN(_currentNumberOfStolenMasks / _npcNum)
+            ? 0
+            : _currentNumberOfStolenMasks / _npcNum;
         _virusAnimator.speed = _coronaBar.fillAmount + 1;
         _percentage.text = (int) Math.Round(_coronaBar.fillAmount * 100) + "%";
     }
@@ -43,6 +45,7 @@ public class CoronaBarController : MonoBehaviour
             if (component.gameObject.name == componentName)
                 return component;
         }
+
         return null;
     }
 }
