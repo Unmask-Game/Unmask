@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 using static Item.ItemType;
@@ -31,6 +32,7 @@ public class ItemController : MonoBehaviour
     private float _attackCooldownExpiry;
     private float _switchCooldownExpiry;
     private float _pickUpCooldownExpiry;
+    private float _cooldwonNoticeExpiry;
 
     private void Awake()
     {
@@ -105,12 +107,15 @@ public class ItemController : MonoBehaviour
                 _switchCooldownExpiry = Time.time + SwitchCooldown;
         }
 
+        UpdateCooldownNotice();
+
         if (Time.time < _attackCooldownExpiry) return;
         if (!Input.GetKeyDown(_attack)) return;
-        // Slowdown if attacking
-        playerMovement.SetTemporarySpeed(playerMovement.playerSpeed / 1.5f, AttackCooldown);
-        _attackCooldownExpiry = Time.time + AttackCooldown;
-        StartCoroutine(currentItem.Attack(playerCam, playerAnimator, audioManager));
+        // Slowdown if attacking ? 
+        //playerMovement.SetTemporarySpeed(playerMovement.playerSpeed / 1.5f, AttackCooldown);
+        StartCoroutine(currentItem.Attack(this, playerCam, playerAnimator, audioManager));
+        // Cooldowns, so you can't switch items while attacking etc.
+        _attackCooldownExpiry = _pickUpCooldownExpiry = _switchCooldownExpiry = Time.time + AttackCooldown;
     }
 
     public Item.ItemName? IsAttacking()
@@ -120,6 +125,7 @@ public class ItemController : MonoBehaviour
         {
             return currentItem.itemName;
         }
+
         return null;
     }
 
@@ -174,5 +180,23 @@ public class ItemController : MonoBehaviour
         if (!item) return;
         _itemToBePickedUp = null;
         hud.CloseMessagePanel();
+    }
+
+    private void UpdateCooldownNotice()
+    {
+        if (Time.time < _cooldwonNoticeExpiry)
+        {
+            hud.UpdateCooldownNotice((int) Math.Round(_cooldwonNoticeExpiry - Time.time));
+        }
+        else
+        {
+            hud.CloseCooldownNotice();
+        }
+    }
+
+    public void AddCooldownNotice(float addSeconds)
+    {
+        _cooldwonNoticeExpiry = _attackCooldownExpiry = Time.time + addSeconds;
+        hud.UpdateCooldownNotice((int) Math.Round(addSeconds));
     }
 }

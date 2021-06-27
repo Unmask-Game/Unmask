@@ -11,12 +11,13 @@ public class LassoScript : Item
         Range = 1.2f;
     }
 
-    public override IEnumerator Attack(Camera cam, Animator playerAnimator, AudioManager playerAudio)
+    public override IEnumerator Attack(ItemController itemController, Camera cam, Animator playerAnimator, AudioManager playerAudio)
     {
         playerAnimator.SetLayerWeight(playerAnimator.GetLayerIndex("AttackLayer"), 1);
         //playerAnimator.SetTrigger("lasso_attack");
         playerAudio.Play("Lasso");
-        yield return new WaitForSeconds(0.2f);
+        
+        yield return new WaitForSeconds(WaitForAnimationTime);
 
         var ray = cam.ScreenPointToRay(Input.mousePosition);
         if (Physics.Raycast(ray, out var hit, Range))

@@ -33,6 +33,7 @@ public abstract class Item : MonoBehaviour
     private Rigidbody _itemBody;
     private BoxCollider _itemCollider;
     private Animator _animator;
+    protected const float WaitForAnimationTime = 0.2f;
 
     private void Awake()
     {
@@ -47,7 +48,7 @@ public abstract class Item : MonoBehaviour
         onGroundModel.SetActive(true);
     }
 
-    public abstract IEnumerator Attack(Camera cam, Animator playerAnimator, AudioManager playerAudio);
+    public abstract IEnumerator Attack(ItemController itemController, Camera cam, Animator playerAnimator, AudioManager playerAudio);
 
     public void OnPickUp(GameObject equipPlace)
     {

@@ -11,12 +11,12 @@ public class HandcuffsScript : Item
         Range = 0.2f;
     }
 
-    public override IEnumerator Attack(Camera cam, Animator playerAnimator, AudioManager playerAudio)
+    public override IEnumerator Attack(ItemController itemController, Camera cam, Animator playerAnimator, AudioManager playerAudio)
     {
         playerAnimator.SetLayerWeight(playerAnimator.GetLayerIndex("AttackLayer"), 1);
         playerAnimator.SetTrigger("melee_attack");
         playerAudio.Play("Handcuffs");
-        yield return new WaitForSeconds(0.2f);
+        yield return new WaitForSeconds(WaitForAnimationTime);
 
         var ray = cam.ScreenPointToRay(Input.mousePosition);
         if (Physics.Raycast(ray, out var hit, Range))
