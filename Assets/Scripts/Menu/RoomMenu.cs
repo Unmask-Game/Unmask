@@ -39,7 +39,7 @@ public class RoomMenu : MonoBehaviourPunCallbacks
         int index = 0;
         foreach (var player in PhotonNetwork.CurrentRoom.Players)
         {
-            playerNames[player.Key - 1].GetComponent<TMP_Text>().text = player.Value.NickName;
+            playerNames[index].GetComponent<TMP_Text>().text = player.Value.NickName;
             index++;
         }
     }
