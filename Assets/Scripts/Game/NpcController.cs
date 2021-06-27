@@ -9,9 +9,11 @@ public class NpcController : MonoBehaviour
 {
 
     private NavMeshAgent _navMeshAgent;
+    private Animator _animator;
     private int _waiting;
     void Start()
     {
+        _animator = GetComponent<Animator>();
         _navMeshAgent = GetComponent<NavMeshAgent>();
         NavMesh.avoidancePredictionTime = 0.5f;
         _navMeshAgent.speed = Random.Range(1.0f, 2.5f);
@@ -25,6 +27,7 @@ public class NpcController : MonoBehaviour
 
     private void FixedUpdate()
     {
+        _animator.SetBool("walking", _navMeshAgent.velocity.magnitude > 0.6);
         if (_waiting == 0)
         {
             if (!_navMeshAgent.pathPending)
