@@ -1502,6 +1502,7 @@ GameObject:
   - component: {fileID: 6962793193059731657}
   - component: {fileID: 8390263801297432868}
   - component: {fileID: 8423988863270662054}
+  - component: {fileID: 1943381049283577036}
   m_Layer: 6
   m_Name: Player
   m_TagString: Police
@@ -1797,7 +1798,8 @@ MonoBehaviour:
   Synchronization: 3
   OwnershipTransfer: 0
   observableSearch: 2
-  ObservedComponents: []
+  ObservedComponents:
+  - {fileID: 1943381049283577036}
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
@@ -1815,6 +1817,39 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   movement: {fileID: 1503109248410804570}
   audioManager: {fileID: 1503109248410804564}
+--- !u!114 &1943381049283577036
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1503109248410804575}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8efc6b1d64977384eb3405357896c656, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_PositionModel:
+    SynchronizeEnabled: 1
+    TeleportEnabled: 1
+    TeleportIfDistanceGreaterThan: 3
+    InterpolateOption: 4
+    InterpolateMoveTowardsSpeed: 1
+    InterpolateLerpSpeed: 50
+    ExtrapolateOption: 2
+    ExtrapolateSpeed: 1
+    ExtrapolateIncludingRoundTripTime: 1
+    ExtrapolateNumberOfStoredPositions: 1
+  m_RotationModel:
+    SynchronizeEnabled: 1
+    InterpolateOption: 1
+    InterpolateRotateTowardsSpeed: 180
+    InterpolateLerpSpeed: 5
+  m_ScaleModel:
+    SynchronizeEnabled: 0
+    InterpolateOption: 0
+    InterpolateMoveTowardsSpeed: 1
+    InterpolateLerpSpeed: 0
 --- !u!1 &1503109248538931832
 GameObject:
   m_ObjectHideFlags: 0
@@ -2933,14 +2968,9 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: df602f0887ff98d49900bf6c24f9b862, type: 3}
---- !u!4 &2309473780074066573 stripped
+--- !u!4 &2309473780074067377 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 3805818553419963079, guid: df602f0887ff98d49900bf6c24f9b862, type: 3}
-  m_PrefabInstance: {fileID: 1503109248699377738}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &2309473780074067391 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 3805818553419963893, guid: df602f0887ff98d49900bf6c24f9b862, type: 3}
+  m_CorrespondingSourceObject: {fileID: 3805818553419963899, guid: df602f0887ff98d49900bf6c24f9b862, type: 3}
   m_PrefabInstance: {fileID: 1503109248699377738}
   m_PrefabAsset: {fileID: 0}
 --- !u!95 &2309473780083350519 stripped
@@ -2948,8 +2978,13 @@ Animator:
   m_CorrespondingSourceObject: {fileID: 3805818553427751869, guid: df602f0887ff98d49900bf6c24f9b862, type: 3}
   m_PrefabInstance: {fileID: 1503109248699377738}
   m_PrefabAsset: {fileID: 0}
---- !u!4 &2309473780074067377 stripped
+--- !u!4 &2309473780074067391 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 3805818553419963899, guid: df602f0887ff98d49900bf6c24f9b862, type: 3}
+  m_CorrespondingSourceObject: {fileID: 3805818553419963893, guid: df602f0887ff98d49900bf6c24f9b862, type: 3}
+  m_PrefabInstance: {fileID: 1503109248699377738}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &2309473780074066573 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3805818553419963079, guid: df602f0887ff98d49900bf6c24f9b862, type: 3}
   m_PrefabInstance: {fileID: 1503109248699377738}
   m_PrefabAsset: {fileID: 0}

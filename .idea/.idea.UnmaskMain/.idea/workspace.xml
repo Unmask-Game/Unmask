@@ -1,7 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="acff330c-2da0-45c6-9754-586aa4bd4237" name="Default Changelist" comment="" />
+    <list default="true" id="acff330c-2da0-45c6-9754-586aa4bd4237" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.UnmaskMain/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.UnmaskMain/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Photon/PhotonUnityNetworking/Code/PhotonNetwork.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Photon/PhotonUnityNetworking/Code/PhotonNetwork.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Player.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Player.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Game.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Game.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Game/PhotonPlayerManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Game/PhotonPlayerManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/TestLobby.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TestLobby.cs" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -11,6 +18,7 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/../UnmaskMain_clone_0/Assets/Photon/PhotonUnityNetworking/Code/PhotonNetwork.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/TestLobby.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Game/PoliceSoundController.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
@@ -19,11 +27,12 @@
       <option value="$PROJECT_DIR$/Assets/Scripts/Game/PoliceMovement.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/PoliceMovement.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/CameraMovement.cs" />
-      <option value="$PROJECT_DIR$/Assets/Scripts/Game/PhotonPlayerManager.cs" />
       <option value="$PROJECT_DIR$/Assets/SpawnPlayers.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/Game/PoliceAnimationController.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/Game/PoliceSoundController.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/Game/AudioManager.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/Game/PhotonPlayerManager.cs" />
+      <option value="$PROJECT_DIR$/Assets/Photon/PhotonUnityNetworking/Code/PhotonNetwork.cs" />
       <option value="$PROJECT_DIR$/Assets/TestLobby.cs" />
     </changedPaths>
   </component>
@@ -70,7 +79,8 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1624902960976</updated>
-      <workItem from="1624902988729" duration="7280000" />
+      <workItem from="1624902988729" duration="9829000" />
+      <workItem from="1624914930734" duration="185000" />
     </task>
     <servers />
   </component>

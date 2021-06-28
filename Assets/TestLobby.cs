@@ -17,16 +17,28 @@ public class TestLobby : MonoBehaviourPunCallbacks
     {
     }
 
+    public override void OnCreatedRoom()
+    {
+        Debug.Log("Room was created");
+        //PhotonNetwork.AutomaticallySyncScene = true;
+    }
+
     public void CreateLobby()
     {
-        PhotonNetwork.CreateRoom("test");
+        Debug.Log("Creating Room");
+        PhotonNetwork.CreateRoom("test3");
+    }
+
+    public override void OnJoinedRoom()
+    {
+        //PhotonNetwork.AutomaticallySyncScene = true;
     }
 
     public void JoinLobby()
     {
-        PhotonNetwork.JoinRoom("test");
+        PhotonNetwork.JoinRoom("test3");
     }
-    
+
     public void StartLobby()
     {
         PhotonNetwork.LoadLevel(5);
