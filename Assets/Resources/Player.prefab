@@ -1501,6 +1501,7 @@ GameObject:
   - component: {fileID: 2384778446010471270}
   - component: {fileID: 6962793193059731657}
   - component: {fileID: 8390263801297432868}
+  - component: {fileID: 8423988863270662054}
   m_Layer: 6
   m_Name: Player
   m_TagString: Police
@@ -1594,7 +1595,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 2309473780083350519}
-  audioManager: {fileID: 1503109248410804564}
 --- !u!114 &1503109248410804564
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1801,6 +1801,20 @@ MonoBehaviour:
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
+--- !u!114 &8423988863270662054
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1503109248410804575}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2b2346a3f531034180b0490e74b7f8a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  movement: {fileID: 1503109248410804570}
+  audioManager: {fileID: 1503109248410804564}
 --- !u!1 &1503109248538931832
 GameObject:
   m_ObjectHideFlags: 0
@@ -2919,14 +2933,9 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: df602f0887ff98d49900bf6c24f9b862, type: 3}
---- !u!4 &2309473780074067377 stripped
+--- !u!4 &2309473780074066573 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 3805818553419963899, guid: df602f0887ff98d49900bf6c24f9b862, type: 3}
-  m_PrefabInstance: {fileID: 1503109248699377738}
-  m_PrefabAsset: {fileID: 0}
---- !u!95 &2309473780083350519 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 3805818553427751869, guid: df602f0887ff98d49900bf6c24f9b862, type: 3}
+  m_CorrespondingSourceObject: {fileID: 3805818553419963079, guid: df602f0887ff98d49900bf6c24f9b862, type: 3}
   m_PrefabInstance: {fileID: 1503109248699377738}
   m_PrefabAsset: {fileID: 0}
 --- !u!4 &2309473780074067391 stripped
@@ -2934,8 +2943,13 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3805818553419963893, guid: df602f0887ff98d49900bf6c24f9b862, type: 3}
   m_PrefabInstance: {fileID: 1503109248699377738}
   m_PrefabAsset: {fileID: 0}
---- !u!4 &2309473780074066573 stripped
+--- !u!95 &2309473780083350519 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 3805818553427751869, guid: df602f0887ff98d49900bf6c24f9b862, type: 3}
+  m_PrefabInstance: {fileID: 1503109248699377738}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &2309473780074067377 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 3805818553419963079, guid: df602f0887ff98d49900bf6c24f9b862, type: 3}
+  m_CorrespondingSourceObject: {fileID: 3805818553419963899, guid: df602f0887ff98d49900bf6c24f9b862, type: 3}
   m_PrefabInstance: {fileID: 1503109248699377738}
   m_PrefabAsset: {fileID: 0}
