@@ -27,6 +27,7 @@ public class CameraMovement : MonoBehaviour
 
     public void Look(InputAction.CallbackContext context)
     {
+        // Getting mouse input and adjusting it with delta times 
         var input = context.ReadValue<Vector2>();
         _mouseX = input.x * sensitivity * (smoothing == false ? Time.deltaTime : Time.smoothDeltaTime);
         _mouseY = input.y * sensitivity * (smoothing == false ? Time.deltaTime : Time.smoothDeltaTime);
@@ -44,10 +45,6 @@ public class CameraMovement : MonoBehaviour
 
     private void UpdateRotation()
     {
-        // Getting mouse input and adjusting it with delta times 
-        //_mouseX = Input.GetAxis("Mouse X") * sensitivity * (smoothing == false ? Time.deltaTime : Time.smoothDeltaTime);
-        //_mouseY = Input.GetAxis("Mouse Y") * sensitivity * (smoothing == false ? Time.deltaTime : Time.smoothDeltaTime);
-
         _xRot -= _mouseY;
         _xRot = Mathf.Clamp(_xRot, -60, 60);
 
