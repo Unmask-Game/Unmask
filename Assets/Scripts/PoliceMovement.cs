@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 // TODO: VR-player support
@@ -6,7 +5,6 @@ using UnityEngine;
 public class PoliceMovement : MonoBehaviour
 {
     [SerializeField] private CharacterController playerController;
-    private ItemController _items;
     private float _originalSpeed;
     public float playerSpeed = 5;
     private float _slowdownExpiry;
@@ -32,7 +30,7 @@ public class PoliceMovement : MonoBehaviour
 
     private void Start()
     {
-        _items = GetComponent<ItemController>();
+        //_items = GetComponent<ItemController>();
     }
 
     private void Update()

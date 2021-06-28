@@ -1,15 +1,20 @@
+using System;
 using UnityEngine;
-
+using Random = UnityEngine.Random;
 public class TestVRPlayer : MonoBehaviour
 {
     public int resistancePoints;
     private Material material;
 
     // Start is called before the first frame update
-    void Awake()
+    private void Awake()
     {
         resistancePoints = 100;
         material = GetComponent<Renderer>().material;
+    }
+
+    private void Update()
+    {
     }
 
     public void TakeDamage(int damage)
@@ -24,5 +29,11 @@ public class TestVRPlayer : MonoBehaviour
         if (resistancePoints > 0) return;
         Debug.Log("Damn, I've been arrested");
         Destroy(gameObject);
+    }
+
+    // called when player is hit by lasso
+    public void BeSlowedDown(float time)
+    {
+        Debug.Log("Damn, I've been slowed down");
     }
 }

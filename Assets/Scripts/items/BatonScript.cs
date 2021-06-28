@@ -24,7 +24,7 @@ public class BatonScript : Item
         yield return new WaitForSeconds(WaitForAnimationTime);
 
         var hitSound = playerAudio.GetSound("BatonHit");
-        hitSound.pitch = Random.Range(0.9f, 1.1f);
+        hitSound.pitch = Random.Range(0.75f, 1.1f);
         InflictDamage(itemController, cam, Damage, Range, hitSound);
     }
 }

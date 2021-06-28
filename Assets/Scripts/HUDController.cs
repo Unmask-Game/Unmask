@@ -7,13 +7,18 @@ public class HUDController : MonoBehaviour
     [SerializeField] private GameObject messagePanel;
     [SerializeField] private GameObject inventoryPanel;
     [SerializeField] private GameObject cooldownNotice;
-    private Text _cooldownNoticeText;
-    const string StandardCooldownText = "Stop hitting innocent bystanders!\n(Cooldown remaining: ";
+    public Color infoColor;
+    public Color alertColor;
+    
     private List<GameObject> _slotSelectionList;
+    private Image _cooldownNoticeBackground;
+    public Color cooldownNoticeColor;
+    private Text _cooldownNoticeText;
 
     private void Awake()
     {
         _cooldownNoticeText = cooldownNotice.GetComponentInChildren<Text>();
+        _cooldownNoticeBackground = cooldownNotice.gameObject.GetComponent<Image>();
         cooldownNotice.SetActive(false);
         _slotSelectionList = GetSlotSelections();
         messagePanel.SetActive(false);
@@ -30,10 +35,11 @@ public class HUDController : MonoBehaviour
         messagePanel.SetActive(false);
     }
 
-    public void UpdateCooldownNotice(int displayTime)
+    public void ShowCooldownNotice(int displayTime, string text)
     {
         cooldownNotice.SetActive(true);
-        _cooldownNoticeText.text = StandardCooldownText + displayTime + "s)";
+        _cooldownNoticeBackground.color = cooldownNoticeColor;
+        _cooldownNoticeText.text = text + displayTime + "s)";
     }
 
     public void CloseCooldownNotice()

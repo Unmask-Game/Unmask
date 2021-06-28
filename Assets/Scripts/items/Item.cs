@@ -35,7 +35,7 @@ public abstract class Item : MonoBehaviour
     private Rigidbody _itemBody;
     private BoxCollider _itemCollider;
     private Animator _animator;
-    protected const float WaitForAnimationTime = 0.2f;
+    protected const float WaitForAnimationTime = 0.3f;
 
     private void Awake()
     {
@@ -53,7 +53,7 @@ public abstract class Item : MonoBehaviour
     public abstract IEnumerator Attack(ItemController itemController, Camera cam, Animator playerAnimator,
         AudioManager playerAudio);
 
-    protected void TakeUnderArrest(Camera playerCam, float range)
+    protected void TakeUnderArrest(Camera playerCam)
     {
         var ray = playerCam.ScreenPointToRay(Input.mousePosition);
         if (Physics.Raycast(ray, out var hit, Range))
@@ -80,7 +80,7 @@ public abstract class Item : MonoBehaviour
             }
             else if (objectHit.CompareTag("NPC"))
             {
-                itemController.AddCooldownNotice(HitNpcCooldown);
+                itemController.AddNpcHitNotice(HitNpcCooldown);
                 optionalSound?.Play();
             }
         }

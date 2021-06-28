@@ -14,12 +14,11 @@ public class HandcuffsScript : Item
     public override IEnumerator Attack(ItemController itemController, Camera cam, Animator playerAnimator,
         AudioManager playerAudio)
     {
-        //playerAnimator.SetLayerWeight(playerAnimator.GetLayerIndex("AttackLayer"), 1);
         playerAnimator.SetTrigger("melee_attack");
         playerAudio.Play("Handcuffs");
 
         yield return new WaitForSeconds(WaitForAnimationTime);
 
-        TakeUnderArrest(cam, Range);
+        TakeUnderArrest(cam);
     }
 }

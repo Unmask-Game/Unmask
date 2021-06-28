@@ -34,7 +34,11 @@ public class ItemController : MonoBehaviour
     private float _switchCooldownExpiry;
     private float _pickUpCooldownExpiry;
     private float _cooldwonNoticeExpiry;
-
+    
+    private const string NpcCooldownText = "Stop hitting innocent bystanders!\n(Cooldown remaining: ";
+    private const string StandardCooldownText = "Using the lasso results in\na cooldown. (Remaining: ";
+    private string _currentCooldownText;
+    
     private void Start()
     {
         // make this changeable in settings
@@ -115,7 +119,7 @@ public class ItemController : MonoBehaviour
         _attackCooldownExpiry = Time.time + AttackCooldown;
     }
 
-    public Item.ItemName? IsAttacking()
+    /*public Item.ItemName? IsAttacking()
     {
         if (Time.time <= 0) return null;
         if (Time.time <= _attackCooldownExpiry)
@@ -124,7 +128,7 @@ public class ItemController : MonoBehaviour
         }
 
         return null;
-    }
+    }*/
 
     private bool SetCurrentItem(ref Item slot)
     {
@@ -183,17 +187,35 @@ public class ItemController : MonoBehaviour
     {
         if (Time.time < _cooldwonNoticeExpiry)
         {
-            hud.UpdateCooldownNotice((int) Math.Round(_cooldwonNoticeExpiry - Time.time));
+            hud.ShowCooldownNotice((int) Math.Round(_cooldwonNoticeExpiry - Time.time), _currentCooldownText);
         }
         else
         {
             hud.CloseCooldownNotice();
         }
     }
+    
+    // OthersCooldown -> Cooldown for picking-up & switching items
+    public void CooldownAllItems(float timeAttackCooldown, float timeOthersCooldown)
+    {
+        _pickUpCooldownExpiry = _switchCooldownExpiry  = Time.time + timeOthersCooldown;
+        _attackCooldownExpiry = Time.time + timeAttackCooldown;
+        AddAntiWeaponSpamNotice(timeAttackCooldown);
+    }
+    
+    private void AddAntiWeaponSpamNotice(float addSeconds)
+    {
+        _cooldwonNoticeExpiry = Time.time + addSeconds;
+        _currentCooldownText = StandardCooldownText;
+        hud.cooldownNoticeColor = hud.infoColor;
+        hud.ShowCooldownNotice((int) Math.Round(addSeconds), _currentCooldownText);
+    }
 
-    public void AddCooldownNotice(float addSeconds)
+    public void AddNpcHitNotice(float addSeconds)
     {
         _cooldwonNoticeExpiry = _attackCooldownExpiry = Time.time + addSeconds;
-        hud.UpdateCooldownNotice((int) Math.Round(addSeconds));
+        _currentCooldownText = NpcCooldownText;
+        hud.cooldownNoticeColor = hud.alertColor;
+        hud.ShowCooldownNotice((int) Math.Round(addSeconds), _currentCooldownText);
     }
 }
