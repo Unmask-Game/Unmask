@@ -1,13 +1,14 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class AudioManager : MonoBehaviour
 {
-    public Sound[] sounds;
+    public Sound[] Sounds;
 
     private void Start()
     {
-        foreach (var sound in sounds)
+        foreach (var sound in Sounds)
         {
             ref var soundSource = ref sound.audioSource;
             soundSource = gameObject.AddComponent<AudioSource>();
@@ -19,13 +20,13 @@ public class AudioManager : MonoBehaviour
 
     public void Play(string soundName)
     {
-        var s = Array.Find(sounds, sound => sound.name == soundName);
+        var s = Array.Find(Sounds, sound => sound.name == soundName);
         s?.audioSource.Play();
     }
     
     public AudioSource GetSound(string soundName)
     {
-        var s = Array.Find(sounds, sound => sound.name == soundName);
+        var s = Array.Find(Sounds, sound => sound.name == soundName);
         return s.audioSource;
     }
 }

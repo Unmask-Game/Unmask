@@ -9,17 +9,14 @@ public class PoliceSoundController : MonoBehaviour
     private AudioSource _footstepSound;
     private AudioSource _footstepSound2;
 
-    // Start is called before the first frame update
-    void Start()
+    void FixedUpdate()
     {
-        _footstepSound = audioManager.GetSound("Footstep");
-        _footstepSound2 = audioManager.GetSound("Footstep2");
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        if (movement.IsWalking() && !_footstepSound.isPlaying && !_footstepSound2.isPlaying)
+        if (!_footstepSound || !_footstepSound2)
+        {
+            _footstepSound = audioManager.GetSound("Footstep");
+            _footstepSound2 = audioManager.GetSound("Footstep2");
+        }
+        else if (movement.isWalking && !_footstepSound.isPlaying && !_footstepSound2.isPlaying)
         {
             if (Random.Range(0f, 1f) > 0.5f)
             {

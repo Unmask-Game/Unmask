@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Photon.Pun;
 using UnityEngine;
 
 public class NpcSpawner : MonoBehaviour
@@ -10,7 +11,7 @@ public class NpcSpawner : MonoBehaviour
 
     private List<BoxCollider> _floorTiles;
     private List<BoxCollider> _shopFloorTiles;
-    
+
     private static NpcSpawner _instance;
 
     public static NpcSpawner Instance
@@ -33,10 +34,13 @@ public class NpcSpawner : MonoBehaviour
     {
         List<GameObject> floorTiles = GameObject.FindGameObjectsWithTag("Floor").ToList();
         _floorTiles = floorTiles.Select(f => f.GetComponent<BoxCollider>()).ToList();
-        
+
         List<GameObject> shopFloorTiles = GameObject.FindGameObjectsWithTag("ShopFloor").ToList();
         _shopFloorTiles = shopFloorTiles.Select(f => f.GetComponent<BoxCollider>()).ToList();
-        SpawnPlayers();
+        if (PhotonNetwork.IsMasterClient)
+        {
+            SpawnPlayers();
+        }
     }
 
     void SpawnPlayers()
@@ -44,25 +48,25 @@ public class NpcSpawner : MonoBehaviour
         List<BoxCollider> floorTiles = new List<BoxCollider>();
         floorTiles.AddRange(_floorTiles);
         floorTiles.AddRange(_shopFloorTiles);
-        
+
         for (int i = npcCount - 1; i >= 0; i--)
         {
             if (floorTiles.Count == 0) return;
             int randomIndex = Random.Range(0, floorTiles.Count);
             BoxCollider collider = floorTiles[randomIndex];
-            Instantiate(npcPrefab, RandomPointInBounds(collider.bounds), Quaternion.Euler(0,Random.Range(0, 360), 0));
+            PhotonNetwork.Instantiate(npcPrefab.name, RandomPointInBounds(collider.bounds), Quaternion.Euler(0, Random.Range(0, 360), 0));
             floorTiles.RemoveAt(randomIndex);
         }
     }
 
     public Vector3 RandomShopFloorTile(Vector3 position)
     {
-
-        List<BoxCollider> nearbyFloorTiles = _shopFloorTiles.FindAll(bc => Vector3.Distance(bc.transform.position, position) < 12).ToList();
+        List<BoxCollider> nearbyFloorTiles =
+            _shopFloorTiles.FindAll(bc => Vector3.Distance(bc.transform.position, position) < 12).ToList();
         BoxCollider collider = nearbyFloorTiles[Random.Range(0, nearbyFloorTiles.Count)];
         return RandomPointInBounds(collider.bounds);
     }
-    
+
     public static Vector3 RandomPointInBounds(Bounds bounds)
     {
         return new Vector3(

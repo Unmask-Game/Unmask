@@ -1,3 +1,4 @@
+using Photon.Pun;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -19,14 +20,18 @@ public class PoliceMovement : MonoBehaviour
     private const float GroundDistance = 0f;
     private const float Gravity = -10;
     private float _verticalVelocity;
+    public bool isWalking;
 
     private Vector3 _moveDirection = Vector3.zero;
     private Vector3 _startPosition;
+
+    private PhotonView _view;
 
     private void Awake()
     {
         _startPosition = transform.position;
         _originalSpeed = playerSpeed;
+        _view = GetComponent<PhotonView>();
     }
 
     private void Start()
@@ -36,8 +41,23 @@ public class PoliceMovement : MonoBehaviour
 
     private void Update()
     {
-        //GetKeyboardInput();
+        if (_view.IsMine)
+        {
+            var walking = playerController.velocity.magnitude > 0;
+            if (walking != isWalking)
+            {
+                isWalking = walking;
+                _view.RPC("SetIsWalking", RpcTarget.Others, isWalking);
+            }
+        }
+
         Movement();
+    }
+
+    [PunRPC]
+    private void SetIsWalking(bool isWalking)
+    {
+        this.isWalking = isWalking;
     }
 
     public void PlayerMove(InputAction.CallbackContext context)
@@ -45,7 +65,7 @@ public class PoliceMovement : MonoBehaviour
         var input = Vector3.ClampMagnitude(context.ReadValue<Vector2>(), 1);
         _moveDirection = new Vector3(input.x, 0, input.y);
     }
-    
+
     private void Movement()
     {
         // In case the player ever falls out of bounds, he will be reset to his spawning point
@@ -72,11 +92,6 @@ public class PoliceMovement : MonoBehaviour
 
             playerController.Move(playerSpeed * Time.deltaTime * (transform.rotation * _moveDirection));
         }
-    }
-
-    public bool IsWalking()
-    {
-        return playerController.velocity.magnitude > 0;
     }
 
     // Can be used for freezing police players at the start of a round for 10 secs e.g.

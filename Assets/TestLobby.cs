@@ -31,11 +31,13 @@ public class TestLobby : MonoBehaviourPunCallbacks
 
     public override void OnJoinedRoom()
     {
+        Debug.Log("Joined Room");
         //PhotonNetwork.AutomaticallySyncScene = true;
     }
 
     public void JoinLobby()
     {
+        Debug.Log("Joining Room");
         PhotonNetwork.JoinRoom("test3");
     }
 

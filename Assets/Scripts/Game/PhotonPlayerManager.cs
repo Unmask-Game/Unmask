@@ -4,11 +4,10 @@ using UnityEngine.InputSystem;
 
 public class PhotonPlayerManager : MonoBehaviour
 {
-
     [SerializeField] private GameObject Camera;
     [SerializeField] private GameObject HUD;
     private PhotonView _view;
-    
+
     // Start is called before the first frame update
     void Start()
     {
@@ -18,12 +17,12 @@ public class PhotonPlayerManager : MonoBehaviour
             Camera.SetActive(false);
             HUD.SetActive(false);
             GetComponent<PlayerInput>().enabled = false;
+            GetComponent<PoliceSoundController>().enabled = false;
         }
     }
 
     // Update is called once per frame
     void Update()
     {
-        
     }
 }

@@ -1540,11 +1540,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerController: {fileID: 1503109248410804568}
-  playerSpeed: 3
+  playerSpeed: 2
   groundCheck: {fileID: 2309473780074066573}
   groundMask:
     serializedVersion: 2
     m_Bits: 8
+  isWalking: 0
 --- !u!143 &1503109248410804568
 CharacterController:
   m_ObjectHideFlags: 0
@@ -1608,41 +1609,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a791402352edc2547aa8c2b24eac59a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sounds:
-  - name: Taser
-    clip: {fileID: 8300000, guid: 789e8f1a220194e4b8d338affe453d32, type: 3}
-    volume: 0.2
-    pitch: 1
-    audioSource: {fileID: 0}
-  - name: Baton
-    clip: {fileID: 8300000, guid: cb47cc568aad12e47a6fe18a8c03f805, type: 3}
-    volume: 0.3
-    pitch: 1
-    audioSource: {fileID: 0}
-  - name: Lasso
-    clip: {fileID: 8300000, guid: c8fee120d687743489f557a8439e8f5b, type: 3}
-    volume: 0.2
-    pitch: 1.1
-    audioSource: {fileID: 0}
-  - name: Handcuffs
-    clip: {fileID: 8300000, guid: 0fad7a68ab4356a4f84eedb7cdb8a519, type: 3}
-    volume: 0.3
-    pitch: 1
-    audioSource: {fileID: 0}
+  Sounds:
   - name: Footstep
     clip: {fileID: 8300000, guid: bafda42d02f46424ca07faf4901c65ab, type: 3}
-    volume: 0.3
+    volume: 1
     pitch: 1
     audioSource: {fileID: 0}
   - name: Footstep2
     clip: {fileID: 8300000, guid: c557b34f7bbe3a4419ab390a1f9c7e41, type: 3}
-    volume: 0.3
+    volume: 1
     pitch: 1
-    audioSource: {fileID: 0}
-  - name: BatonHit
-    clip: {fileID: 8300000, guid: 90ed5e4dbd00b5340acaef5301283648, type: 3}
-    volume: 0.2
-    pitch: 0.9
     audioSource: {fileID: 0}
 --- !u!114 &2384778446010471270
 MonoBehaviour:
@@ -1810,7 +1786,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1503109248410804575}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f2b2346a3f531034180b0490e74b7f8a, type: 3}
   m_Name: 
@@ -1832,19 +1808,19 @@ MonoBehaviour:
   m_PositionModel:
     SynchronizeEnabled: 1
     TeleportEnabled: 1
-    TeleportIfDistanceGreaterThan: 3
+    TeleportIfDistanceGreaterThan: 4
     InterpolateOption: 4
     InterpolateMoveTowardsSpeed: 1
-    InterpolateLerpSpeed: 50
+    InterpolateLerpSpeed: 20
     ExtrapolateOption: 2
     ExtrapolateSpeed: 1
     ExtrapolateIncludingRoundTripTime: 1
     ExtrapolateNumberOfStoredPositions: 1
   m_RotationModel:
     SynchronizeEnabled: 1
-    InterpolateOption: 1
+    InterpolateOption: 2
     InterpolateRotateTowardsSpeed: 180
-    InterpolateLerpSpeed: 5
+    InterpolateLerpSpeed: 50
   m_ScaleModel:
     SynchronizeEnabled: 0
     InterpolateOption: 0
@@ -2957,6 +2933,10 @@ PrefabInstance:
     - target: {fileID: 3805818553420451563, guid: df602f0887ff98d49900bf6c24f9b862, type: 3}
       propertyPath: m_Layer
       value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 3805818553427751869, guid: df602f0887ff98d49900bf6c24f9b862, type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3805818553427751869, guid: df602f0887ff98d49900bf6c24f9b862, type: 3}
       propertyPath: m_Controller

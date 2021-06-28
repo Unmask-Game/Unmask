@@ -372,6 +372,7 @@ GameObject:
   - component: {fileID: 6252356961367914557}
   - component: {fileID: 5991186125559007061}
   - component: {fileID: 1009608965859824292}
+  - component: {fileID: -1765218559391716490}
   m_Layer: 0
   m_Name: NPC_Female
   m_TagString: Untagged
@@ -449,6 +450,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a8916952412ce946a01f8a121464006, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isWalking: 0
+--- !u!114 &-1765218559391716490
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6252356961377389083}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &6252356961377389087
 GameObject:
   m_ObjectHideFlags: 0

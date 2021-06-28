@@ -2,11 +2,19 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="acff330c-2da0-45c6-9754-586aa4bd4237" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Game/PhotonCustomAnimatorView.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Game/PhotonCustomAnimatorView.cs.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.UnmaskMain/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.UnmaskMain/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Photon/PhotonUnityNetworking/Code/PhotonNetwork.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Photon/PhotonUnityNetworking/Code/PhotonNetwork.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Photon/PhotonUnityNetworking/Resources/PhotonServerSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Photon/PhotonUnityNetworking/Resources/PhotonServerSettings.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/NPC_Female.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/NPC_Female.prefab" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Resources/Player.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Player.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Game.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Game.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Game/AudioManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Game/AudioManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Game/NpcController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Game/NpcController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Game/NpcSpawner.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Game/NpcSpawner.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Game/PhotonPlayerManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Game/PhotonPlayerManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Game/PoliceAnimationController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Game/PoliceAnimationController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Game/PoliceMovement.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Game/PoliceMovement.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Game/PoliceSoundController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Game/PoliceSoundController.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/TestLobby.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/TestLobby.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -20,20 +28,25 @@
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/../UnmaskMain_clone_0/Assets/Photon/PhotonUnityNetworking/Code/PhotonNetwork.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/TestLobby.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../UnmaskMain_clone_0/Assets/Scripts/Game/PoliceAnimationController.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Game/PoliceSoundController.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="IdeDocumentHistory">
     <changedPaths>
-      <option value="$PROJECT_DIR$/Assets/Scripts/Game/PoliceMovement.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/PoliceMovement.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/CameraMovement.cs" />
-      <option value="$PROJECT_DIR$/Assets/SpawnPlayers.cs" />
-      <option value="$PROJECT_DIR$/Assets/Scripts/Game/PoliceAnimationController.cs" />
-      <option value="$PROJECT_DIR$/Assets/Scripts/Game/PoliceSoundController.cs" />
-      <option value="$PROJECT_DIR$/Assets/Scripts/Game/AudioManager.cs" />
-      <option value="$PROJECT_DIR$/Assets/Scripts/Game/PhotonPlayerManager.cs" />
       <option value="$PROJECT_DIR$/Assets/Photon/PhotonUnityNetworking/Code/PhotonNetwork.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/Game/AudioManager.cs" />
+      <option value="$PROJECT_DIR$/Assets/SpawnPlayers.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/Game/NpcSpawner.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/Game/PhotonPlayerManager.cs" />
+      <option value="$PROJECT_DIR$/Assets/Photon/PhotonUnityNetworking/Code/Views/PhotonAnimatorView.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/Game/PhotonCustomAnimatorView.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/Game/PoliceSoundController.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/Game/PoliceAnimationController.cs" />
       <option value="$PROJECT_DIR$/Assets/TestLobby.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/Game/NpcController.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/Game/PoliceMovement.cs" />
     </changedPaths>
   </component>
   <component name="ProjectId" id="1uaTzDJaNw9vDnQSDO78aL55fzw" />
@@ -80,7 +93,7 @@
       <option name="presentableId" value="Default" />
       <updated>1624902960976</updated>
       <workItem from="1624902988729" duration="9829000" />
-      <workItem from="1624914930734" duration="185000" />
+      <workItem from="1624914930734" duration="8744000" />
     </task>
     <servers />
   </component>
@@ -89,6 +102,17 @@
   </component>
   <component name="UnityProjectConfiguration" hasMinimizedUI="true" />
   <component name="UnityUnitTestConfiguration" currentTestLauncher="EditMode" />
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
   </component>
