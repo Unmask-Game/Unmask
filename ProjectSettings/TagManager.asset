@@ -12,6 +12,7 @@ TagManager:
   - Weapon
   - SlotSelection
   - ItemSpot
+  - XRRig
   layers:
   - Default
   - TransparentFX

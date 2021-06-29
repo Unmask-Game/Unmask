@@ -39,7 +39,7 @@ public class LassoScript : Item
             if (objectHit.CompareTag("Player"))
             {
                 DrawRope(hit, playerAudio);
-                objectHit.GetComponent<TestVRPlayer>().BeSlowedDown(GeneralCooldownAfterHit);
+                objectHit.GetComponent<VRPlayerController>().BeSlowedDown(GeneralCooldownAfterHit);
                 yield return new WaitForSeconds(0);
                 itemController.CooldownAllItems(AttackCooldownAfterHit, GeneralCooldownAfterHit);
                 yield return new WaitForSeconds(GeneralCooldownAfterHit);

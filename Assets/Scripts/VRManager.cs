@@ -8,6 +8,8 @@ public class VRManager : MonoBehaviour
 {
     private static VRManager _instance;
     public static VRManager Instance { get { return _instance; } }
+
+    public bool isVR;
     
     void Awake()
     {
@@ -27,10 +29,12 @@ public class VRManager : MonoBehaviour
 
     public void StartXR()
     {
+        isVR = true;
         StartCoroutine(StartXRCoroutine());
     }
     public void StartXR(int scene)
     {
+        isVR = true;
         StartCoroutine(StartXRCoroutine(scene));
     }
 

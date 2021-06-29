@@ -24,9 +24,6 @@ public class ItemController : MonoBehaviour
     private Item _damageSlot;
     private Item _arrestSlot;
 
-    private KeyCode _pickUp;
-    private KeyCode _attack;
-
     private const float PickUpCooldown = 0.4f;
     private const float SwitchCooldown = 0.1f;
     private const float AttackCooldown = 1.2f;
@@ -44,8 +41,7 @@ public class ItemController : MonoBehaviour
     private void Start()
     {
         // make this changeable in settings
-        _pickUp = KeyCode.E;
-        _attack = KeyCode.Mouse0;
+
     }
 
     public void PickUpItem(InputAction.CallbackContext context)

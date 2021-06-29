@@ -62,7 +62,7 @@ public abstract class Item : MonoBehaviour
             var objectHit = hit.collider.gameObject;
             if (objectHit.CompareTag("TestVRPlayer"))
             {
-                objectHit.GetComponent<TestVRPlayer>().BeArrested();
+                objectHit.GetComponent<VRPlayerController>().BeArrested();
             }
         }
     }
@@ -76,7 +76,7 @@ public abstract class Item : MonoBehaviour
             var objectHit = hit.collider.gameObject;
             if (objectHit.CompareTag("Player"))
             {
-                objectHit.GetComponent<TestVRPlayer>().TakeDamage(Damage);
+                objectHit.GetComponent<VRPlayerController>().TakeDamage(Damage);
                 optionalSound?.Play();
             }
             else if (objectHit.CompareTag("NPC"))
