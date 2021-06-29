@@ -15,7 +15,6 @@ public class BatonScript : Item
     public override IEnumerator Attack(ItemController itemController, Camera cam, Animator playerAnimator,
         AudioManager playerAudio)
     {
-        //playerAnimator.SetLayerWeight(playerAnimator.GetLayerIndex("AttackLayer"), 1);
         playerAnimator.SetTrigger("melee_attack");
         var sound = playerAudio.GetSound("Baton");
         sound.pitch = Random.Range(1f, 1.3f);

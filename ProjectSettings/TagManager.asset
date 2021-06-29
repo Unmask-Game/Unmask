@@ -8,6 +8,10 @@ TagManager:
   - PlayerName
   - Floor
   - ShopFloor
+  - Police
+  - Weapon
+  - SlotSelection
+  - ItemSpot
   layers:
   - Default
   - TransparentFX

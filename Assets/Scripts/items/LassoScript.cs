@@ -36,7 +36,7 @@ public class LassoScript : Item
         if (Physics.Raycast(ray, out var hit, Range))
         {
             var objectHit = hit.collider.gameObject;
-            if (objectHit.CompareTag("TestVRPlayer"))
+            if (objectHit.CompareTag("Player"))
             {
                 DrawRope(hit, playerAudio);
                 objectHit.GetComponent<TestVRPlayer>().BeSlowedDown(GeneralCooldownAfterHit);

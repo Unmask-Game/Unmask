@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public abstract class Item : MonoBehaviour
 {
@@ -69,11 +70,11 @@ public abstract class Item : MonoBehaviour
     protected void InflictDamage(ItemController itemController, Camera playerCam, int damage, float range,
         AudioSource optionalSound)
     {
-        var ray = playerCam.ScreenPointToRay(Input.mousePosition);
+        var ray = playerCam.ScreenPointToRay(Mouse.current.position.ReadValue());
         if (Physics.Raycast(ray, out var hit, Range))
         {
             var objectHit = hit.collider.gameObject;
-            if (objectHit.CompareTag("TestVRPlayer"))
+            if (objectHit.CompareTag("Player"))
             {
                 objectHit.GetComponent<TestVRPlayer>().TakeDamage(Damage);
                 optionalSound?.Play();

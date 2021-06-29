@@ -3,11 +3,18 @@
   <component name="ChangeListManager">
     <list default="true" id="acff330c-2da0-45c6-9754-586aa4bd4237" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.UnmaskMain/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.UnmaskMain/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Input/Unmask.inputactions" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Input/Unmask.inputactions" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Resources/Player.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Player.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Game/NpcController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Game/NpcController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Game/PhotonCustomAnimatorView.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Game/PhotonCustomAnimatorView.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Game/PhotonPlayerManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Game/PhotonPlayerManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Game.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Game.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Game/ItemController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Game/ItemController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/items/BatonScript.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/items/BatonScript.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/items/Item.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/items/Item.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/items/LassoScript.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/items/LassoScript.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/SpawnPlayers.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/SpawnPlayers.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/TestLobby.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/TestLobby.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectSettings/TagManager.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/TagManager.asset" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -18,8 +25,9 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/SpawnPlayers.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../UnmaskMain_clone_0/Assets/Photon/PhotonUnityNetworking/Code/PhotonNetwork.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/TestLobby.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.inputsystem@1.0.2/InputSystem/Utilities/DelegateHelpers.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../UnmaskMain_clone_0/Assets/Scripts/Game/PoliceAnimationController.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Game/PoliceSoundController.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
@@ -39,6 +47,11 @@
       <option value="$PROJECT_DIR$/Assets/Scripts/Game/PoliceMovement.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/Game/NpcController.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/Game/PhotonPlayerManager.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/ItemSpawner.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/Game/ItemController.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/items/LassoScript.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/items/BatonScript.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/items/Item.cs" />
     </changedPaths>
   </component>
   <component name="ProjectId" id="1uaTzDJaNw9vDnQSDO78aL55fzw" />
@@ -86,7 +99,7 @@
       <updated>1624902960976</updated>
       <workItem from="1624902988729" duration="9829000" />
       <workItem from="1624914930734" duration="9256000" />
-      <workItem from="1624998334821" duration="1059000" />
+      <workItem from="1624998334821" duration="7071000" />
     </task>
     <servers />
   </component>

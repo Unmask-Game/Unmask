@@ -1,5 +1,7 @@
 using System;
+using System.Numerics;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 using static Item.ItemType;
 
@@ -34,11 +36,11 @@ public class ItemController : MonoBehaviour
     private float _switchCooldownExpiry;
     private float _pickUpCooldownExpiry;
     private float _cooldwonNoticeExpiry;
-    
+
     private const string NpcCooldownText = "Stop hitting innocent bystanders!\n(Cooldown remaining: ";
     private const string StandardCooldownText = "Using the lasso results in\na cooldown. (Remaining: ";
     private string _currentCooldownText;
-    
+
     private void Start()
     {
         // make this changeable in settings
@@ -46,89 +48,94 @@ public class ItemController : MonoBehaviour
         _attack = KeyCode.Mouse0;
     }
 
-    private void Update()
+    public void PickUpItem(InputAction.CallbackContext context)
     {
-        if (Time.time > _pickUpCooldownExpiry)
+        if (context.ReadValueAsButton())
         {
-            // Item pick-up
-            if (_itemToBePickedUp && Input.GetKeyDown(_pickUp))
+            if (Time.time > _pickUpCooldownExpiry)
             {
-                // Check Type of Item (Arrest/Damage Type)
-                ref var slot = ref _itemToBePickedUp.itemType == Damage ? ref _damageSlot : ref _arrestSlot;
-
-                if (slot)
+                // Item pick-up
+                if (_itemToBePickedUp)
                 {
-                    slot.OnDrop(_itemToBePickedUp);
-                    var dropped = slot;
-                    slot = _itemToBePickedUp;
-                    slot.OnPickUp(itemPlace);
-                    SetCurrentItem(ref slot);
-                    if (!dropped.gameObject.activeSelf)
+                    // Check Type of Item (Arrest/Damage Type)
+                    ref var slot = ref _itemToBePickedUp.itemType == Damage ? ref _damageSlot : ref _arrestSlot;
+
+                    if (slot)
                     {
-                        dropped.gameObject.SetActive(true);
+                        slot.OnDrop(_itemToBePickedUp);
+                        var dropped = slot;
+                        slot = _itemToBePickedUp;
+                        slot.OnPickUp(itemPlace);
+                        SetCurrentItem(ref slot);
+                        if (!dropped.gameObject.activeSelf)
+                        {
+                            dropped.gameObject.SetActive(true);
+                        }
                     }
-                }
-                else
-                {
-                    slot = _itemToBePickedUp;
-                    slot.OnPickUp(itemPlace);
-                    SetCurrentItem(ref slot);
-                }
+                    else
+                    {
+                        slot = _itemToBePickedUp;
+                        slot.OnPickUp(itemPlace);
+                        SetCurrentItem(ref slot);
+                    }
 
-                _pickUpCooldownExpiry = Time.time + PickUpCooldown;
+                    _pickUpCooldownExpiry = Time.time + PickUpCooldown;
+                }
             }
         }
+    }
 
+    public void SwitchAction(InputAction.CallbackContext context)
+    {
         if (!currentItem) return;
+        if (context.ReadValue<float>() > 0)
+        {
+            Switch(1);
+        }
+        else if (context.ReadValue<float>() < 0)
+        {
+            Switch(-1);
+        }
+    }
 
-        // Switch items 
+    private void Switch(int switchDirection)
+    {
         if (Time.time > _switchCooldownExpiry)
         {
-            bool cooldownNeeded;
-            if (Input.GetAxis("Mouse ScrollWheel") < 0f || Input.GetAxis("Mouse ScrollWheel") > 0f)
-            {
-                cooldownNeeded =
-                    SetCurrentItem(ref currentItem.itemType == Damage ? ref _arrestSlot : ref _damageSlot);
-            }
-            else if (Input.GetKeyDown(KeyCode.Alpha1))
+            var cooldownNeeded = false;
+            if (switchDirection == 1)
             {
                 cooldownNeeded = SetCurrentItem(ref _damageSlot);
             }
-            else if (Input.GetKeyDown(KeyCode.Alpha2))
+            else if (switchDirection == -1)
             {
                 cooldownNeeded = SetCurrentItem(ref _arrestSlot);
-            }
-            else
-            {
-                cooldownNeeded = false;
             }
 
             if (cooldownNeeded)
                 _switchCooldownExpiry = Time.time + SwitchCooldown;
         }
-
-        UpdateCooldownNotice();
-
-        if (Time.time < _attackCooldownExpiry) return;
-        if (!Input.GetKeyDown(_attack)) return;
-        // Slowdown if attacking ? 
-        //playerMovement.SetTemporarySpeed(playerMovement.playerSpeed / 1.5f, AttackCooldown);
-        StartCoroutine(currentItem.Attack(this, playerCam, playerAnimator, audioManager));
-        // Cooldowns, so you can't switch items while attacking etc. (seperated CooldownAfterAttack variable)
-        _pickUpCooldownExpiry = _switchCooldownExpiry = Time.time + CooldownAfterAttack;
-        _attackCooldownExpiry = Time.time + AttackCooldown;
     }
 
-    /*public Item.ItemName? IsAttacking()
+    public void AttackAction(InputAction.CallbackContext context)
     {
-        if (Time.time <= 0) return null;
-        if (Time.time <= _attackCooldownExpiry)
+        if (!currentItem) return;
+        if (Time.time >= _attackCooldownExpiry && context.ReadValueAsButton())
         {
-            return currentItem.itemName;
+            // Slowdown if attacking ? 
+            //playerMovement.SetTemporarySpeed(playerMovement.playerSpeed / 1.5f, AttackCooldown);
+            StartCoroutine(currentItem.Attack(this, playerCam, playerAnimator, audioManager));
+            // Cooldowns, so you can't switch items while attacking etc. (seperated CooldownAfterAttack variable)
+            _pickUpCooldownExpiry = _switchCooldownExpiry = Time.time + CooldownAfterAttack;
+            _attackCooldownExpiry = Time.time + AttackCooldown;
         }
+    }
 
-        return null;
-    }*/
+    private void Update()
+    {
+        if (!currentItem) return;
+        UpdateCooldownNotice();
+    }
 
     private bool SetCurrentItem(ref Item slot)
     {
@@ -194,15 +201,15 @@ public class ItemController : MonoBehaviour
             hud.CloseCooldownNotice();
         }
     }
-    
+
     // OthersCooldown -> Cooldown for picking-up & switching items
     public void CooldownAllItems(float timeAttackCooldown, float timeOthersCooldown)
     {
-        _pickUpCooldownExpiry = _switchCooldownExpiry  = Time.time + timeOthersCooldown;
+        _pickUpCooldownExpiry = _switchCooldownExpiry = Time.time + timeOthersCooldown;
         _attackCooldownExpiry = Time.time + timeAttackCooldown;
         AddAntiWeaponSpamNotice(timeAttackCooldown);
     }
-    
+
     private void AddAntiWeaponSpamNotice(float addSeconds)
     {
         _cooldwonNoticeExpiry = Time.time + addSeconds;
