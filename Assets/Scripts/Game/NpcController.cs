@@ -22,9 +22,11 @@ public class NpcController : MonoBehaviour
         _view = GetComponent<PhotonView>();
         NavMesh.avoidancePredictionTime = 0.5f;
         //_navMeshAgent.speed = Random.Range(1.0f, 2.5f);
-        if (!_view.IsMine) return;
-        CalculateNewPath();
-        StartCoroutine(SyncPosition());
+        if (_view.IsMine)
+        {
+            CalculateNewPath();
+            StartCoroutine(SyncPosition());
+        }
     }
 
     void Update()
@@ -40,12 +42,12 @@ public class NpcController : MonoBehaviour
         }
     }
 
-    IEnumerator SyncPosition()
+    private IEnumerator SyncPosition()
     {
         for (;;)
         {
             _view.RPC("SetPosition", RpcTarget.Others, transform.position);
-            yield return new WaitForSeconds(1);
+            yield return new WaitForSeconds(3);
         }
     }
 
@@ -55,7 +57,6 @@ public class NpcController : MonoBehaviour
         if (Vector3.Distance(transform.position, pos) > 2)
         {
             transform.position = pos;
-            Debug.Log("WURDE RUMTELEPORTIERT");
         }
     }
 
