@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Photon.Pun;
 using Photon.Realtime;
 using TMPro;
+using UnityEngine.UI;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -10,12 +11,21 @@ public class MainMenu : MonoBehaviourPunCallbacks
 {
 
     [SerializeField]
-    private TMP_InputField roomNameText;
+    private TMP_InputField roomNameField;
+
+    [SerializeField]
+    private Button joinRoomButton;
 
     public void Start()
     {
         // Replace all letters with their uppercase variant
-        roomNameText.onValidateInput += delegate (string s, int i, char c) { return char.ToUpper(c); };
+        roomNameField.onValidateInput += delegate (string s, int i, char c) { return char.ToUpper(c); };
+    }
+
+    public void OnRoomNameFieldValueChange(string value)
+    {
+        // Only enable button if some room code was put in the text field
+        joinRoomButton.interactable = !string.IsNullOrWhiteSpace(value);
     }
 
     public void JoinRoom()
@@ -30,7 +40,7 @@ public class MainMenu : MonoBehaviourPunCallbacks
     public override void OnConnectedToMaster()
     {
         Debug.Log("Joining room");
-        PhotonNetwork.JoinRoom(roomNameText.text);
+        PhotonNetwork.JoinRoom(roomNameField.text);
     }
 
     public override void OnJoinedRoom()
