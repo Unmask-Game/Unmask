@@ -32,4 +32,14 @@ public class SettingsManager
     {
         PlayerPrefs.SetFloat("Volume", volume);
     }
+
+    public float GetMouseSensitivity()
+    {
+        return PlayerPrefs.GetFloat("Mouse_Sensitivity", 1F);
+    }
+
+    public void SetMouseSensitivity(float value)
+    {
+        PlayerPrefs.SetFloat("Mouse_Sensitivity", value);
+    }
 }

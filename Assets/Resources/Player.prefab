@@ -252,7 +252,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 1503109248410804569}
-  sensitivity: 30
+  sensitivity: 1
   smoothing: 1
 --- !u!114 &4891862927364658884
 MonoBehaviour:

@@ -12,10 +12,14 @@ public class SettingsMenu : MonoBehaviour
     [SerializeField]
     private Slider volumeSlider;
 
+    [SerializeField]
+    private Slider sensitivitySlider;
+
     public void OnEnable()
     {
         usernameText.text = SettingsManager.Instance.GetUsername();
         volumeSlider.value = SettingsManager.Instance.GetVolume();
+        sensitivitySlider.value = SettingsManager.Instance.GetMouseSensitivity();
         UpdateVolumeText();
     }
 
@@ -43,5 +47,10 @@ public class SettingsMenu : MonoBehaviour
     {
         TMP_Text text = volumeSlider.gameObject.GetComponentInChildren<TMP_Text>();
         text.text = "Volume (" + Mathf.RoundToInt(volumeSlider.value * 100) + "%)";
+    }
+
+    public void SetMouseSensitivity()
+    {
+        SettingsManager.Instance.SetMouseSensitivity(sensitivitySlider.value);
     }
 }

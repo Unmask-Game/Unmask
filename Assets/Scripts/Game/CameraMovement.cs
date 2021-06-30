@@ -6,7 +6,7 @@ public class CameraMovement : MonoBehaviour
     [SerializeField] private Transform player;
 
     // Optional settings
-    [SerializeField] private float sensitivity = 4f;
+    [SerializeField] private float sensitivity;
     [SerializeField] private bool smoothing;
 
     // X-axis Camera rotation
@@ -23,6 +23,7 @@ public class CameraMovement : MonoBehaviour
         _cursorIsLocked = true;
         Cursor.lockState = CursorLockMode.Locked;
         transform.localRotation = Quaternion.Euler(0, 0, 0);
+        this.sensitivity = SettingsManager.Instance.GetMouseSensitivity();
     }
 
     public void Look(InputAction.CallbackContext context)
