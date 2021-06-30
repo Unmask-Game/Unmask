@@ -1645,6 +1645,7 @@ MonoBehaviour:
     volume: 0.3
     pitch: 1
     audioSource: {fileID: 0}
+  audioMixer: {fileID: 24100000, guid: 8a697e9e49a7856489933628ef0d5860, type: 2}
 --- !u!114 &2384778446010471270
 MonoBehaviour:
   m_ObjectHideFlags: 0
