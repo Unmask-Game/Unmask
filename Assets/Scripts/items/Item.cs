@@ -56,7 +56,7 @@ public abstract class Item : MonoBehaviour
 
     protected void TakeUnderArrest(Camera playerCam)
     {
-        var ray = playerCam.ScreenPointToRay(Input.mousePosition);
+        var ray = playerCam.ScreenPointToRay(Mouse.current.position.ReadValue());
         if (Physics.Raycast(ray, out var hit, Range))
         {
             var objectHit = hit.collider.gameObject;

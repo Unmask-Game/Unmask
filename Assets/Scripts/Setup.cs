@@ -11,7 +11,7 @@ public class Setup : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if (!ClonesManager.IsClone())
+        if (ClonesManager.IsClone())
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 3);
         else
             VRManager.Instance.StartXR(SceneManager.GetActiveScene().buildIndex + 1);

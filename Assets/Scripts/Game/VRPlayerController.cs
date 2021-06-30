@@ -6,20 +6,29 @@ public class VRPlayerController : MonoBehaviour
 {
     public int resistancePoints;
     private CharacterController _controller;
+    private GameObject _xrRig;
     private PhotonView _view;
+    private GameObject _camera;
 
     // Start is called before the first frame update
     private void Awake()
     {
-        _view = GetComponent<PhotonView>();
+
         resistancePoints = 100;
     }
     
     private void Start()
     {
+        _view = GetComponent<PhotonView>();
         if (VRManager.Instance.isVR && _view.IsMine)
         {
-            _controller = GameObject.FindGameObjectWithTag("VRRig").GetComponent<CharacterController>();
+            _xrRig = GameObject.FindGameObjectWithTag("XRRig");
+            _controller = _xrRig.GetComponent<CharacterController>();
+            _camera = _xrRig.transform.Find("Camera Offset").Find("Main Camera").gameObject;
+            foreach (Transform child in transform)     
+            {  
+                child.gameObject.SetActiveRecursively(false);   
+            }   
         }
     }
 
@@ -27,7 +36,8 @@ public class VRPlayerController : MonoBehaviour
     {
         if (VRManager.Instance.isVR && _view.IsMine)
         {
-            transform.position = _controller.center;
+            transform.position = _xrRig.transform.position + _xrRig.transform.rotation * _controller.center + new Vector3(0, -(_controller.height / 2), 0);
+            transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles.x, _camera.transform.rotation.eulerAngles.y, transform.rotation.eulerAngles.z);
         }
     }
 
