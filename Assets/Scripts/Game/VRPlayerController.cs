@@ -1,10 +1,13 @@
 using System;
+using System.Collections;
 using Photon.Pun;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using Random = UnityEngine.Random;
+using static DefaultNamespace.Constants;
+
 public class VRPlayerController : MonoBehaviour
 {
+    [SerializeField] private GameObject rope;
     public int resistancePoints;
     private CharacterController _controller;
     private GameObject _xrRig;
@@ -16,7 +19,7 @@ public class VRPlayerController : MonoBehaviour
     // Start is called before the first frame update
     private void Awake()
     {
-
+        rope.SetActive(false);
         resistancePoints = 100;
     }
 
@@ -67,7 +70,15 @@ public class VRPlayerController : MonoBehaviour
     // called when player is hit by lasso
     public void BeSlowedDown(float time)
     {
+        StartCoroutine(DisplayRope(time));
         Debug.Log("Damn, I've been slowed down");
+    }
+
+    private IEnumerator DisplayRope(float time)
+    {
+        rope.SetActive(true);
+        yield return new WaitForSeconds(time);
+        rope.SetActive(false);
     }
 
     public void OnMoveAction(InputAction.CallbackContext context)

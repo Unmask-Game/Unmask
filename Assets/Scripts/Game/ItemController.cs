@@ -1,5 +1,5 @@
 using System;
-using System.Numerics;
+using Photon.Pun;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
@@ -7,6 +7,8 @@ using static Item.ItemType;
 
 public class ItemController : MonoBehaviour
 {
+    private ItemSpawner _itemSpawner;
+
     [SerializeField] private GameObject itemPlace;
 
     [SerializeField] private HUDController hud;
@@ -38,10 +40,12 @@ public class ItemController : MonoBehaviour
     private const string StandardCooldownText = "Using the lasso results in\na cooldown. (Remaining: ";
     private string _currentCooldownText;
 
+    private PhotonView _view;
+
     private void Start()
     {
-        // make this changeable in settings
-
+        _view = GetComponent<PhotonView>();
+        _itemSpawner = GameObject.FindWithTag("ItemSpawner").GetComponent<ItemSpawner>();
     }
 
     public void PickUpItem(InputAction.CallbackContext context)
@@ -79,6 +83,53 @@ public class ItemController : MonoBehaviour
                 }
             }
         }
+    }
+
+    [PunRPC]
+    public void SetItemRemote(Item.ItemName itemName)
+    {
+        foreach (var item in _itemSpawner.itemPool)
+        {
+            if (item.GetComponent<Item>().itemName == itemName)
+            {
+                var currentItem = GetCurrentItem();
+                if (currentItem)
+                {
+                    Destroy(currentItem.gameObject);
+                }
+
+                var itemObject = Instantiate(item);
+                var spawnedItem = itemObject.GetComponent<Item>();
+                var self = spawnedItem.transform;
+                var parent = itemPlace.transform;
+
+                self.parent = parent;
+                self.position = parent.position;
+                self.rotation = parent.rotation;
+
+                spawnedItem.itemBody.isKinematic = true;
+                spawnedItem.itemCollider.isTrigger = false;
+
+                spawnedItem.animator.enabled = false;
+                spawnedItem.onGroundModel.SetActive(false);
+                spawnedItem.equippedModel.SetActive(true);
+            }
+        }
+    }
+
+    [PunRPC]
+    public void PlayItemAnimationRemote()
+    {
+        var currentItem = GetCurrentItem();
+        if (currentItem)
+        {
+            currentItem.PlayAnimation(playerAnimator, audioManager);
+        }
+    }
+
+    private Item GetCurrentItem()
+    {
+        return currentItem = itemPlace.GetComponentInChildren<Item>();
     }
 
     public void SwitchAction(InputAction.CallbackContext context)
@@ -120,6 +171,8 @@ public class ItemController : MonoBehaviour
         {
             // Slowdown if attacking ? 
             //playerMovement.SetTemporarySpeed(playerMovement.playerSpeed / 1.5f, AttackCooldown);
+            currentItem.PlayAnimation(playerAnimator, audioManager);
+            _view.RPC("PlayItemAnimationRemote", RpcTarget.Others);
             StartCoroutine(currentItem.Attack(this, playerCam, playerAnimator, audioManager));
             // Cooldowns, so you can't switch items while attacking etc. (seperated CooldownAfterAttack variable)
             _pickUpCooldownExpiry = _switchCooldownExpiry = Time.time + CooldownAfterAttack;
@@ -167,6 +220,7 @@ public class ItemController : MonoBehaviour
             hud.SelectSlot(1);
         }
 
+        _view.RPC("SetItemRemote", RpcTarget.Others, slot.itemName);
         return true;
     }
 

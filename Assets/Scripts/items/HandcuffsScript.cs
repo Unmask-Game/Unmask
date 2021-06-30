@@ -14,11 +14,14 @@ public class HandcuffsScript : Item
     public override IEnumerator Attack(ItemController itemController, Camera cam, Animator playerAnimator,
         AudioManager playerAudio)
     {
-        playerAnimator.SetTrigger("melee_attack");
-        playerAudio.Play("Handcuffs");
-
         yield return new WaitForSeconds(WaitForAnimationTime);
 
         TakeUnderArrest(cam);
+    }
+
+    public override void PlayAnimation(Animator playerAnimator, AudioManager playerAudio)
+    {
+        playerAnimator.SetTrigger("melee_attack");
+        playerAudio.Play("Handcuffs");
     }
 }

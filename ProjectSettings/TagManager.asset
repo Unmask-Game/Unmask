@@ -13,6 +13,9 @@ TagManager:
   - SlotSelection
   - ItemSpot
   - XRRig
+  - VRPlayer
+  - NPC
+  - ItemSpawner
   layers:
   - Default
   - TransparentFX

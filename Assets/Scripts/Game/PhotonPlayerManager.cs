@@ -11,7 +11,7 @@ public class PhotonPlayerManager : MonoBehaviour
     [SerializeField] private MeshRenderer headRenderer;
     private PhotonView _view;
     
-    void Start()
+    private void Start()
     {
         _view = GetComponent<PhotonView>();
         if (!_view.IsMine)

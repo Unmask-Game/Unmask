@@ -1,7 +1,7 @@
-using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using static DefaultNamespace.Constants;
 
 public class LassoScript : Item
 {
@@ -37,9 +37,9 @@ public class LassoScript : Item
         if (Physics.Raycast(ray, out var hit, Range))
         {
             var objectHit = hit.collider.gameObject;
-            if (objectHit.CompareTag("Player"))
+            if (objectHit.CompareTag(VrPlayerTag))
             {
-                DrawRope(hit, playerAudio);
+                DrawRope(hit.transform, playerAudio);
                 objectHit.GetComponent<VRPlayerController>().BeSlowedDown(GeneralCooldownAfterHit);
                 yield return new WaitForSeconds(0);
                 itemController.CooldownAllItems(AttackCooldownAfterHit, GeneralCooldownAfterHit);
@@ -51,19 +51,33 @@ public class LassoScript : Item
         _drawRope = false;
         _lineRenderer.gameObject.SetActive(false);
     }
+    
+    public override void PlayAnimation(Animator playerAnimator, AudioManager playerAudio)
+    {
+        playerAudio.Play("Lasso");
+        _lineRenderer.gameObject.SetActive(true);
+        StartCoroutine(stopAnimation(GeneralCooldownAfterHit));
+        var vrPlayer = GameObject.FindWithTag(VrPlayerTag);
+        DrawRope(vrPlayer.transform, playerAudio);
+    }
 
-    private void DrawRope(RaycastHit hit, AudioManager playerAudio)
+    private IEnumerator stopAnimation(float time)
+    {
+        yield return new WaitForSeconds(time);
+        _lineRenderer.gameObject.SetActive(false);
+    }
+
+    private void DrawRope(Transform target, AudioManager playerAudio)
     {
         // rope end is not the hit.point exactly, so the rope can easily move together with the player
-        _currentRopeEndPoint = hit.transform;
+        _currentRopeEndPoint = target.transform;
         _lineRenderer.gameObject.SetActive(true);
         _drawRope = true;
-        playerAudio.Play("Lasso");
     }
 
     private void UpdateRope()
     {
         _lineRenderer.SetPosition(0, ropeStartingPoint.transform.position);
-        _lineRenderer.SetPosition(1, _currentRopeEndPoint.position);
+        _lineRenderer.SetPosition(1, _currentRopeEndPoint.GetComponent<Collider>().bounds.center);
     }
 }

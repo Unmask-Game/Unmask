@@ -12,14 +12,6 @@
                     "expectedControlType": "Vector2",
                     "processors": "",
                     "interactions": ""
-                },
-                {
-                    "name": "Test",
-                    "type": "PassThrough",
-                    "id": "ecefc366-2b16-4350-9967-f2a7f11a4af5",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": ""
                 }
             ],
             "bindings": [
@@ -31,17 +23,6 @@
                     "processors": "",
                     "groups": "XR;Keyboard&Mouse;Gamepad;Touch;Joystick",
                     "action": "Move",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "1a470e5f-142b-4245-93e1-9c10aed0c6d7",
-                    "path": "<XRController>{LeftHand}/touchpad",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Test",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
