@@ -11,6 +11,7 @@ public class VRPlayerController : MonoBehaviour
     private PhotonView _view;
     private GameObject _camera;
     private Animator _animator;
+    private int _walking;
 
     // Start is called before the first frame update
     private void Awake()
@@ -71,13 +72,21 @@ public class VRPlayerController : MonoBehaviour
 
     public void OnMoveAction(InputAction.CallbackContext context)
     {
-        Vector2 inputVec = context.ReadValue<Vector2>();
-        bool walking = inputVec.sqrMagnitude > 0;
+        _walking = 5;
+    }
 
+    public void FixedUpdate()
+    {
+        bool walking = _walking > 0;
         if (_animator.GetBool("walking") != walking)
         {
             SetIsWalking(walking);
+            Debug.Log("Setting is walking: " + walking);
             _view.RPC("SetIsWalking", RpcTarget.Others, walking);
+        }
+        if (walking)
+        {
+            _walking--;
         }
     }
 
