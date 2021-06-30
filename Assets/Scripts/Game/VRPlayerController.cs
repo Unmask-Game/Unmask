@@ -1,6 +1,7 @@
 using System;
 using Photon.Pun;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using Random = UnityEngine.Random;
 public class VRPlayerController : MonoBehaviour
 {
@@ -9,6 +10,7 @@ public class VRPlayerController : MonoBehaviour
     private GameObject _xrRig;
     private PhotonView _view;
     private GameObject _camera;
+    private Animator _animator;
 
     // Start is called before the first frame update
     private void Awake()
@@ -16,19 +18,26 @@ public class VRPlayerController : MonoBehaviour
 
         resistancePoints = 100;
     }
-    
+
     private void Start()
     {
+        _animator = GetComponent<Animator>();
         _view = GetComponent<PhotonView>();
         if (VRManager.Instance.isVR && _view.IsMine)
         {
             _xrRig = GameObject.FindGameObjectWithTag("XRRig");
             _controller = _xrRig.GetComponent<CharacterController>();
             _camera = _xrRig.transform.Find("Camera Offset").Find("Main Camera").gameObject;
-            foreach (Transform child in transform)     
-            {  
-                child.gameObject.SetActiveRecursively(false);   
-            }   
+
+            foreach (Transform child in transform)
+            {
+                child.gameObject.SetActive(false);
+            }
+        }
+        else
+        {
+            // Disable player input if not is mine
+            GetComponent<PlayerInput>().enabled = false;
         }
     }
 
@@ -58,5 +67,23 @@ public class VRPlayerController : MonoBehaviour
     public void BeSlowedDown(float time)
     {
         Debug.Log("Damn, I've been slowed down");
+    }
+
+    public void OnMoveAction(InputAction.CallbackContext context)
+    {
+        Vector2 inputVec = context.ReadValue<Vector2>();
+        bool walking = inputVec.sqrMagnitude > 0;
+
+        if (_animator.GetBool("walking") != walking)
+        {
+            SetIsWalking(walking);
+            _view.RPC("SetIsWalking", RpcTarget.Others, walking);
+        }
+    }
+
+    [PunRPC]
+    public void SetIsWalking(Boolean walking)
+    {
+        _animator.SetBool("walking", walking);
     }
 }
