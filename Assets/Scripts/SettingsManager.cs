@@ -22,4 +22,14 @@ public class SettingsManager
         string defaultUsername = "Player" + Random.Range(1, 100);
         return PlayerPrefs.GetString("Username", defaultUsername);
     }
+
+    public float GetVolume()
+    {
+        return PlayerPrefs.GetFloat("Volume", 1F);
+    }
+
+    public void SetVolume(float volume)
+    {
+        PlayerPrefs.SetFloat("Volume", volume);
+    }
 }
