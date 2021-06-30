@@ -12,6 +12,12 @@ public class MainMenu : MonoBehaviourPunCallbacks
     [SerializeField]
     private TMP_InputField roomNameText;
 
+    public void Start()
+    {
+        // Replace all letters with their uppercase variant
+        roomNameText.onValidateInput += delegate (string s, int i, char c) { return char.ToUpper(c); };
+    }
+
     public void JoinRoom()
     {
         if (PhotonNetwork.NetworkClientState != ClientState.Authenticating)
