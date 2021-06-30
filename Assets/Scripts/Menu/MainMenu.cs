@@ -8,7 +8,7 @@ using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviourPunCallbacks
 {
-    
+
     [SerializeField]
     private TMP_InputField roomNameText;
 
@@ -20,7 +20,7 @@ public class MainMenu : MonoBehaviourPunCallbacks
             PhotonNetwork.ConnectUsingSettings();
         }
     }
-    
+
     public override void OnConnectedToMaster()
     {
         Debug.Log("Joining room");
@@ -31,5 +31,11 @@ public class MainMenu : MonoBehaviourPunCallbacks
     {
         Debug.Log("Joined room");
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+    }
+
+    public void Quit()
+    {
+        Debug.Log("Application Quit.");
+        Application.Quit();
     }
 }
