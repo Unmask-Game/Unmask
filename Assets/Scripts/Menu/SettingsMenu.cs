@@ -7,7 +7,7 @@ public class SettingsMenu : MonoBehaviour
 {
     [SerializeField]
     private TMP_InputField usernameText;
-    
+
     public void OnEnable()
     {
         usernameText.text = SettingsManager.Instance.GetUsername();
@@ -15,6 +15,15 @@ public class SettingsMenu : MonoBehaviour
 
     public void SetUsername()
     {
-        SettingsManager.Instance.SetUsername(usernameText.text);
+        // We do not allow empty usernames
+        if (string.IsNullOrWhiteSpace(usernameText.text))
+        {
+            // Reset to previous name
+            usernameText.text = SettingsManager.Instance.GetUsername();
+        }
+        else
+        {
+            SettingsManager.Instance.SetUsername(usernameText.text);
+        }
     }
 }

@@ -2,27 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SettingsManager : MonoBehaviour
+public class SettingsManager
 {
     private static SettingsManager _instance;
     public static SettingsManager Instance { get { return _instance; } }
 
-    void Awake()
+    static SettingsManager()
     {
-        if (_instance != null && _instance != this)
-            gameObject.SetActive(false);
-        else
-        {
-            _instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
+        _instance = new SettingsManager();
     }
-    
+
     public void SetUsername(string username)
     {
         PlayerPrefs.SetString("Username", username);
     }
-    
+
     public string GetUsername()
     {
         string defaultUsername = "Player" + Random.Range(1, 100);
