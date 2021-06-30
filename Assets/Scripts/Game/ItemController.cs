@@ -171,9 +171,9 @@ public class ItemController : MonoBehaviour
         {
             // Slowdown if attacking ? 
             //playerMovement.SetTemporarySpeed(playerMovement.playerSpeed / 1.5f, AttackCooldown);
-            currentItem.PlayAnimation(playerAnimator, audioManager);
-            _view.RPC("PlayItemAnimationRemote", RpcTarget.Others);
-            StartCoroutine(currentItem.Attack(this, playerCam, playerAnimator, audioManager));
+            //currentItem.PlayAnimation(playerAnimator, audioManager);
+            //_view.RPC("PlayItemAnimationRemote", RpcTarget.Others);
+            StartCoroutine(currentItem.Attack(this, playerCam, playerAnimator, audioManager, _view));
             // Cooldowns, so you can't switch items while attacking etc. (seperated CooldownAfterAttack variable)
             _pickUpCooldownExpiry = _switchCooldownExpiry = Time.time + CooldownAfterAttack;
             _attackCooldownExpiry = Time.time + AttackCooldown;

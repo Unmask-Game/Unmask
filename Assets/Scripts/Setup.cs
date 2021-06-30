@@ -8,10 +8,11 @@ using UnityEngine.XR.Management;
 
 public class Setup : MonoBehaviour
 {
+    [SerializeField] private bool preferVR;
     // Start is called before the first frame update
     void Start()
     {
-        if (ClonesManager.IsClone())
+        if (preferVR^!ClonesManager.IsClone())
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 3);
         else
             VRManager.Instance.StartXR(SceneManager.GetActiveScene().buildIndex + 1);

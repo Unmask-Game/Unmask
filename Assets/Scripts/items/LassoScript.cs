@@ -1,7 +1,8 @@
 using System.Collections;
+using Photon.Pun;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using static DefaultNamespace.Constants;
+using static DefaultNamespace.Tags;
 
 public class LassoScript : Item
 {
@@ -31,7 +32,7 @@ public class LassoScript : Item
     }
 
     public override IEnumerator Attack(ItemController itemController, Camera cam, Animator playerAnimator,
-        AudioManager playerAudio)
+        AudioManager playerAudio, PhotonView view)
     {
         var ray = cam.ScreenPointToRay(Mouse.current.position.ReadValue());
         if (Physics.Raycast(ray, out var hit, Range))
@@ -39,7 +40,8 @@ public class LassoScript : Item
             var objectHit = hit.collider.gameObject;
             if (objectHit.CompareTag(VrPlayerTag))
             {
-                DrawRope(hit.transform, playerAudio);
+                PlayAnimation(playerAnimator, playerAudio);
+                view.RPC("PlayItemAnimationRemote", RpcTarget.Others);
                 objectHit.GetComponent<VRPlayerController>().BeSlowedDown(GeneralCooldownAfterHit);
                 yield return new WaitForSeconds(0);
                 itemController.CooldownAllItems(AttackCooldownAfterHit, GeneralCooldownAfterHit);
@@ -51,23 +53,23 @@ public class LassoScript : Item
         _drawRope = false;
         _lineRenderer.gameObject.SetActive(false);
     }
-    
+
     public override void PlayAnimation(Animator playerAnimator, AudioManager playerAudio)
     {
         playerAudio.Play("Lasso");
         _lineRenderer.gameObject.SetActive(true);
-        StartCoroutine(stopAnimation(GeneralCooldownAfterHit));
+        StartCoroutine(StopAnimation(GeneralCooldownAfterHit));
         var vrPlayer = GameObject.FindWithTag(VrPlayerTag);
-        DrawRope(vrPlayer.transform, playerAudio);
+        DrawRope(vrPlayer.transform);
     }
-
-    private IEnumerator stopAnimation(float time)
+    
+    private IEnumerator StopAnimation(float time)
     {
         yield return new WaitForSeconds(time);
         _lineRenderer.gameObject.SetActive(false);
     }
 
-    private void DrawRope(Transform target, AudioManager playerAudio)
+    private void DrawRope(Transform target)
     {
         // rope end is not the hit.point exactly, so the rope can easily move together with the player
         _currentRopeEndPoint = target.transform;
@@ -78,6 +80,6 @@ public class LassoScript : Item
     private void UpdateRope()
     {
         _lineRenderer.SetPosition(0, ropeStartingPoint.transform.position);
-        _lineRenderer.SetPosition(1, _currentRopeEndPoint.GetComponent<Collider>().bounds.center);
+        _lineRenderer.SetPosition(1, _currentRopeEndPoint.GetComponent<Collider>().bounds.center + new Vector3(0,-0.3f, 0));
     }
 }

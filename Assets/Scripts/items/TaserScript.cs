@@ -1,4 +1,5 @@
 using System.Collections;
+using Photon.Pun;
 using UnityEngine;
 
 public class TaserScript : Item
@@ -15,8 +16,10 @@ public class TaserScript : Item
     }
 
     public override IEnumerator Attack(ItemController itemController, Camera cam, Animator playerAnimator,
-        AudioManager playerAudio)
+        AudioManager playerAudio,PhotonView view)
     {
+        PlayAnimation(playerAnimator, playerAudio);
+        view.RPC("PlayItemAnimationRemote", RpcTarget.Others);
         yield return new WaitForSeconds(0f);
         InflictDamage(itemController, cam, Damage, Range, null);
     }

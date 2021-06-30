@@ -1,4 +1,5 @@
 using System.Collections;
+using Photon.Pun;
 using UnityEngine;
 
 public class HandcuffsScript : Item
@@ -12,8 +13,10 @@ public class HandcuffsScript : Item
     }
 
     public override IEnumerator Attack(ItemController itemController, Camera cam, Animator playerAnimator,
-        AudioManager playerAudio)
+        AudioManager playerAudio, PhotonView view)
     {
+        PlayAnimation(playerAnimator, playerAudio);
+        view.RPC("PlayItemAnimationRemote", RpcTarget.Others);
         yield return new WaitForSeconds(WaitForAnimationTime);
 
         TakeUnderArrest(cam);

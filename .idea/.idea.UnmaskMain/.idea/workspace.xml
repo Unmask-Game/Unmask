@@ -5,27 +5,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="acff330c-2da0-45c6-9754-586aa4bd4237" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Constants.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Constants.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Tags.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Tags.cs.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.UnmaskMain/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.UnmaskMain/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Input/VR.inputactions" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Input/VR.inputactions" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Photon/PhotonUnityNetworking/Resources/PhotonServerSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Photon/PhotonUnityNetworking/Resources/PhotonServerSettings.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Baton.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Baton.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Handcuffs.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Handcuffs.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Lasso.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Lasso.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Taser.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Taser.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/NPC_Female.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/NPC_Female.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/VR_Player_Female.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/VR_Player_Female.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Game.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Game.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Constants.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Constants.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Game/ItemController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Game/ItemController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Game/PhotonPlayerManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Game/PhotonPlayerManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Game/VRPlayerController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Game/VRPlayerController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Setup.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Setup.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/items/BatonScript.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/items/BatonScript.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/items/HandcuffsScript.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/items/HandcuffsScript.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/items/Item.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/items/Item.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/items/LassoScript.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/items/LassoScript.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/items/TaserScript.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/items/TaserScript.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectSettings/TagManager.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/TagManager.asset" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -69,17 +59,19 @@
       <option value="$PROJECT_DIR$/Assets/Scripts/SpawnPlayers.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/PlayerSpawner.cs" />
       <option value="$PROJECT_DIR$/Assets/VRController.cs" />
-      <option value="$PROJECT_DIR$/Assets/Scripts/Game/VRPlayerController.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/Game/PoliceMovement.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/ItemSpawner.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/Game/PhotonPlayerManager.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/Constants.cs" />
-      <option value="$PROJECT_DIR$/Assets/Scripts/items/Item.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/Tags.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/Setup.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/Game/ItemController.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/items/BatonScript.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/items/TaserScript.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/items/HandcuffsScript.cs" />
-      <option value="$PROJECT_DIR$/Assets/Scripts/Game/PhotonPlayerManager.cs" />
-      <option value="$PROJECT_DIR$/Assets/Scripts/Game/ItemController.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/items/Item.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/items/LassoScript.cs" />
-      <option value="$PROJECT_DIR$/Assets/Scripts/items/BatonScript.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/Game/VRPlayerController.cs" />
     </changedPaths>
   </component>
   <component name="ProjectId" id="1uaTzDJaNw9vDnQSDO78aL55fzw" />
@@ -128,7 +120,7 @@
       <workItem from="1624902988729" duration="9829000" />
       <workItem from="1624914930734" duration="9256000" />
       <workItem from="1624998334821" duration="10061000" />
-      <workItem from="1625089730161" duration="3051000" />
+      <workItem from="1625089730161" duration="5344000" />
     </task>
     <servers />
   </component>

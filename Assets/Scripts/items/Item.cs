@@ -3,7 +3,7 @@ using DefaultNamespace;
 using Photon.Pun;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using static DefaultNamespace.Constants;
+using static DefaultNamespace.Tags;
 
 public abstract class Item : MonoBehaviour
 {
@@ -55,7 +55,7 @@ public abstract class Item : MonoBehaviour
     }
 
     public abstract IEnumerator Attack(ItemController itemController, Camera cam, Animator playerAnimator,
-        AudioManager playerAudio);
+        AudioManager playerAudio, PhotonView view);
 
     protected void TakeUnderArrest(Camera playerCam)
     {
@@ -89,7 +89,7 @@ public abstract class Item : MonoBehaviour
             }
         }
     }
-    
+
     public abstract void PlayAnimation(Animator playerAnimator,
         AudioManager playerAudio);
 
