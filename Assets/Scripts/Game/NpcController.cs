@@ -42,9 +42,19 @@ public class NpcController : MonoBehaviour
         }
     }
 
+    public void StopWalking()
+    {
+        _navMeshAgent.isStopped = true;
+    }
+
+    public void ResumeWalking()
+    {
+        _navMeshAgent.isStopped = false;
+    }
+
     private IEnumerator SyncPosition()
     {
-        for (;;)
+        for (; ; )
         {
             _view.RPC("SetPosition", RpcTarget.Others, transform.position);
             yield return new WaitForSeconds(3);
