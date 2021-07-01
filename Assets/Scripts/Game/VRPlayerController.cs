@@ -60,28 +60,44 @@ public class VRPlayerController : MonoBehaviour
         }
     }
 
+    [PunRPC]
     public void TakeDamage(int damage)
     {
-        resistancePoints -= damage;
-        Debug.Log("Damn, I got hit for -" + damage + " .... Current RP: " + resistancePoints);
+        if (_view.IsMine)
+        {
+            resistancePoints -= damage;
+            Debug.Log("Damn, I got hit for -" + damage + " .... Current RP: " + resistancePoints);
+        }
+        else
+        {
+            _view.RPC("TakeDamage", RpcTarget.MasterClient, damage);
+        }
     }
 
+    [PunRPC]
     public void BeArrested()
     {
-        if (resistancePoints > 0) return;
-        Debug.Log("Damn, I've been arrested");
-        Destroy(gameObject);
+        if (_view.IsMine)
+        {
+            if (resistancePoints > 0) return;
+            Debug.Log("Damn, I've been arrested");
+            PhotonNetwork.Disconnect();
+        }
+        else
+        {
+            _view.RPC("BeArrested", RpcTarget.MasterClient);
+        }
     }
 
     public void SlowDown(float seconds)
     {
-        int ticks = (int) Math.Ceiling(seconds * 50);
+        int ticks = (int)Math.Ceiling(seconds * 50);
         if (ticks > slowDownTicks)
         {
             slowDownTicks = ticks;
         }
     }
-    
+
     // called when player is hit by lasso
     [PunRPC]
     public void OnLassoHit(float seconds)
@@ -118,10 +134,10 @@ public class VRPlayerController : MonoBehaviour
                 inputDevice.TryGetFeatureValue(UnityEngine.XR.CommonUsages.primary2DAxisClick, out bool sprinting);
                 _moveProvider.moveSpeed = sprinting ? VRSprintSpeed : VRWalkSpeed;
             }
-            
+
             inputDevice.TryGetFeatureValue(UnityEngine.XR.CommonUsages.primary2DAxis, out Vector2 move);
             bool walking = move.sqrMagnitude > 0.1;
-            
+
             if (_animator.GetBool("walking") != walking)
             {
                 SetIsWalking(walking);
