@@ -6,6 +6,7 @@ using TMPro;
 using UnityEngine.UI;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.InputSystem;
 
 public class MainMenu : MonoBehaviourPunCallbacks
 {
@@ -20,6 +21,15 @@ public class MainMenu : MonoBehaviourPunCallbacks
     {
         // Replace all letters with their uppercase variant
         roomNameField.onValidateInput += delegate (string s, int i, char c) { return char.ToUpper(c); };
+    }
+
+    public void Update()
+    {
+        // When RETURN is pressed, join the room
+        if (Keyboard.current.enterKey.wasPressedThisFrame || Keyboard.current.numpadEnterKey.wasPressedThisFrame)
+        {
+            this.JoinRoom();
+        }
     }
 
     public void OnRoomNameFieldValueChange(string value)
