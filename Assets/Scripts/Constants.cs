@@ -5,7 +5,8 @@ namespace DefaultNamespace
     {
         public const float GeneralCooldownAfterHit = 3f;
         public const float VRWalkSpeed = 2f;
-        public const float VRSprintSpeed = 4f;
+        public const float VRSprintSpeed = 3f;
+        public const float VRSlowedSpeed = 1f;
 
     }
 }

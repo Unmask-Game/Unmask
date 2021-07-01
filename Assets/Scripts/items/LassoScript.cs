@@ -42,7 +42,7 @@ public class LassoScript : Item
             {
                 PlayAnimation(playerAnimator, playerAudio);
                 view.RPC("PlayItemAnimationRemote", RpcTarget.Others);
-                objectHit.GetComponent<VRPlayerController>().BeSlowedDown(GeneralCooldownAfterHit);
+                objectHit.GetComponent<VRPlayerController>().OnLassoHit(GeneralCooldownAfterHit);
                 yield return new WaitForSeconds(0);
                 itemController.CooldownAllItems(AttackCooldownAfterHit, GeneralCooldownAfterHit);
                 yield return new WaitForSeconds(GeneralCooldownAfterHit);
