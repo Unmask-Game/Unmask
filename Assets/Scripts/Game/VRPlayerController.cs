@@ -17,6 +17,7 @@ public class VRPlayerController : MonoBehaviour
     private GameObject _camera;
     private Animator _animator;
     private ActionBasedContinuousMoveProvider _moveProvider;
+    private int slowDownTicks;
 
     // Start is called before the first frame update
     private void Awake()
@@ -72,11 +73,28 @@ public class VRPlayerController : MonoBehaviour
         Destroy(gameObject);
     }
 
-    // called when player is hit by lasso
-    public void BeSlowedDown(float time)
+    public void SlowDown(float seconds)
     {
-        StartCoroutine(DisplayRope(time));
-        Debug.Log("Damn, I've been slowed down");
+        int ticks = (int) Math.Ceiling(seconds * 50);
+        if (ticks > slowDownTicks)
+        {
+            slowDownTicks = ticks;
+        }
+    }
+    
+    // called when player is hit by lasso
+    [PunRPC]
+    public void OnLassoHit(float seconds)
+    {
+        StartCoroutine(DisplayRope(seconds));
+        if (_view.IsMine)
+        {
+            SlowDown(seconds);
+        }
+        else
+        {
+            _view.RPC("OnLassoHit", RpcTarget.MasterClient, seconds);
+        }
     }
 
     private IEnumerator DisplayRope(float time)
@@ -91,16 +109,22 @@ public class VRPlayerController : MonoBehaviour
         if (_view.IsMine)
         {
             var inputDevice = InputDevices.GetDeviceAtXRNode(XRNode.LeftHand);
-            inputDevice.TryGetFeatureValue(UnityEngine.XR.CommonUsages.primary2DAxisClick, out bool sprinting);
-            _moveProvider.moveSpeed = sprinting ? VRSprintSpeed : VRWalkSpeed;
-
+            if (--slowDownTicks > 0)
+            {
+                _moveProvider.moveSpeed = VRSlowedSpeed;
+            }
+            else
+            {
+                inputDevice.TryGetFeatureValue(UnityEngine.XR.CommonUsages.primary2DAxisClick, out bool sprinting);
+                _moveProvider.moveSpeed = sprinting ? VRSprintSpeed : VRWalkSpeed;
+            }
+            
             inputDevice.TryGetFeatureValue(UnityEngine.XR.CommonUsages.primary2DAxis, out Vector2 move);
             bool walking = move.sqrMagnitude > 0.1;
             
             if (_animator.GetBool("walking") != walking)
             {
                 SetIsWalking(walking);
-                Debug.Log("Set walking to: " + walking);
                 _view.RPC("SetIsWalking", RpcTarget.Others, walking);
             }
         }
