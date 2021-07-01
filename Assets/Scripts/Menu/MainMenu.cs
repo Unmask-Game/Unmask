@@ -10,12 +10,13 @@ using UnityEngine.InputSystem;
 
 public class MainMenu : MonoBehaviourPunCallbacks
 {
-
-    [SerializeField]
-    private TMP_InputField roomNameField;
+    public TMP_InputField roomNameField;
 
     [SerializeField]
     private Button joinRoomButton;
+
+    [SerializeField]
+    private ConnectingScreen _connectScreen;
 
     public void Start()
     {
@@ -40,23 +41,19 @@ public class MainMenu : MonoBehaviourPunCallbacks
 
     public void JoinRoom()
     {
-        if (PhotonNetwork.NetworkClientState != ClientState.Authenticating)
+        Debug.Log(PhotonNetwork.NetworkClientState);
+        if (!IsConnected())
         {
+            gameObject.SetActive(false);
+            _connectScreen.gameObject.SetActive(true);
             PhotonNetwork.NickName = SettingsManager.Instance.GetUsername();
             PhotonNetwork.ConnectUsingSettings();
         }
     }
 
-    public override void OnConnectedToMaster()
+    private bool IsConnected()
     {
-        Debug.Log("Joining room");
-        PhotonNetwork.JoinRoom(roomNameField.text);
-    }
-
-    public override void OnJoinedRoom()
-    {
-        Debug.Log("Joined room");
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        return PhotonNetwork.NetworkClientState != ClientState.Disconnected && PhotonNetwork.NetworkClientState != ClientState.PeerCreated;
     }
 
     public void Quit()
