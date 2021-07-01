@@ -3,6 +3,8 @@ using System.Collections;
 using Photon.Pun;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.XR;
+using UnityEngine.XR.Interaction.Toolkit;
 using static DefaultNamespace.Constants;
 
 public class VRPlayerController : MonoBehaviour
@@ -15,6 +17,7 @@ public class VRPlayerController : MonoBehaviour
     private GameObject _camera;
     private Animator _animator;
     private int _walking;
+    private ActionBasedContinuousMoveProvider _moveProvider;
 
     // Start is called before the first frame update
     private void Awake()
@@ -32,6 +35,9 @@ public class VRPlayerController : MonoBehaviour
             _xrRig = GameObject.FindGameObjectWithTag("XRRig");
             _controller = _xrRig.GetComponent<CharacterController>();
             _camera = _xrRig.transform.Find("Camera Offset").Find("Main Camera").gameObject;
+            _moveProvider = _xrRig.transform.Find("Locomotion System")
+                .GetComponent<ActionBasedContinuousMoveProvider>();
+            _moveProvider.moveSpeed = VRWalkSpeed;
 
             foreach (Transform child in transform)
             {
@@ -84,17 +90,21 @@ public class VRPlayerController : MonoBehaviour
     public void OnMoveAction(InputAction.CallbackContext context)
     {
         _walking = 5;
+       
     }
-
+    
     public void FixedUpdate()
     {
         if (_view.IsMine)
         {
+            var inputDevice = UnityEngine.XR.InputDevices.GetDeviceAtXRNode(XRNode.LeftHand);
+            inputDevice.TryGetFeatureValue(UnityEngine.XR.CommonUsages.primary2DAxisClick, out bool sprint);
+            _moveProvider.moveSpeed = sprint ? VRSprintSpeed : VRWalkSpeed;
+
             bool walking = _walking > 0;
             if (_animator.GetBool("walking") != walking)
             {
                 SetIsWalking(walking);
-                Debug.Log("Setting is walking: " + walking);
                 _view.RPC("SetIsWalking", RpcTarget.Others, walking);
             }
             if (walking)

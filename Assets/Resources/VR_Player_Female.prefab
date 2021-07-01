@@ -543,6 +543,10 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 59517498-bc3d-4e7b-b9e6-63926df1bdec
     m_ActionName: VR/Move
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 780f353e-2786-4347-a226-97c2b41d0ef4
+    m_ActionName: VR/Sprint
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: VR
