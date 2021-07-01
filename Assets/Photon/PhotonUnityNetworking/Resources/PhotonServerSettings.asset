@@ -45,6 +45,8 @@ MonoBehaviour:
   - SetItemRemote
   - PlayItemAnimationRemote
   - OnLassoHit
+  - BeArrested
+  - TakeDamage
   DisableAutoOpenWizard: 1
   ShowSettings: 0
   DevRegionSetOnce: 1

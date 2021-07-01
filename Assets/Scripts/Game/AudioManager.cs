@@ -10,6 +10,9 @@ public class AudioManager : MonoBehaviour
     [SerializeField]
     private AudioMixer audioMixer;
 
+    [SerializeField]
+    private AudioSource _audioSourceTemplate;
+
     private void Start()
     {
         foreach (var sound in Sounds)
@@ -20,6 +23,11 @@ public class AudioManager : MonoBehaviour
             soundSource.volume = sound.volume;
             soundSource.pitch = sound.pitch;
             soundSource.outputAudioMixerGroup = audioMixer.outputAudioMixerGroup;
+            soundSource.rolloffMode = AudioRolloffMode.Custom;
+            soundSource.spatialBlend = _audioSourceTemplate.spatialBlend;
+            soundSource.maxDistance = _audioSourceTemplate.maxDistance;
+            var customCurve = _audioSourceTemplate.GetCustomCurve(AudioSourceCurveType.CustomRolloff);
+            soundSource.SetCustomCurve(AudioSourceCurveType.CustomRolloff, customCurve);
         }
 
         // Apply sound volume from settings to master audio mixer
