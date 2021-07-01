@@ -16,7 +16,6 @@ public class VRPlayerController : MonoBehaviour
     private PhotonView _view;
     private GameObject _camera;
     private Animator _animator;
-    private int _walking;
     private ActionBasedContinuousMoveProvider _moveProvider;
 
     // Start is called before the first frame update
@@ -87,32 +86,24 @@ public class VRPlayerController : MonoBehaviour
         rope.SetActive(false);
     }
 
-    public void OnMoveAction(InputAction.CallbackContext context)
-    {
-        _walking = 5;
-       
-    }
-    
     public void FixedUpdate()
     {
         if (_view.IsMine)
         {
-            var inputDevice = UnityEngine.XR.InputDevices.GetDeviceAtXRNode(XRNode.LeftHand);
-            inputDevice.TryGetFeatureValue(UnityEngine.XR.CommonUsages.primary2DAxisClick, out bool sprint);
-            _moveProvider.moveSpeed = sprint ? VRSprintSpeed : VRWalkSpeed;
+            var inputDevice = InputDevices.GetDeviceAtXRNode(XRNode.LeftHand);
+            inputDevice.TryGetFeatureValue(UnityEngine.XR.CommonUsages.primary2DAxisClick, out bool sprinting);
+            _moveProvider.moveSpeed = sprinting ? VRSprintSpeed : VRWalkSpeed;
 
-            bool walking = _walking > 0;
+            inputDevice.TryGetFeatureValue(UnityEngine.XR.CommonUsages.primary2DAxis, out Vector2 move);
+            bool walking = move.sqrMagnitude > 0.1;
+            
             if (_animator.GetBool("walking") != walking)
             {
                 SetIsWalking(walking);
+                Debug.Log("Set walking to: " + walking);
                 _view.RPC("SetIsWalking", RpcTarget.Others, walking);
             }
-            if (walking)
-            {
-                _walking--;
-            }
         }
-
     }
 
     [PunRPC]
