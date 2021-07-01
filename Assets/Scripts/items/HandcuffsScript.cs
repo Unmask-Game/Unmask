@@ -1,6 +1,7 @@
 using System.Collections;
 using Photon.Pun;
 using UnityEngine;
+using static DefaultNamespace.Constants;
 
 public class HandcuffsScript : Item
 {
@@ -9,7 +10,7 @@ public class HandcuffsScript : Item
         itemName = ItemName.Handcuffs;
         itemType = ItemType.Arrest;
         Damage = 0;
-        Range = 0.2f;
+        Range = HandcuffsRange;
     }
 
     public override IEnumerator Attack(ItemController itemController, Camera cam, Animator playerAnimator,

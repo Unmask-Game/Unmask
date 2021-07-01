@@ -1,4 +1,5 @@
 using System.Collections;
+using DefaultNamespace;
 using Photon.Pun;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -10,7 +11,6 @@ public class LassoScript : Item
     private Transform _currentRopeEndPoint;
     private LineRenderer _lineRenderer;
     private bool _drawRope;
-    private const float GeneralCooldownAfterHit = 3f;
     private const float AttackCooldownAfterHit = 8f;
 
     private void Start()
@@ -18,7 +18,7 @@ public class LassoScript : Item
         itemName = ItemName.Lasso;
         itemType = ItemType.Arrest;
         Damage = 0;
-        Range = 1.4f;
+        Range = Constants.LassoRange;
         _lineRenderer = GetComponentInChildren<LineRenderer>();
         _lineRenderer.gameObject.SetActive(false);
     }
@@ -42,10 +42,10 @@ public class LassoScript : Item
             {
                 PlayAnimation(playerAnimator, playerAudio);
                 view.RPC("PlayItemAnimationRemote", RpcTarget.Others);
-                objectHit.GetComponent<VRPlayerController>().OnLassoHit(GeneralCooldownAfterHit);
+                objectHit.GetComponent<VRPlayerController>().OnLassoHit(Constants.GeneralCooldownAfterHit);
                 yield return new WaitForSeconds(0);
-                itemController.CooldownAllItems(AttackCooldownAfterHit, GeneralCooldownAfterHit);
-                yield return new WaitForSeconds(GeneralCooldownAfterHit);
+                itemController.CooldownAllItems(AttackCooldownAfterHit, Constants.GeneralCooldownAfterHit);
+                yield return new WaitForSeconds(Constants.GeneralCooldownAfterHit);
             }
         }
 
@@ -58,11 +58,11 @@ public class LassoScript : Item
     {
         playerAudio.Play("Lasso");
         _lineRenderer.gameObject.SetActive(true);
-        StartCoroutine(StopAnimation(GeneralCooldownAfterHit));
+        StartCoroutine(StopAnimation(Constants.GeneralCooldownAfterHit));
         var vrPlayer = GameObject.FindWithTag(VrPlayerTag);
         DrawRope(vrPlayer.transform);
     }
-    
+
     private IEnumerator StopAnimation(float time)
     {
         yield return new WaitForSeconds(time);
@@ -80,6 +80,6 @@ public class LassoScript : Item
     private void UpdateRope()
     {
         _lineRenderer.SetPosition(0, ropeStartingPoint.transform.position);
-        _lineRenderer.SetPosition(1, _currentRopeEndPoint.GetComponent<Collider>().bounds.center + new Vector3(0,-0.3f, 0));
+        _lineRenderer.SetPosition(1, _currentRopeEndPoint.GetComponent<Collider>().bounds.center + new Vector3(0, -0.3f, 0));
     }
 }

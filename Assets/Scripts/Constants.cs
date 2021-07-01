@@ -1,12 +1,18 @@
 namespace DefaultNamespace
 {
-    
+
     public class Constants
     {
-        public const float GeneralCooldownAfterHit = 3f;
+        /* Movement Constants */
         public const float VRWalkSpeed = 2f;
         public const float VRSprintSpeed = 3f;
         public const float VRSlowedSpeed = 1f;
 
+        /* Item Constats */
+        public const float GeneralCooldownAfterHit = 3f;
+        public const float LassoRange = 6;
+        public const float TaserRange = 3;
+        public const float BatonRange = 1.2F;
+        public const float HandcuffsRange = 0.8F;
     }
 }

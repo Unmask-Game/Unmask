@@ -1,16 +1,17 @@
 using System.Collections;
 using Photon.Pun;
 using UnityEngine;
+using static DefaultNamespace.Constants;
 
 public class BatonScript : Item
 {
-    
+
     private void Start()
     {
         itemName = ItemName.Baton;
         itemType = ItemType.Damage;
         Damage = 20;
-        Range = 0.7f;
+        Range = BatonRange;
     }
 
     public override IEnumerator Attack(ItemController itemController, Camera cam, Animator playerAnimator,
