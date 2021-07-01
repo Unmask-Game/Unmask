@@ -1,10 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
+using ParrelSync;
 using Photon.Pun;
 using UnityEngine;
 
 public class TestLobby : MonoBehaviourPunCallbacks
 {
+    
+    [SerializeField] private bool preferVR;
     void Start()
     {
         PhotonNetwork.NickName = Random.Range(0, 100).ToString();
@@ -43,6 +46,11 @@ public class TestLobby : MonoBehaviourPunCallbacks
 
     public void StartLobby()
     {
+        if (ClonesManager.GetArgument().Equals("vr"))
+        {
+            VRManager.Instance.StartXR();
+            VRManager.Instance.isVR = true;
+        }
         PhotonNetwork.LoadLevel(5);
     }
 }

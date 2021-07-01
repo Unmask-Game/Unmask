@@ -88,17 +88,21 @@ public class VRPlayerController : MonoBehaviour
 
     public void FixedUpdate()
     {
-        bool walking = _walking > 0;
-        if (_animator.GetBool("walking") != walking)
+        if (_view.IsMine)
         {
-            SetIsWalking(walking);
-            Debug.Log("Setting is walking: " + walking);
-            _view.RPC("SetIsWalking", RpcTarget.Others, walking);
+            bool walking = _walking > 0;
+            if (_animator.GetBool("walking") != walking)
+            {
+                SetIsWalking(walking);
+                Debug.Log("Setting is walking: " + walking);
+                _view.RPC("SetIsWalking", RpcTarget.Others, walking);
+            }
+            if (walking)
+            {
+                _walking--;
+            }
         }
-        if (walking)
-        {
-            _walking--;
-        }
+
     }
 
     [PunRPC]
