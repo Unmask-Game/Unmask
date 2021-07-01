@@ -66,6 +66,7 @@ public class ItemController : MonoBehaviour
                         var dropped = slot;
                         slot = _itemToBePickedUp;
                         slot.OnPickUp(itemPlace);
+                        OnTriggerExit(slot.itemCollider);
                         SetCurrentItem(ref slot);
                         if (!dropped.gameObject.activeSelf)
                         {
@@ -76,6 +77,7 @@ public class ItemController : MonoBehaviour
                     {
                         slot = _itemToBePickedUp;
                         slot.OnPickUp(itemPlace);
+                        OnTriggerExit(slot.itemCollider);
                         SetCurrentItem(ref slot);
                     }
 
@@ -108,7 +110,7 @@ public class ItemController : MonoBehaviour
                 self.rotation = parent.rotation;
 
                 spawnedItem.itemBody.isKinematic = true;
-                spawnedItem.itemCollider.isTrigger = false;
+                spawnedItem.ToggleCollider(false);
 
                 spawnedItem.animator.enabled = false;
                 spawnedItem.onGroundModel.SetActive(false);

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using DefaultNamespace;
 using Photon.Pun;
@@ -102,7 +103,7 @@ public abstract class Item : MonoBehaviour
         self.position = parent.position;
         self.rotation = parent.rotation;
         itemBody.isKinematic = true;
-        itemCollider.isTrigger = false;
+        ToggleCollider(false);
 
         animator.enabled = false;
         onGroundModel.SetActive(false);
@@ -119,10 +120,25 @@ public abstract class Item : MonoBehaviour
         self.rotation = originalRotation;
         self.localScale = originalScale;
         itemBody.isKinematic = false;
-        itemCollider.isTrigger = true;
+
+        ToggleCollider(true);
 
         animator.enabled = true;
         onGroundModel.SetActive(true);
         equippedModel.SetActive(false);
+    }
+
+    public void ToggleCollider(bool state)
+    {
+        if (state == false)
+        {
+            itemCollider.isTrigger = false;
+            itemCollider.enabled = false;
+        }
+        else
+        {
+            itemCollider.enabled = true;
+            itemCollider.isTrigger = true;
+        }
     }
 }
