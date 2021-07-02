@@ -1,13 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using DefaultNamespace;
 using Photon.Pun;
 using UnityEngine;
 
 public class NpcSpawner : MonoBehaviour
 {
     [SerializeField] private GameObject npcPrefab;
-    [SerializeField] private int npcCount;
 
     private List<BoxCollider> _floorTiles;
     private List<BoxCollider> _shopFloorTiles;
@@ -49,7 +49,7 @@ public class NpcSpawner : MonoBehaviour
         floorTiles.AddRange(_floorTiles);
         floorTiles.AddRange(_shopFloorTiles);
 
-        for (int i = npcCount - 1; i >= 0; i--)
+        for (int i = Constants.NpcCount - 1; i >= 0; i--)
         {
             if (floorTiles.Count == 0) return;
             int randomIndex = Random.Range(0, floorTiles.Count);

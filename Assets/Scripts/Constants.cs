@@ -16,5 +16,9 @@ namespace DefaultNamespace
         public const float TaserRange = 3;
         public const float BatonRange = 1.2F;
         public const float HandcuffsRange = 0.8F;
+
+        /* Game Constants */
+        public static int NpcCount = 100;
+        public static int MasksNeeded = 50;
     }
 }

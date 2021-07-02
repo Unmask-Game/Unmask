@@ -10,7 +10,7 @@ public class NpcController : MonoBehaviour
 {
 
     [SerializeField] private GameObject _mask;
-    
+
     private NavMeshAgent _navMeshAgent;
     private Animator _animator;
     private int _waiting;
@@ -73,8 +73,9 @@ public class NpcController : MonoBehaviour
     private void RemoveMaskRemote()
     {
         _mask.SetActive(false);
+        GameStateManager.Instance.MaskCollected();
     }
-    
+
     [PunRPC]
     private void SetPosition(Vector3 pos)
     {
