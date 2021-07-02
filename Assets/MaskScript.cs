@@ -10,6 +10,9 @@ public class MaskScript : MonoBehaviour
 
     [SerializeField] private GameObject _parentMask;
 
+    [SerializeField]
+    private AudioSource _audioSource;
+
     private Vector3 _worldPosition;
     private Vector3 _position;
     private Quaternion _rotation;
@@ -28,13 +31,14 @@ public class MaskScript : MonoBehaviour
     {
         if (_attached)
         {
-            Debug.Log("Rip: " + Vector3.Distance(gameObject.transform.position, _worldPosition) ); 
+            Debug.Log("Rip: " + Vector3.Distance(gameObject.transform.position, _worldPosition));
         }
 
         if (_attached && Vector3.Distance(gameObject.transform.position, _worldPosition) > 0.5)
         {
-            
+
             _parentMask.SetActive(false);
+            _audioSource.Play();
         }
     }
 
