@@ -8,10 +8,13 @@ using Random = UnityEngine.Random;
 
 public class NpcController : MonoBehaviour
 {
+
+    [SerializeField] private GameObject _mask;
+    
     private NavMeshAgent _navMeshAgent;
     private Animator _animator;
     private int _waiting;
-    public bool isWalking;
+    private bool isWalking;
 
     private PhotonView _view;
 
@@ -61,6 +64,17 @@ public class NpcController : MonoBehaviour
         }
     }
 
+    public void RemoveMask()
+    {
+        _view.RPC("RemoveMaskRemote", RpcTarget.All);
+    }
+
+    [PunRPC]
+    private void RemoveMaskRemote()
+    {
+        _mask.SetActive(false);
+    }
+    
     [PunRPC]
     private void SetPosition(Vector3 pos)
     {

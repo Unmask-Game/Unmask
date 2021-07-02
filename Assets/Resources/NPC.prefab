@@ -43,7 +43,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _npcController: {fileID: 1009608965859824292}
-  _parentMask: {fileID: 6536351894796575323}
   _audioSource: {fileID: 6025577077411887491}
 --- !u!114 &8237880468950856709
 MonoBehaviour:
@@ -671,7 +670,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a8916952412ce946a01f8a121464006, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isWalking: 0
+  _mask: {fileID: 6536351894796575323}
 --- !u!114 &-1765218559391716490
 MonoBehaviour:
   m_ObjectHideFlags: 0

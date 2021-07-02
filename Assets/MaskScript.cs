@@ -8,8 +8,6 @@ public class MaskScript : MonoBehaviour
     [SerializeField]
     private NpcController _npcController;
 
-    [SerializeField] private GameObject _parentMask;
-
     [SerializeField]
     private AudioSource _audioSource;
 
@@ -41,7 +39,7 @@ public class MaskScript : MonoBehaviour
 
         if (_attached && Vector3.Distance(_attachTransform.position, _attachStartPosition) > 0.5)
         {
-            _parentMask.SetActive(false);
+            _npcController.RemoveMask();
             _audioSource.Play();
             Detach();
         }
