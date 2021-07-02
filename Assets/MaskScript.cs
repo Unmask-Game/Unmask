@@ -39,6 +39,7 @@ public class MaskScript : MonoBehaviour
 
             _parentMask.SetActive(false);
             _audioSource.Play();
+            _attached = false;
         }
     }
 
