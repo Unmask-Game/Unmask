@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using DefaultNamespace;
 using Photon.Pun;
 using UnityEngine;
 using UnityEngine.AI;
@@ -102,7 +103,7 @@ public class NpcController : MonoBehaviour
                 {
                     if (!_navMeshAgent.hasPath || _navMeshAgent.velocity.sqrMagnitude == 0f)
                     {
-                        _waiting = Random.Range(50, 150);
+                        _waiting = Random.Range(Constants.NpcMinWaitTime, Random.Range(Constants.NpcMinWaitTime, Constants.NpcMaxWaitTime));
                     }
                 }
             }
