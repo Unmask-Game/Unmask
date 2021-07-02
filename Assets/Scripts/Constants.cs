@@ -7,6 +7,8 @@ namespace DefaultNamespace
         public const float VRWalkSpeed = 2f;
         public const float VRSprintSpeed = 3f;
         public const float VRSlowedSpeed = 1f;
+        public const float DesktopWalkSpeed = 1.5f;
+        public const float DesktopSprintSpeed = 2.5f;
 
         /* Item Constats */
         public const float GeneralCooldownAfterHit = 3f;

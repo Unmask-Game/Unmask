@@ -41,6 +41,7 @@ public class PoliceAnimationController : MonoBehaviour
         else
         {
             animator.SetBool("walking", _movement.isWalking);
+            animator.SetBool("walking_no_baton", false);
         }
     }
 }
