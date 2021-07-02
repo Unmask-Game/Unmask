@@ -11,6 +11,7 @@ public class NpcSpawner : MonoBehaviour
 
     private List<BoxCollider> _floorTiles;
     private List<BoxCollider> _shopFloorTiles;
+    private Queue<NpcController> _npcControllers = new Queue<NpcController>();
 
     private static NpcSpawner _instance;
 
@@ -54,7 +55,8 @@ public class NpcSpawner : MonoBehaviour
             if (floorTiles.Count == 0) return;
             int randomIndex = Random.Range(0, floorTiles.Count);
             BoxCollider collider = floorTiles[randomIndex];
-            PhotonNetwork.Instantiate(npcPrefab.name, RandomPointInBounds(collider.bounds), Quaternion.Euler(0, Random.Range(0, 360), 0));
+            GameObject npc = PhotonNetwork.Instantiate(npcPrefab.name, RandomPointInBounds(collider.bounds), Quaternion.Euler(0, Random.Range(0, 360), 0));
+            _npcControllers.Enqueue(npc.GetComponent<NpcController>());
             floorTiles.RemoveAt(randomIndex);
         }
     }
@@ -76,7 +78,13 @@ public class NpcSpawner : MonoBehaviour
         );
     }
 
-    void Update()
+    void FixedUpdate()
     {
+        if (_npcControllers.Count > 0)
+        {
+            NpcController npc = _npcControllers.Dequeue();
+            npc.SyncPosition();
+            _npcControllers.Enqueue(npc);
+        }
     }
 }

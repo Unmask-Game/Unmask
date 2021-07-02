@@ -29,7 +29,6 @@ public class NpcController : MonoBehaviour
         if (_view.IsMine)
         {
             CalculateNewPath();
-            StartCoroutine(SyncPosition());
         }
     }
 
@@ -56,13 +55,9 @@ public class NpcController : MonoBehaviour
         _navMeshAgent.isStopped = false;
     }
 
-    private IEnumerator SyncPosition()
+    public void SyncPosition()
     {
-        for (; ; )
-        {
-            _view.RPC("SetPosition", RpcTarget.Others, transform.position);
-            yield return new WaitForSeconds(3);
-        }
+        _view.RPC("SetPosition", RpcTarget.Others, transform.position);
     }
 
     public void RemoveMask()
