@@ -13,17 +13,21 @@ public class MaskScript : MonoBehaviour
     [SerializeField]
     private AudioSource _audioSource;
 
-    private Vector3 _worldPosition;
-    private Vector3 _position;
-    private Quaternion _rotation;
+    /* Set to initial local position */
+    private Vector3 _localOriginPosition;
+    private Quaternion _localOriginRotation;
 
+    /* To be set when attached to controller */
     private bool _attached;
+    private Transform _attachTransform;
+    private Vector3 _attachStartPosition;
+    private Vector3 _attachOffset;
 
     // Start is called before the first frame update
     void Start()
     {
-        _position = gameObject.transform.localPosition;
-        _rotation = gameObject.transform.localRotation;
+        _localOriginPosition = gameObject.transform.localPosition;
+        _localOriginRotation = gameObject.transform.localRotation;
     }
 
     // Update is called once per frame
@@ -31,34 +35,50 @@ public class MaskScript : MonoBehaviour
     {
         if (_attached)
         {
-            Debug.Log("Rip: " + Vector3.Distance(gameObject.transform.position, _worldPosition));
+            // Debug.Log("attach position: " + _attachTransform.position + "; attachOffset: " + _attachOffset);
+            gameObject.transform.transform.position = _attachTransform.position + _attachOffset;
         }
 
-        if (_attached && Vector3.Distance(gameObject.transform.position, _worldPosition) > 0.5)
+        if (_attached && Vector3.Distance(_attachTransform.position, _attachStartPosition) > 0.5)
         {
-
             _parentMask.SetActive(false);
             _audioSource.Play();
-            _attached = false;
+            Detach();
         }
     }
 
     public void OnGrab(SelectEnterEventArgs args)
     {
         _attached = true;
-        Debug.Log("Grabed a Maks!");
         _npcController.StopWalking();
-        _worldPosition = transform.position;
+
+        // Assign attachment point
+        _attachStartPosition = transform.position;
+        _attachTransform = args.interactor.transform;
+        _attachOffset = gameObject.transform.transform.position - _attachTransform.position;
+
+        Debug.Log("Grabbed a Mask!");
     }
 
     public void OnRelease(SelectExitEventArgs args)
     {
+        Detach();
+        Debug.Log("Released a Mask!");
+    }
+
+    private void Detach()
+    {
         _attached = false;
-        Debug.Log("Release those Maks!");
+
+        // Reset Velocity
         gameObject.GetComponent<Rigidbody>().velocity = Vector3.zero;
-        gameObject.transform.localPosition = _position;
         gameObject.GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
-        gameObject.transform.localRotation = _rotation;
+
+        // Reset Position
+        gameObject.transform.localPosition = _localOriginPosition;
+        gameObject.transform.localRotation = _localOriginRotation;
+
+        // Resume NPC Pathfinding
         _npcController.ResumeWalking();
     }
 }

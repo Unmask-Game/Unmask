@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class TestLobby : MonoBehaviourPunCallbacks
 {
-    
+
     [SerializeField] private bool preferVR;
     void Start()
     {
@@ -46,7 +46,7 @@ public class TestLobby : MonoBehaviourPunCallbacks
 
     public void StartLobby()
     {
-        if (ClonesManager.GetArgument().Equals("vr"))
+        if (ClonesManager.GetArgument().Equals("vr") || preferVR)
         {
             VRManager.Instance.StartXR();
             VRManager.Instance.isVR = true;
