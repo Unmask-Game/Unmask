@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using DefaultNamespace;
 using Photon.Pun;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -23,7 +24,7 @@ public class VRPlayerController : MonoBehaviour
     private void Awake()
     {
         rope.SetActive(false);
-        resistancePoints = 100;
+        resistancePoints = Constants.ThiefResistancePoints;
     }
 
     private void Start()
@@ -150,5 +151,10 @@ public class VRPlayerController : MonoBehaviour
     public void SetIsWalking(Boolean walking)
     {
         _animator.SetBool("walking", walking);
+    }
+
+    public float GetResistancePointsPercentile()
+    {
+        return (float)resistancePoints / Constants.ThiefResistancePoints;
     }
 }

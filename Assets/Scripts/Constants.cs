@@ -18,6 +18,7 @@ namespace DefaultNamespace
         public const float HandcuffsRange = 0.8F;
 
         /* Game Constants */
+        public static int ThiefResistancePoints = 100;
         public static int MasksNeeded = 50;
 
         /* NPC Constants */
