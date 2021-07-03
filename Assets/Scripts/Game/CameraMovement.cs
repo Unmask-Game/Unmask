@@ -1,3 +1,4 @@
+using Photon.Pun;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -19,9 +20,12 @@ public class CameraMovement : MonoBehaviour
 
     private void Awake()
     {
-        // Hiding Mouse Cursor
-        _cursorIsLocked = true;
-        Cursor.lockState = CursorLockMode.Locked;
+        // Hiding Mouse Cursor for non-VR players
+        if (!PhotonNetwork.IsMasterClient)
+        {
+            _cursorIsLocked = true;
+            Cursor.lockState = CursorLockMode.Locked;
+        }
         transform.localRotation = Quaternion.Euler(0, 0, 0);
         this.sensitivity = SettingsManager.Instance.GetMouseSensitivity();
     }

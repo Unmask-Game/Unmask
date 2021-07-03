@@ -9,7 +9,7 @@ public class GameStateManager
 {
     private static GameStateManager _instance = new GameStateManager();
     public bool hasEnded;
-    
+
     public static GameStateManager Instance
     {
         get { return _instance; }
@@ -41,6 +41,7 @@ public class GameStateManager
             GameObject.FindGameObjectWithTag(Tags.XrRig).GetComponent<GameOverScript>()
                 .ActivateGameOverScreen(vrHasWon);
         }
+        Cursor.lockState = CursorLockMode.None;
     }
 
     public void MaskCollected()
@@ -56,6 +57,6 @@ public class GameStateManager
 
     public float GetCollectedMasksPercentile()
     {
-        return (float) collectedMasks / Constants.MasksNeeded;
+        return (float)collectedMasks / Constants.MasksNeeded;
     }
 }
