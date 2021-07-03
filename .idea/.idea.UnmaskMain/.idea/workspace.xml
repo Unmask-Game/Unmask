@@ -5,10 +5,24 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="acff330c-2da0-45c6-9754-586aa4bd4237" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Game/HUD/GameOverScript.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Game/HUD/GameOverScript.cs.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.UnmaskMain/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.UnmaskMain/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Player.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Player.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Game/ItemController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Game/ItemController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/items/Item.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/items/Item.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Photon/PhotonUnityNetworking/Code/PhotonNetwork.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Photon/PhotonUnityNetworking/Code/PhotonNetwork.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Photon/PhotonUnityNetworking/Resources/PhotonServerSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Photon/PhotonUnityNetworking/Resources/PhotonServerSettings.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Police.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Police.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Game.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Game.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Room.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Room.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Setup.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Setup.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/VRRoom.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/VRRoom.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Constants.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Constants.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Game/GameStateManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Game/GameStateManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Game/HUD/HUDController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Game/HUD/HUDController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Game/NpcSpawner.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Game/NpcSpawner.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Game/VRPlayerController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Game/VRPlayerController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Menu/RoomMenu.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Menu/RoomMenu.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Tags.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Tags.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectSettings/TagManager.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/TagManager.asset" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -31,6 +45,7 @@
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.inputsystem@1.0.2/InputSystem/Utilities/DelegateHelpers.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../UnmaskMain_clone_0/Assets/Scripts/Game/PoliceAnimationController.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Game/VRPlayerController.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../UnmaskMain_clone_0/Assets/Photon/PhotonUnityNetworking/Code/PhotonNetworkPart.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Game/PoliceSoundController.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/VRController.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
@@ -38,16 +53,13 @@
     <changedPaths>
       <option value="$PROJECT_DIR$/Assets/Scripts/PoliceMovement.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/CameraMovement.cs" />
-      <option value="$PROJECT_DIR$/Assets/Photon/PhotonUnityNetworking/Code/PhotonNetwork.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/Game/AudioManager.cs" />
       <option value="$PROJECT_DIR$/Assets/SpawnPlayers.cs" />
-      <option value="$PROJECT_DIR$/Assets/Scripts/Game/NpcSpawner.cs" />
       <option value="$PROJECT_DIR$/Assets/Photon/PhotonUnityNetworking/Code/Views/PhotonAnimatorView.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/Game/PhotonCustomAnimatorView.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/Game/PoliceSoundController.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/Game/PoliceAnimationController.cs" />
       <option value="$PROJECT_DIR$/Assets/TestLobby.cs" />
-      <option value="$PROJECT_DIR$/Assets/Scripts/Game/NpcController.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/VRManager.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/SpawnPlayers.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/PlayerSpawner.cs" />
@@ -55,16 +67,23 @@
       <option value="$PROJECT_DIR$/Assets/Scripts/Game/PoliceMovement.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/ItemSpawner.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/Game/PhotonPlayerManager.cs" />
-      <option value="$PROJECT_DIR$/Assets/Scripts/Constants.cs" />
-      <option value="$PROJECT_DIR$/Assets/Scripts/Tags.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/Setup.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/items/BatonScript.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/items/TaserScript.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/items/HandcuffsScript.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/items/LassoScript.cs" />
-      <option value="$PROJECT_DIR$/Assets/Scripts/Game/VRPlayerController.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/Game/ItemController.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/items/Item.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/Game/HUD/HUDController.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/Game/VRPlayerController.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/Tags.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/Constants.cs" />
+      <option value="$PROJECT_DIR$/Assets/Photon/PhotonUnityNetworking/Code/PhotonNetwork.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/Game/NpcController.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/Game/NpcSpawner.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/Game/HUD/GameOverScript.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/Game/GameStateManager.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/Menu/RoomMenu.cs" />
     </changedPaths>
   </component>
   <component name="ProjectId" id="1uaTzDJaNw9vDnQSDO78aL55fzw" />
@@ -114,6 +133,8 @@
       <workItem from="1624914930734" duration="9256000" />
       <workItem from="1624998334821" duration="10061000" />
       <workItem from="1625089730161" duration="5344000" />
+      <workItem from="1625262680027" duration="6591000" />
+      <workItem from="1625269997863" duration="5912000" />
     </task>
     <servers />
   </component>

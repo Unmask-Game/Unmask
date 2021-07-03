@@ -24,7 +24,7 @@ public class HUDController : MonoBehaviour
         messagePanel.SetActive(false);
         DeselectAllSlots();
     }
-
+    
     public void OpenMessagePanel()
     {
         messagePanel.SetActive(true);

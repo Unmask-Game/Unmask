@@ -4,6 +4,7 @@ using System.Linq;
 using DefaultNamespace;
 using Photon.Pun;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class NpcSpawner : MonoBehaviour
 {
@@ -80,7 +81,7 @@ public class NpcSpawner : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (_npcControllers.Count > 0)
+        if (_npcControllers.Count > 0 && !GameStateManager.Instance.hasEnded)
         {
             NpcController npc = _npcControllers.Dequeue();
             npc.SyncPosition();

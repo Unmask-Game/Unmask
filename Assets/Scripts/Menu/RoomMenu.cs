@@ -4,20 +4,32 @@ using Photon.Pun;
 using Photon.Realtime;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class RoomMenu : MonoBehaviourPunCallbacks
 {
     [SerializeField] private TMP_Text roomCodeText;
+    [SerializeField] private Button startButton;
+    private PhotonView _view;
 
     private GameObject[] playerNames;
     void Start()
     {
+        Time.timeScale = 1;
+        _view = GetComponent<PhotonView>();
         roomCodeText.text = PhotonNetwork.CurrentRoom.Name;
         playerNames = GameObject.FindGameObjectsWithTag("PlayerName");
         drawPlayers();
-        PhotonNetwork.AutomaticallySyncScene = true;
+        PhotonNetwork.AutomaticallySyncScene = false;
     }
-    
+
+    [PunRPC]
+    public void StartRemote()
+    {
+        GameStateManager.Instance.StartGame();
+        PhotonNetwork.LoadLevel(5);
+    }
+
     public override void OnPlayerEnteredRoom(Player newPlayer)
     {
         Debug.Log(newPlayer.NickName + " joined!");
@@ -31,7 +43,7 @@ public class RoomMenu : MonoBehaviourPunCallbacks
 
     public void StartGame()
     {
-        PhotonNetwork.LoadLevel(5);
+        _view.RPC("StartRemote",RpcTarget.All);
     }
 
     void drawPlayers()

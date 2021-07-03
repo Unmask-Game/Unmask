@@ -82,12 +82,18 @@ public class VRPlayerController : MonoBehaviour
         {
             if (resistancePoints > 0) return;
             Debug.Log("Damn, I've been arrested");
-            PhotonNetwork.Disconnect();
+            _view.RPC("BeArrestedRemote", RpcTarget.All);
         }
         else
         {
             _view.RPC("BeArrested", RpcTarget.MasterClient);
         }
+    }
+
+    [PunRPC]
+    public void BeArrestedRemote()
+    {
+        GameStateManager.Instance.EndGame(false);
     }
 
     public void SlowDown(float seconds)

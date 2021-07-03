@@ -2960,7 +2960,6 @@ namespace Photon.Pun
         /// </param>
         public static void LoadLevel(int levelNumber)
         {
-       
             if (PhotonHandler.AppQuits)
             {
                 return;
