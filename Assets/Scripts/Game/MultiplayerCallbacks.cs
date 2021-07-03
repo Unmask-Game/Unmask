@@ -32,18 +32,25 @@ public class MultiplayerCallbacks : MonoBehaviourPunCallbacks
     public override void OnDisconnected(DisconnectCause cause)
     {
         Debug.Log("On Disconnected");
-        this.LoadMainMenu();
+        this.LoadMainMenu("Connection to server lost.");
     }
 
     public override void OnMasterClientSwitched(Player newMasterClient)
     {
         Debug.Log("On Master Client Switched");
-        this.LoadMainMenu();
+        this.LoadMainMenu("The VR Player disconnected.");
     }
 
-    private void LoadMainMenu()
+    private void LoadMainMenu(string reason)
     {
         PhotonNetwork.Disconnect();
+
+        // We do not want to override the initial disconnect reason, if there are multiple
+        if (ConnectingScreen.DisconnectReason == null)
+        {
+            ConnectingScreen.DisconnectReason = reason;
+        }
+
         Cursor.lockState = CursorLockMode.None;
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 2);
     }

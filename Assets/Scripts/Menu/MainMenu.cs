@@ -22,6 +22,12 @@ public class MainMenu : MonoBehaviourPunCallbacks
     {
         // Replace all letters with their uppercase variant
         roomNameField.onValidateInput += delegate (string s, int i, char c) { return char.ToUpper(c); };
+
+        // Was the menu scene loaded unexcpectedly? (eg. on Disconnect)
+        if (ConnectingScreen.DisconnectReason != null)
+        {
+            ShowConnectScreen();
+        }
     }
 
     public void Update()
@@ -44,11 +50,16 @@ public class MainMenu : MonoBehaviourPunCallbacks
         Debug.Log(PhotonNetwork.NetworkClientState);
         if (!IsConnected())
         {
-            gameObject.SetActive(false);
-            _connectScreen.gameObject.SetActive(true);
+            ShowConnectScreen();
             PhotonNetwork.NickName = SettingsManager.Instance.GetUsername();
             PhotonNetwork.ConnectUsingSettings();
         }
+    }
+
+    private void ShowConnectScreen()
+    {
+        gameObject.SetActive(false);
+        _connectScreen.gameObject.SetActive(true);
     }
 
     private bool IsConnected()

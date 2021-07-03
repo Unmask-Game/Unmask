@@ -8,6 +8,8 @@ using UnityEngine.UI;
 
 public class ConnectingScreen : MonoBehaviourPunCallbacks
 {
+    public static string DisconnectReason;
+
     [SerializeField]
     private MainMenu _mainMenu;
 
@@ -16,6 +18,16 @@ public class ConnectingScreen : MonoBehaviourPunCallbacks
 
     [SerializeField]
     private TMP_Text _connectingText;
+
+    private void Start()
+    {
+        // This is used by other scenes to display a custom disconnect reason
+        if (DisconnectReason != null)
+        {
+            Disconnected(DisconnectReason);
+            DisconnectReason = null;
+        }
+    }
 
     public override void OnConnectedToMaster()
     {
@@ -33,10 +45,15 @@ public class ConnectingScreen : MonoBehaviourPunCallbacks
     public override void OnJoinRoomFailed(short returnCode, string message)
     {
         Debug.Log("Join Room Failed: " + message);
-        // Show ok button and fail reson
-        _connectingText.text = message;
-        _okButton.gameObject.SetActive(true);
+        Disconnected(message);
         PhotonNetwork.Disconnect();
+    }
+
+    private void Disconnected(string reason)
+    {
+        // Show ok button and fail reson
+        _connectingText.text = reason;
+        _okButton.gameObject.SetActive(true);
     }
 
     public void PressOK()

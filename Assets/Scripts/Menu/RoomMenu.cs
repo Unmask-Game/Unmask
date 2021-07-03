@@ -19,7 +19,7 @@ public class RoomMenu : MonoBehaviourPunCallbacks
         _view = GetComponent<PhotonView>();
         roomCodeText.text = PhotonNetwork.CurrentRoom.Name;
         playerNames = GameObject.FindGameObjectsWithTag("PlayerName");
-        drawPlayers();
+        DrawPlayers();
         PhotonNetwork.AutomaticallySyncScene = false;
     }
 
@@ -33,26 +33,60 @@ public class RoomMenu : MonoBehaviourPunCallbacks
     public override void OnPlayerEnteredRoom(Player newPlayer)
     {
         Debug.Log(newPlayer.NickName + " joined!");
-        drawPlayers();
+        DrawPlayers();
     }
 
     public override void OnPlayerLeftRoom(Player otherPlayer)
     {
-        drawPlayers();
+        DrawPlayers();
     }
 
     public void StartGame()
     {
-        _view.RPC("StartRemote",RpcTarget.All);
+        _view.RPC("StartRemote", RpcTarget.All);
     }
 
-    void drawPlayers()
+    public override void OnMasterClientSwitched(Player newMasterClient)
+    {
+        // When the original Master Client disconnects, the room should be closed.
+        Debug.Log("Master disconnected");
+        ConnectingScreen.DisconnectReason = "The room was closed.";
+        PhotonNetwork.Disconnect();
+        PhotonNetwork.LoadLevel("Menu");
+    }
+
+    public void QuitRoom()
+    {
+        Debug.Log("Quit Room");
+        PhotonNetwork.Disconnect();
+
+        // If the Room is left, show back menu screen
+        if (PhotonNetwork.IsMasterClient)
+        {
+            Debug.Log("master quit");
+            PhotonNetwork.LoadLevel("VRMenu");
+        }
+        else
+        {
+            Debug.Log("slave quit");
+            PhotonNetwork.LoadLevel("Menu");
+        }
+    }
+
+    void DrawPlayers()
     {
         int index = 0;
+        // Put playernames in the text boxes
         foreach (var player in PhotonNetwork.CurrentRoom.Players)
         {
             playerNames[index].GetComponent<TMP_Text>().text = player.Value.NickName;
             index++;
+        }
+
+        // Clear other text boxes
+        for (int i = index; i < playerNames.Length; i++)
+        {
+            playerNames[index].GetComponent<TMP_Text>().text = "";
         }
     }
 }
