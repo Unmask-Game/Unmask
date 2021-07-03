@@ -9,9 +9,10 @@ using Random = UnityEngine.Random;
 
 public class NpcController : MonoBehaviour
 {
+    public NpcSpawner NpcSpawner;
 
     [SerializeField] private GameObject _mask;
-
+    
     private NavMeshAgent _navMeshAgent;
     private Animator _animator;
     private int _waiting;
@@ -114,7 +115,7 @@ public class NpcController : MonoBehaviour
 
     private void CalculateNewPath()
     {
-        var destination = NpcSpawner.Instance.RandomShopFloorTile(gameObject.transform.position);
+        var destination = NpcSpawner.RandomShopFloorTile(gameObject.transform.position);
         _navMeshAgent.destination = destination;
         _view.RPC("SetDestination", RpcTarget.Others, transform.position, destination);
     }

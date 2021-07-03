@@ -14,24 +14,8 @@ public class NpcSpawner : MonoBehaviour
     private List<BoxCollider> _shopFloorTiles;
     private Queue<NpcController> _npcControllers = new Queue<NpcController>();
 
-    private static NpcSpawner _instance;
 
-    public static NpcSpawner Instance
-    {
-        get { return _instance; }
-    }
-
-    void Awake()
-    {
-        if (_instance != null && _instance != this)
-            gameObject.SetActive(false);
-        else
-        {
-            _instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-    }
-
+    
     void Start()
     {
         List<GameObject> floorTiles = GameObject.FindGameObjectsWithTag("Floor").ToList();
@@ -57,6 +41,7 @@ public class NpcSpawner : MonoBehaviour
             int randomIndex = Random.Range(0, floorTiles.Count);
             BoxCollider collider = floorTiles[randomIndex];
             GameObject npc = PhotonNetwork.Instantiate(npcPrefab.name, RandomPointInBounds(collider.bounds), Quaternion.Euler(0, Random.Range(0, 360), 0));
+            npc.GetComponent<NpcController>().NpcSpawner = this;
             _npcControllers.Enqueue(npc.GetComponent<NpcController>());
             floorTiles.RemoveAt(randomIndex);
         }

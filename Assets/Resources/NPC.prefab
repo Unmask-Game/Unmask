@@ -670,6 +670,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a8916952412ce946a01f8a121464006, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  NpcSpawner: {fileID: 0}
   _mask: {fileID: 6536351894796575323}
 --- !u!114 &-1765218559391716490
 MonoBehaviour:
