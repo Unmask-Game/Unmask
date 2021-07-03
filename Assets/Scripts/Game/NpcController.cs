@@ -12,7 +12,7 @@ public class NpcController : MonoBehaviour
     public NpcSpawner NpcSpawner;
 
     [SerializeField] private GameObject _mask;
-    
+
     private NavMeshAgent _navMeshAgent;
     private Animator _animator;
     private int _waiting;
@@ -76,7 +76,7 @@ public class NpcController : MonoBehaviour
     [PunRPC]
     private void SetPosition(Vector3 pos)
     {
-        if (Vector3.Distance(transform.position, pos) > 2)
+        if (Vector3.Distance(transform.position, pos) > 1 && !GetComponentInChildren<Renderer>().isVisible)
         {
             transform.position = pos;
         }

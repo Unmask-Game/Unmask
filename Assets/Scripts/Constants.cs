@@ -20,7 +20,7 @@ namespace DefaultNamespace
         /* Game Constants */
         public static int ThiefResistancePoints = 0;
         public static int MasksNeeded = 50;
-        public static float WaitAfterGameOver= 7.5f;
+        public static float WaitAfterGameOver = 7.5f;
 
         /* NPC Constants */
         public static int NpcCount = 100;
