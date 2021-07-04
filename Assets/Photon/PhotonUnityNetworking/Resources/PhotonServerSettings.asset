@@ -56,6 +56,7 @@ MonoBehaviour:
   - OnBatonHitRemote
   - OnTaserHitRemote
   - TakeDamageRemote
+  - OnLassoHitRemote
   DisableAutoOpenWizard: 1
   ShowSettings: 0
   DevRegionSetOnce: 1
