@@ -53,6 +53,8 @@ MonoBehaviour:
   - Test
   - StartRemote
   - randomizeRacks
+  - OnBatonHitRemote
+  - OnTaserHitRemote
   DisableAutoOpenWizard: 1
   ShowSettings: 0
   DevRegionSetOnce: 1

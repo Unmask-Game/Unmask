@@ -11,6 +11,10 @@ using static DefaultNamespace.Constants;
 public class VRPlayerController : MonoBehaviour
 {
     [SerializeField] private GameObject rope;
+    [SerializeField] private ParticleSystem electricity;
+    [SerializeField] private AudioManager audioManager;
+    private AudioSource _batonHitSound;
+    private AudioSource _taserHitSound;
     public int resistancePoints;
     private CharacterController _controller;
     private GameObject _xrRig;
@@ -20,7 +24,6 @@ public class VRPlayerController : MonoBehaviour
     private ActionBasedContinuousMoveProvider _moveProvider;
     private int slowDownTicks;
 
-    // Start is called before the first frame update
     private void Awake()
     {
         rope.SetActive(false);
@@ -56,25 +59,57 @@ public class VRPlayerController : MonoBehaviour
     {
         if (VRManager.Instance.isVR && _view.IsMine)
         {
-            transform.position = _xrRig.transform.position + _xrRig.transform.rotation * _controller.center + new Vector3(0, -(_controller.height / 2), 0);
-            transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles.x, _camera.transform.rotation.eulerAngles.y, transform.rotation.eulerAngles.z);
+            transform.position = _xrRig.transform.position + _xrRig.transform.rotation * _controller.center +
+                                 new Vector3(0, -(_controller.height / 2), 0);
+            transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles.x,
+                _camera.transform.rotation.eulerAngles.y, transform.rotation.eulerAngles.z);
         }
     }
 
     [PunRPC]
-    public void TakeDamage(int damage)
+    public void TakeDamage(int damage, Item.ItemName causedBy)
     {
         if (_view.IsMine)
         {
             resistancePoints -= damage;
-            Debug.Log("Damn, I got hit for -" + damage + " .... Current RP: " + resistancePoints);
         }
         else
         {
-            _view.RPC("TakeDamage", RpcTarget.MasterClient, damage);
+            _view.RPC("TakeDamage", RpcTarget.MasterClient, damage, causedBy);
+            if (causedBy == Item.ItemName.Baton)
+            {
+                _view.RPC("OnBatonHitRemote", RpcTarget.All);
+            }
+            else if (causedBy == Item.ItemName.Taser)
+            {
+                _view.RPC("OnTaserHitRemote", RpcTarget.All);
+            }
         }
     }
 
+    [PunRPC]
+    public void OnBatonHitRemote()
+    {
+        if (!_batonHitSound)
+        {
+            _batonHitSound = audioManager.GetSound("Oof");
+        }
+
+        _batonHitSound.Play();
+    }
+
+    [PunRPC]
+    public void OnTaserHitRemote()
+    {
+        if (!_taserHitSound)
+        {
+            _taserHitSound = audioManager.GetSound("Buzz");
+        }
+        _taserHitSound.Play();
+        electricity.Play();
+    }
+
+    // called when player is hit by handcuffs
     [PunRPC]
     public void BeArrested()
     {
@@ -98,7 +133,7 @@ public class VRPlayerController : MonoBehaviour
 
     public void SlowDown(float seconds)
     {
-        int ticks = (int)Math.Ceiling(seconds * 50);
+        int ticks = (int) Math.Ceiling(seconds * 50);
         if (ticks > slowDownTicks)
         {
             slowDownTicks = ticks;
@@ -161,6 +196,6 @@ public class VRPlayerController : MonoBehaviour
 
     public float GetResistancePointsPercentile()
     {
-        return (float)resistancePoints / Constants.ThiefResistancePoints;
+        return (float) resistancePoints / Constants.ThiefResistancePoints;
     }
 }

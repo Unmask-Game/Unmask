@@ -1,6 +1,4 @@
-using System;
 using System.Collections;
-using DefaultNamespace;
 using Photon.Pun;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -80,7 +78,7 @@ public abstract class Item : MonoBehaviour
             var objectHit = hit.collider.gameObject;
             if (objectHit.CompareTag(VrPlayerTag))
             {
-                objectHit.GetComponent<VRPlayerController>().TakeDamage(Damage);
+                objectHit.GetComponent<VRPlayerController>().TakeDamage(Damage, itemName);
                 optionalSound?.Play();
             }
             else if (objectHit.CompareTag(NpcTag))

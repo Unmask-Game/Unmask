@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PoliceSoundController : MonoBehaviour
@@ -9,7 +7,7 @@ public class PoliceSoundController : MonoBehaviour
     private AudioSource _footstepSound;
     private AudioSource _footstepSound2;
 
-    void FixedUpdate()
+    private void FixedUpdate()
     {
         if (!_footstepSound || !_footstepSound2)
         {

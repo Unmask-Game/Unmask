@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
 
@@ -7,11 +6,9 @@ public class AudioManager : MonoBehaviour
 {
     public Sound[] Sounds;
 
-    [SerializeField]
-    private AudioMixer audioMixer;
+    [SerializeField] private AudioMixer audioMixer;
 
-    [SerializeField]
-    private AudioSource _audioSourceTemplate;
+    [SerializeField] private AudioSource _audioSourceTemplate;
 
     private void Start()
     {
@@ -32,7 +29,7 @@ public class AudioManager : MonoBehaviour
 
         // Apply sound volume from settings to master audio mixer
         float volume = SettingsManager.Instance.GetVolume();
-        float volumeDd = (float)Math.Log10(Math.Max(0.0001, volume)) * 20;
+        float volumeDd = (float) Math.Log10(Math.Max(0.0001, volume)) * 20;
         audioMixer.SetFloat("volume", volumeDd);
     }
 
