@@ -22,14 +22,14 @@ public class PlayerSpawner : MonoBehaviour
                 {
                     xrRig.transform.position = vrSpawn.transform.position;
                     xrRig.transform.rotation = vrSpawn.transform.rotation;
-                    
+
                     PhotonNetwork.Instantiate(vrPlayerPrefab.name, vrSpawn.transform.position, vrSpawn.transform.rotation);
                 }
                 else
                 {
                     Vector3 randomOffset = new Vector3(Random.Range(-3, 3), 0, Random.Range(-3, 3));
                     PhotonNetwork.Instantiate(playerPrefab.name, desktopSpot.transform.position + randomOffset,
-                        Quaternion.identity);
+                        desktopSpot.transform.rotation);
                 }
             }
         }
