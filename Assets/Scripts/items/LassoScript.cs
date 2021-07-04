@@ -11,7 +11,6 @@ public class LassoScript : Item
     private Transform _currentRopeEndPoint;
     private LineRenderer _lineRenderer;
     private bool _drawRope;
-    private const float AttackCooldownAfterHit = 8f;
 
     private void Start()
     {
@@ -42,10 +41,10 @@ public class LassoScript : Item
             {
                 PlayAnimation(playerAnimator, playerAudio);
                 view.RPC("PlayItemAnimationRemote", RpcTarget.Others);
-                objectHit.GetComponent<VRPlayerController>().OnLassoHit(Constants.GeneralCooldownAfterHit);
+                objectHit.GetComponent<VRPlayerController>().OnLassoHit(Constants.LassoCooldown);
                 yield return new WaitForSeconds(0);
-                itemController.CooldownAllItems(AttackCooldownAfterHit, Constants.GeneralCooldownAfterHit);
-                yield return new WaitForSeconds(Constants.GeneralCooldownAfterHit);
+                itemController.CooldownAllItems(Constants.AttackCooldownAfterHit, Constants.LassoCooldown);
+                yield return new WaitForSeconds(Constants.LassoCooldown);
             }
         }
 
@@ -58,7 +57,7 @@ public class LassoScript : Item
     {
         playerAudio.Play("Lasso");
         _lineRenderer.gameObject.SetActive(true);
-        StartCoroutine(StopAnimation(Constants.GeneralCooldownAfterHit));
+        StartCoroutine(StopAnimation(Constants.LassoCooldown));
         var vrPlayer = GameObject.FindWithTag(VrPlayerTag);
         DrawRope(vrPlayer.transform);
     }

@@ -1,4 +1,6 @@
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using Photon.Pun;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -15,7 +17,6 @@ public class ItemController : MonoBehaviour
     [SerializeField] private Image damageSlotImage;
     [SerializeField] private Image arrestSlotImage;
 
-    //[SerializeField] private PoliceMovement playerMovement;
     [SerializeField] private Animator playerAnimator;
     [SerializeField] private AudioManager audioManager;
     [SerializeField] private Camera playerCam;
@@ -34,18 +35,33 @@ public class ItemController : MonoBehaviour
     private float _attackCooldownExpiry;
     private float _switchCooldownExpiry;
     private float _pickUpCooldownExpiry;
-    private float _cooldwonNoticeExpiry;
-
-    private const string NpcCooldownText = "Stop hitting innocent bystanders!\n(Cooldown remaining: ";
-    private const string StandardCooldownText = "Using the lasso results in\na cooldown. (Remaining: ";
-    private string _currentCooldownText;
-
+    private float _cooldownNoticeExpiry;
+    
     private PhotonView _view;
+
+    public const string NpcCooldownText = "Stop hitting innocent bystanders!\n(Cooldown remaining: ";
+    public const string StandardCooldownText = "Using the lasso results in\na cooldown. (Remaining: ";
+
+    public const string ItemInfoText =
+        "Oh no, there is someone \nstealing the masks of customers...\n-\nSearch for items to exhaust\n and arrest the thief!";
+
+    public string CannotArrestText =
+        "You cannot arrest the thief yet.\nExhaust him first using items\nthat deal damage!";
+    private string _currentCooldownText;
+    
 
     private void Start()
     {
         _view = GetComponent<PhotonView>();
         _itemSpawner = GameObject.FindWithTag("ItemSpawner").GetComponent<ItemSpawner>();
+        if (SettingsManager.Instance.GetShowItemInfo())
+        {
+            hud.OpenInfoBubble(ItemInfoText);
+        }
+        else
+        {
+            hud.CloseInfoBubble();
+        }
     }
 
     public void PickUpItem(InputAction.CallbackContext context)
@@ -81,6 +97,8 @@ public class ItemController : MonoBehaviour
                         SetCurrentItem(ref slot);
                     }
 
+                    SettingsManager.Instance.SetShowItemInfo(false);
+                    hud.CloseInfoBubble();
                     _pickUpCooldownExpiry = Time.time + PickUpCooldown;
                 }
             }
@@ -171,10 +189,6 @@ public class ItemController : MonoBehaviour
         if (!currentItem) return;
         if (Time.time >= _attackCooldownExpiry && context.ReadValueAsButton())
         {
-            // Slowdown if attacking ? 
-            //playerMovement.SetTemporarySpeed(playerMovement.playerSpeed / 1.5f, AttackCooldown);
-            //currentItem.PlayAnimation(playerAnimator, audioManager);
-            //_view.RPC("PlayItemAnimationRemote", RpcTarget.Others);
             StartCoroutine(currentItem.Attack(this, playerCam, playerAnimator, audioManager, _view));
             // Cooldowns, so you can't switch items while attacking etc. (seperated CooldownAfterAttack variable)
             _pickUpCooldownExpiry = _switchCooldownExpiry = Time.time + CooldownAfterAttack;
@@ -244,9 +258,9 @@ public class ItemController : MonoBehaviour
 
     private void UpdateCooldownNotice()
     {
-        if (Time.time < _cooldwonNoticeExpiry)
+        if (Time.time < _cooldownNoticeExpiry)
         {
-            hud.ShowCooldownNotice((int) Math.Round(_cooldwonNoticeExpiry - Time.time), _currentCooldownText);
+            hud.ShowCooldownNotice((int) Math.Round(_cooldownNoticeExpiry - Time.time), _currentCooldownText);
         }
         else
         {
@@ -264,7 +278,7 @@ public class ItemController : MonoBehaviour
 
     private void AddAntiWeaponSpamNotice(float addSeconds)
     {
-        _cooldwonNoticeExpiry = Time.time + addSeconds;
+        _cooldownNoticeExpiry = Time.time + addSeconds;
         _currentCooldownText = StandardCooldownText;
         hud.cooldownNoticeColor = hud.infoColor;
         hud.ShowCooldownNotice((int) Math.Round(addSeconds), _currentCooldownText);
@@ -272,9 +286,21 @@ public class ItemController : MonoBehaviour
 
     public void AddNpcHitNotice(float addSeconds)
     {
-        _cooldwonNoticeExpiry = _attackCooldownExpiry = Time.time + addSeconds;
+        _cooldownNoticeExpiry = _attackCooldownExpiry = Time.time + addSeconds;
         _currentCooldownText = NpcCooldownText;
         hud.cooldownNoticeColor = hud.alertColor;
         hud.ShowCooldownNotice((int) Math.Round(addSeconds), _currentCooldownText);
+    }
+    
+    public void ShowInfoBubble(string text, float time)
+    {
+        IEnumerator<YieldInstruction> runUpdateInfoBubble()
+        {
+            hud.OpenInfoBubble(text);
+            yield return new WaitForSeconds(time);
+            hud.CloseInfoBubble();
+        }
+
+        StartCoroutine(runUpdateInfoBubble());
     }
 }

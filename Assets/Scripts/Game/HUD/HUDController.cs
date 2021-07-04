@@ -7,6 +7,7 @@ public class HUDController : MonoBehaviour
     [SerializeField] private GameObject messagePanel;
     [SerializeField] private GameObject inventoryPanel;
     [SerializeField] private GameObject cooldownNotice;
+    [SerializeField] private GameObject infoBubble;
     public Color infoColor;
     public Color alertColor;
     
@@ -14,15 +15,28 @@ public class HUDController : MonoBehaviour
     private Image _cooldownNoticeBackground;
     public Color cooldownNoticeColor;
     private Text _cooldownNoticeText;
+    private Text _infoBubbleText;
 
     private void Awake()
     {
         _cooldownNoticeText = cooldownNotice.GetComponentInChildren<Text>();
         _cooldownNoticeBackground = cooldownNotice.gameObject.GetComponent<Image>();
+        _infoBubbleText = infoBubble.GetComponentInChildren<Text>();
         cooldownNotice.SetActive(false);
         _slotSelectionList = GetSlotSelections();
         messagePanel.SetActive(false);
         DeselectAllSlots();
+    }
+    
+    public void OpenInfoBubble(string text)
+    {
+        infoBubble.SetActive(true);
+        _infoBubbleText.text = text;
+    }
+    
+    public void CloseInfoBubble()
+    {
+        infoBubble.SetActive(false);
     }
     
     public void OpenMessagePanel()

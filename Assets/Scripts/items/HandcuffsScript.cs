@@ -20,7 +20,7 @@ public class HandcuffsScript : Item
         view.RPC("PlayItemAnimationRemote", RpcTarget.Others);
         yield return new WaitForSeconds(WaitForAnimationTime);
 
-        TakeUnderArrest(cam);
+        TakeUnderArrest(itemController, cam);
     }
 
     public override void PlayAnimation(Animator playerAnimator, AudioManager playerAudio)

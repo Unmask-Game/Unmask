@@ -1,4 +1,5 @@
 using System.Collections;
+using DefaultNamespace;
 using Photon.Pun;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -19,8 +20,6 @@ public abstract class Item : MonoBehaviour
         Lasso,
         Handcuffs
     }
-
-    protected const float HitNpcCooldown = 15f;
 
     [HideInInspector] public ItemName itemName;
     [HideInInspector] public ItemType itemType;
@@ -56,7 +55,7 @@ public abstract class Item : MonoBehaviour
     public abstract IEnumerator Attack(ItemController itemController, Camera cam, Animator playerAnimator,
         AudioManager playerAudio, PhotonView view);
 
-    protected void TakeUnderArrest(Camera playerCam)
+    protected void TakeUnderArrest(ItemController itemController, Camera playerCam)
     {
         var ray = playerCam.ScreenPointToRay(Mouse.current.position.ReadValue());
         if (Physics.Raycast(ray, out var hit, Range))
@@ -64,7 +63,15 @@ public abstract class Item : MonoBehaviour
             var objectHit = hit.collider.gameObject;
             if (objectHit.CompareTag(VrPlayerTag))
             {
-                objectHit.GetComponent<VRPlayerController>().BeArrested();
+                var vrPlayer = objectHit.GetComponent<VRPlayerController>();
+                if (vrPlayer.isArrestable)
+                {
+                    vrPlayer.BeArrested();
+                }
+                else
+                {
+                    itemController.ShowInfoBubble(itemController.CannotArrestText, Constants.ShowItemInfoBubbleTime);
+                }
             }
         }
     }
@@ -83,7 +90,7 @@ public abstract class Item : MonoBehaviour
             }
             else if (objectHit.CompareTag(NpcTag))
             {
-                itemController.AddNpcHitNotice(HitNpcCooldown);
+                itemController.AddNpcHitNotice(Constants.HitNpcCooldown);
                 optionalSound?.Play();
             }
         }

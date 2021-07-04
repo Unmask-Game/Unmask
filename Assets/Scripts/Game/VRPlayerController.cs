@@ -12,17 +12,19 @@ public class VRPlayerController : MonoBehaviour
 {
     [SerializeField] private GameObject rope;
     [SerializeField] private ParticleSystem electricity;
+    [SerializeField] private ParticleSystem exhausted;
     [SerializeField] private AudioManager audioManager;
     private AudioSource _batonHitSound;
     private AudioSource _taserHitSound;
     public int resistancePoints;
+    public bool isArrestable;
     private CharacterController _controller;
     private GameObject _xrRig;
     private PhotonView _view;
     private GameObject _camera;
     private Animator _animator;
     private ActionBasedContinuousMoveProvider _moveProvider;
-    private int slowDownTicks;
+    private int _slowDownTicks;
 
     private void Awake()
     {
@@ -66,29 +68,62 @@ public class VRPlayerController : MonoBehaviour
         }
     }
 
-    [PunRPC]
-    public void TakeDamage(int damage, Item.ItemName causedBy)
+    public void FixedUpdate()
     {
         if (_view.IsMine)
         {
-            resistancePoints -= damage;
-        }
-        else
-        {
-            _view.RPC("TakeDamage", RpcTarget.MasterClient, damage, causedBy);
-            if (causedBy == Item.ItemName.Baton)
+            var inputDevice = InputDevices.GetDeviceAtXRNode(XRNode.LeftHand);
+            float speed;
+            if (--_slowDownTicks > 0)
             {
-                _view.RPC("OnBatonHitRemote", RpcTarget.All);
+                speed = VRSlowedSpeed;
             }
-            else if (causedBy == Item.ItemName.Taser)
+            else
             {
-                _view.RPC("OnTaserHitRemote", RpcTarget.All);
+                inputDevice.TryGetFeatureValue(UnityEngine.XR.CommonUsages.primary2DAxisClick, out bool sprinting);
+                speed = sprinting ? VRSprintSpeed : VRWalkSpeed;
+            }
+
+            _moveProvider.moveSpeed = isArrestable ? speed * SpeedMultiplier : speed;
+
+            inputDevice.TryGetFeatureValue(UnityEngine.XR.CommonUsages.primary2DAxis, out Vector2 move);
+            bool walking = move.sqrMagnitude > 0.1;
+
+            if (_animator.GetBool("walking") != walking)
+            {
+                SetIsWalking(walking);
+                _view.RPC("SetIsWalking", RpcTarget.Others, walking);
             }
         }
     }
 
     [PunRPC]
-    public void OnBatonHitRemote()
+    public void TakeDamage(int damage, Item.ItemName causedBy)
+    {
+        _view.RPC("TakeDamageRemote", RpcTarget.All, damage, causedBy);
+    }
+
+    [PunRPC]
+    public void TakeDamageRemote(int damage, Item.ItemName causedBy)
+    {
+        resistancePoints -= damage;
+        if (resistancePoints <= 0)
+        {
+            isArrestable = true;
+            exhausted.Play();
+        }
+
+        if (causedBy == Item.ItemName.Baton)
+        {
+            OnBatonHit();
+        }
+        else if (causedBy == Item.ItemName.Taser)
+        {
+            OnTaserHit();
+        }
+    }
+
+    private void OnBatonHit()
     {
         if (!_batonHitSound)
         {
@@ -98,13 +133,13 @@ public class VRPlayerController : MonoBehaviour
         _batonHitSound.Play();
     }
 
-    [PunRPC]
-    public void OnTaserHitRemote()
+    private void OnTaserHit()
     {
         if (!_taserHitSound)
         {
             _taserHitSound = audioManager.GetSound("Buzz");
         }
+
         _taserHitSound.Play();
         electricity.Play();
     }
@@ -115,8 +150,7 @@ public class VRPlayerController : MonoBehaviour
     {
         if (_view.IsMine)
         {
-            if (resistancePoints > 0) return;
-            Debug.Log("Damn, I've been arrested");
+            if (!isArrestable) return;
             _view.RPC("BeArrestedRemote", RpcTarget.All);
         }
         else
@@ -134,9 +168,9 @@ public class VRPlayerController : MonoBehaviour
     public void SlowDown(float seconds)
     {
         int ticks = (int) Math.Ceiling(seconds * 50);
-        if (ticks > slowDownTicks)
+        if (ticks > _slowDownTicks)
         {
-            slowDownTicks = ticks;
+            _slowDownTicks = ticks;
         }
     }
 
@@ -160,32 +194,6 @@ public class VRPlayerController : MonoBehaviour
         rope.SetActive(true);
         yield return new WaitForSeconds(time);
         rope.SetActive(false);
-    }
-
-    public void FixedUpdate()
-    {
-        if (_view.IsMine)
-        {
-            var inputDevice = InputDevices.GetDeviceAtXRNode(XRNode.LeftHand);
-            if (--slowDownTicks > 0)
-            {
-                _moveProvider.moveSpeed = VRSlowedSpeed;
-            }
-            else
-            {
-                inputDevice.TryGetFeatureValue(UnityEngine.XR.CommonUsages.primary2DAxisClick, out bool sprinting);
-                _moveProvider.moveSpeed = sprinting ? VRSprintSpeed : VRWalkSpeed;
-            }
-
-            inputDevice.TryGetFeatureValue(UnityEngine.XR.CommonUsages.primary2DAxis, out Vector2 move);
-            bool walking = move.sqrMagnitude > 0.1;
-
-            if (_animator.GetBool("walking") != walking)
-            {
-                SetIsWalking(walking);
-                _view.RPC("SetIsWalking", RpcTarget.Others, walking);
-            }
-        }
     }
 
     [PunRPC]

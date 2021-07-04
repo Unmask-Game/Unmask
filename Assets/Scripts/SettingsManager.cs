@@ -25,7 +25,7 @@ public class SettingsManager
 
     public float GetVolume()
     {
-        return PlayerPrefs.GetFloat("Volume", 1F);
+        return PlayerPrefs.GetFloat("Volume", 1f);
     }
 
     public void SetVolume(float volume)
@@ -35,11 +35,21 @@ public class SettingsManager
 
     public float GetMouseSensitivity()
     {
-        return PlayerPrefs.GetFloat("Mouse_Sensitivity", 1F);
+        return PlayerPrefs.GetFloat("Mouse_Sensitivity", 0.5f);
     }
 
     public void SetMouseSensitivity(float value)
     {
         PlayerPrefs.SetFloat("Mouse_Sensitivity", value);
+    }
+    
+    public bool GetShowItemInfo()
+    {
+        return PlayerPrefs.GetInt("ShowItemInfo", 1) != 0;
+    }
+    
+    public void SetShowItemInfo(bool value)
+    {
+        PlayerPrefs.SetInt("ShowItemInfo", value ? 1 : 0);
     }
 }
