@@ -7,8 +7,8 @@ namespace DefaultNamespace
         public const float VRWalkSpeed = 2f;
         public const float VRSprintSpeed = 3f;
         public const float VRSlowedSpeed = 1f;
-        public const float DesktopWalkSpeed = 1.5f;
-        public const float DesktopSprintSpeed = 2.8f;
+        public const float DesktopWalkSpeed = 1.25f;
+        public const float DesktopSprintSpeed = 2.5f;
         public const float SpeedMultiplier = 1.2f;
 
         /* Item Constats */
@@ -22,8 +22,8 @@ namespace DefaultNamespace
         public const float HitNpcCooldown = 10f;
 
         /* Game Constants */
-        public static int ThiefResistancePoints = 100;
-        public static int MasksNeeded = 50;
+        public static int ThiefResistancePoints = 150;
+        public static int MasksNeeded = 80;
         public static float WaitAfterGameOver = 7.5f;
 
         /* NPC Constants */
