@@ -9,6 +9,7 @@ public class PlayerSpawner : MonoBehaviour
 
     public GameObject desktopSpot;
     public List<GameObject> vrSpots;
+    public GameObject xrRig;
 
     private void Start()
     {
@@ -19,30 +20,18 @@ public class PlayerSpawner : MonoBehaviour
             {
                 if (player.Value.IsMasterClient)
                 {
-                    Vector3 randomOffset = new Vector3(Random.Range(-3, 3), 0, Random.Range(-3, 3));
-                    PhotonNetwork.Instantiate(vrPlayerPrefab.name, vrSpawn.transform.position + randomOffset, Quaternion.identity);
+                    xrRig.transform.position = vrSpawn.transform.position;
+                    xrRig.transform.rotation = vrSpawn.transform.rotation;
+                    
+                    PhotonNetwork.Instantiate(vrPlayerPrefab.name, vrSpawn.transform.position, vrSpawn.transform.rotation);
                 }
                 else
                 {
-                    PhotonNetwork.Instantiate(playerPrefab.name, desktopSpot.transform.position,
+                    Vector3 randomOffset = new Vector3(Random.Range(-3, 3), 0, Random.Range(-3, 3));
+                    PhotonNetwork.Instantiate(playerPrefab.name, desktopSpot.transform.position + randomOffset,
                         Quaternion.identity);
                 }
             }
         }
-
-        /*Vector3 spawnPoint;
-        if (PhotonNetwork.LocalPlayer.ActorNumber == 1)
-        {
-            spawnPoint = vrSpawnPoint.transform.position;
-        } else
-        {
-            spawnPoint = desktopSpots.transform.position;
-        }
-        PhotonNetwork.Instantiate(playerPrefab.name, spawnPoint, Quaternion.identity);
-        */
-    }
-
-    void Update()
-    {
     }
 }
