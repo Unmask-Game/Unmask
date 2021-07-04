@@ -1,3 +1,4 @@
+#if (UNITY_EDITOR) 
 using System.Collections;
 using System.Collections.Generic;
 using ParrelSync;
@@ -54,3 +55,4 @@ public class TestLobby : MonoBehaviourPunCallbacks
         PhotonNetwork.LoadLevel(5);
     }
 }
+#endif
