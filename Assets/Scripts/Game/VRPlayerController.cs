@@ -167,7 +167,7 @@ public class VRPlayerController : MonoBehaviour
 
     public void SlowDown(float seconds)
     {
-        int ticks = (int) Math.Ceiling(seconds * 50);
+        int ticks = (int)Math.Ceiling(seconds * 50);
         if (ticks > _slowDownTicks)
         {
             _slowDownTicks = ticks;
@@ -175,17 +175,18 @@ public class VRPlayerController : MonoBehaviour
     }
 
     // called when player is hit by lasso
-    [PunRPC]
     public void OnLassoHit(float seconds)
+    {
+        _view.RPC("OnLassoHitRemote", RpcTarget.All, seconds);
+    }
+
+    [PunRPC]
+    public void OnLassoHitRemote(float seconds)
     {
         StartCoroutine(DisplayRope(seconds));
         if (_view.IsMine)
         {
             SlowDown(seconds);
-        }
-        else
-        {
-            _view.RPC("OnLassoHit", RpcTarget.MasterClient, seconds);
         }
     }
 
@@ -204,6 +205,6 @@ public class VRPlayerController : MonoBehaviour
 
     public float GetResistancePointsPercentile()
     {
-        return (float) resistancePoints / Constants.ThiefResistancePoints;
+        return (float)resistancePoints / Constants.ThiefResistancePoints;
     }
 }

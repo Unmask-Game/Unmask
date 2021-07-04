@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using DefaultNamespace;
 using Photon.Pun;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -45,7 +46,7 @@ public class GameOverScript : MonoBehaviour
     IEnumerator LoadLobbyScene()
     {
         Time.timeScale = 0f;
-        yield return new WaitForSecondsRealtime(7.5f);
+        yield return new WaitForSecondsRealtime(Constants.WaitAfterGameOver);
         if (PhotonNetwork.IsMasterClient)
         {
             SceneManager.LoadScene(2);
