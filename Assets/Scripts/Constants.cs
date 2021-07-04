@@ -22,8 +22,8 @@ namespace DefaultNamespace
         public const float HitNpcCooldown = 10f;
 
         /* Game Constants */
-        public static int ThiefResistancePoints = 150;
-        public static int MasksNeeded = 80;
+        public static int ThiefResistancePoints = 130;
+        public static int MasksNeeded = 65;
         public static float WaitAfterGameOver = 7.5f;
 
         /* NPC Constants */
