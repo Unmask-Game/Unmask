@@ -1,33 +1,40 @@
 using System.Collections;
 using System.Collections.Generic;
-using ParrelSync;
 using Photon.Pun;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.XR.Management;
+#if (UNITY_EDITOR) 
+using ParrelSync;
+#endif
 
 public class Setup : MonoBehaviour
 {
     [SerializeField] private bool preferVR;
-    // Start is called before the first frame update
     void Start()
     {
-        if (preferVR^!ClonesManager.IsClone())
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 3);
-        else
+        bool useVr = GetArg("-hmd");
+        Debug.Log(useVr);
+        #if (UNITY_EDITOR)
+                useVr = ClonesManager.GetArgument().Equals("vr") || preferVR;
+        #endif
+        if (useVr)
             VRManager.Instance.StartXR(SceneManager.GetActiveScene().buildIndex + 1);
+        else
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 3);
+
     }
     
-    private static string GetArg(string name)
+    private static bool GetArg(string name)
     {
         var args = System.Environment.GetCommandLineArgs();
         for (int i = 0; i < args.Length; i++)
         {
-            if (args[i] == name && args.Length > i + 1)
+            if (args[i] == name)
             {
-                return args[i + 1];
+                return true;
             }
         }
-        return null;
+        return false;
     }
 }
