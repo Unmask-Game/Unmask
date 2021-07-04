@@ -24,6 +24,7 @@ namespace DefaultNamespace
 
         /* NPC Constants */
         public static int NpcCount = 100;
+        public static int NpcChangeShopPropability = 25;
         public static int NpcMinWaitTime = 50 * 2;
         public static int NpcMaxWaitTime = 50 * 15;
     }

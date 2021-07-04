@@ -15,7 +15,7 @@ public class NpcSpawner : MonoBehaviour
     private Queue<NpcController> _npcControllers = new Queue<NpcController>();
 
 
-    
+
     void Start()
     {
         List<GameObject> floorTiles = GameObject.FindGameObjectsWithTag("Floor").ToList();
@@ -49,8 +49,10 @@ public class NpcSpawner : MonoBehaviour
 
     public Vector3 RandomShopFloorTile(Vector3 position)
     {
+        // Flip a weighted coin and use a smaller radius if false
+        int searchRadius = Random.Range(0, 100) < Constants.NpcChangeShopPropability ? 9999 : 10;
         List<BoxCollider> nearbyFloorTiles =
-            _shopFloorTiles.FindAll(bc => Vector3.Distance(bc.transform.position, position) < 12).ToList();
+            _shopFloorTiles.FindAll(bc => Vector3.Distance(bc.transform.position, position) < searchRadius).ToList();
         BoxCollider collider = nearbyFloorTiles[Random.Range(0, nearbyFloorTiles.Count)];
         return RandomPointInBounds(collider.bounds);
     }
