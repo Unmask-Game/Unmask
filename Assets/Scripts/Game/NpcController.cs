@@ -9,6 +9,8 @@ using Random = UnityEngine.Random;
 
 public class NpcController : MonoBehaviour
 {
+    
+    [HideInInspector]
     public NpcSpawner NpcSpawner;
 
     [SerializeField] private GameObject _mask;
