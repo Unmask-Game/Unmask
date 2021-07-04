@@ -7,30 +7,26 @@ public class PlayerSpawner : MonoBehaviour
     public GameObject playerPrefab;
     public GameObject vrPlayerPrefab;
 
-    public GameObject vrSpot;
-    public List<GameObject> desktopSpots;
+    public GameObject desktopSpot;
+    public List<GameObject> vrSpots;
 
     private void Start()
     {
-        var index = 0;
+        GameObject vrSpawn = vrSpots[Random.Range(0, vrSpots.Count - 1)];
         foreach (var player in PhotonNetwork.CurrentRoom.Players)
         {
             if (player.Value.IsLocal)
             {
                 if (player.Value.IsMasterClient)
                 {
-                    PhotonNetwork.Instantiate(vrPlayerPrefab.name, vrSpot.transform.position, Quaternion.identity);
+                    Vector3 randomOffset = new Vector3(Random.Range(-3, 3), 0, Random.Range(-3, 3));
+                    PhotonNetwork.Instantiate(vrPlayerPrefab.name, vrSpawn.transform.position + randomOffset, Quaternion.identity);
                 }
                 else
                 {
-                    PhotonNetwork.Instantiate(playerPrefab.name, desktopSpots[index].transform.position,
+                    PhotonNetwork.Instantiate(playerPrefab.name, desktopSpot.transform.position,
                         Quaternion.identity);
                 }
-            }
-
-            if (!player.Value.IsMasterClient)
-            {
-                index++;
             }
         }
 
