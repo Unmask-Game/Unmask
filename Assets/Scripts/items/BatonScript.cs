@@ -10,7 +10,7 @@ public class BatonScript : Item
     {
         itemName = ItemName.Baton;
         itemType = ItemType.Damage;
-        Damage = 20;
+        Damage = BatonDamage;
         Range = BatonRange;
     }
 

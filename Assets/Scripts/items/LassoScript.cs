@@ -41,10 +41,10 @@ public class LassoScript : Item
             {
                 PlayAnimation(playerAnimator, playerAudio);
                 view.RPC("PlayItemAnimationRemote", RpcTarget.Others);
-                objectHit.GetComponent<VRPlayerController>().OnLassoHit(Constants.LassoCooldown);
+                objectHit.GetComponent<VRPlayerController>().OnLassoHit(Constants.LassoDuration);
                 yield return new WaitForSeconds(0);
-                itemController.CooldownAllItems(Constants.AttackCooldownAfterHit, Constants.LassoCooldown);
-                yield return new WaitForSeconds(Constants.LassoCooldown);
+                itemController.CooldownAllItems(Constants.LassoCooldown, Constants.LassoDuration);
+                yield return new WaitForSeconds(Constants.LassoDuration);
             }
         }
 
@@ -57,7 +57,7 @@ public class LassoScript : Item
     {
         playerAudio.Play("Lasso");
         _lineRenderer.gameObject.SetActive(true);
-        StartCoroutine(StopAnimation(Constants.LassoCooldown));
+        StartCoroutine(StopAnimation(Constants.LassoDuration));
         var vrPlayer = GameObject.FindWithTag(VrPlayerTag);
         DrawRope(vrPlayer.transform);
     }

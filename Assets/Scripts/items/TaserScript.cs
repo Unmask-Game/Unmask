@@ -1,4 +1,5 @@
 using System.Collections;
+using DefaultNamespace;
 using Photon.Pun;
 using UnityEngine;
 using static DefaultNamespace.Constants;
@@ -11,7 +12,7 @@ public class TaserScript : Item
     {
         itemName = ItemName.Taser;
         itemType = ItemType.Damage;
-        Damage = 10;
+        Damage = TaserDamage;
         Range = TaserRange;
         _particleEffect = GetComponentInChildren<ParticleSystem>();
     }
