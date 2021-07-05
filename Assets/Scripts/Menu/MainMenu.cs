@@ -35,7 +35,10 @@ public class MainMenu : MonoBehaviourPunCallbacks
         // When RETURN is pressed, join the room
         if (Keyboard.current.enterKey.wasPressedThisFrame || Keyboard.current.numpadEnterKey.wasPressedThisFrame)
         {
-            this.JoinRoom();
+            if (joinRoomButton.interactable)
+            {
+                this.JoinRoom();
+            }
         }
     }
 
