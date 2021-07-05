@@ -20,6 +20,8 @@ public class MainMenu : MonoBehaviourPunCallbacks
 
     public void Start()
     {
+        QualitySettings.vSyncCount = 1;
+
         // Replace all letters with their uppercase variant
         roomNameField.onValidateInput += delegate (string s, int i, char c) { return char.ToUpper(c); };
 
