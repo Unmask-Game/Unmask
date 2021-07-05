@@ -9,7 +9,6 @@ using UnityEngine.UI;
 public class RoomMenu : MonoBehaviourPunCallbacks
 {
     [SerializeField] private TMP_Text roomCodeText;
-    [SerializeField] private Button startButton;
     private PhotonView _view;
 
     private GameObject[] playerNames;

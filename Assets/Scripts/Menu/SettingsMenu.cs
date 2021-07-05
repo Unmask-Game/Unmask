@@ -19,7 +19,10 @@ public class SettingsMenu : MonoBehaviour
     {
         usernameText.text = SettingsManager.Instance.GetUsername();
         volumeSlider.value = SettingsManager.Instance.GetVolume();
-        sensitivitySlider.value = SettingsManager.Instance.GetMouseSensitivity();
+        if (sensitivitySlider)
+        {
+            sensitivitySlider.value = SettingsManager.Instance.GetMouseSensitivity();
+        }
         UpdateVolumeText();
     }
 
