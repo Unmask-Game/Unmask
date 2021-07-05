@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 
 public class VRMainMenu : MonoBehaviourPunCallbacks
 {
-    
+
     const string chars = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
     public void CreateRoom()
     {
@@ -27,7 +27,7 @@ public class VRMainMenu : MonoBehaviourPunCallbacks
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
-    
+
     private string generateRoomName()
     {
         string roomName = "";
@@ -37,5 +37,11 @@ public class VRMainMenu : MonoBehaviourPunCallbacks
         }
 
         return roomName;
+    }
+
+    public void Quit()
+    {
+        Debug.Log("Application Quit.");
+        Application.Quit();
     }
 }
