@@ -50,7 +50,7 @@ public class NpcSpawner : MonoBehaviour
     public Vector3 RandomShopFloorTile(Vector3 position)
     {
         // Flip a weighted coin and use a smaller radius if false
-        int searchRadius = Random.Range(0, 100) < Constants.NpcChangeShopPropability ? 9999 : 10;
+        int searchRadius = Random.Range(0, 100) < Constants.NpcChangeShopProbability ? 9999 : 10;
         List<BoxCollider> nearbyFloorTiles =
             _shopFloorTiles.FindAll(bc => Vector3.Distance(bc.transform.position, position) < searchRadius).ToList();
         BoxCollider collider = nearbyFloorTiles[Random.Range(0, nearbyFloorTiles.Count)];

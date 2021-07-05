@@ -6,14 +6,14 @@ namespace DefaultNamespace
         /* Movement Constants */
         public const float VRWalkSpeed = 2f;
         public const float VRSprintSpeed = 3f;
-        public const float VRSlowedSpeed = 1.25f;
+        public const float VRSlowedSpeed = 1.50f;
         public const float DesktopWalkSpeed = 1.25f;
         public const float DesktopSprintSpeed = 2.5f;
         public const float SpeedMultiplier = 1.2f;
 
         /* Item Constats */
         public const float ShowItemInfoBubbleTime = 8f;
-        public const float LassoCooldown = 10f;
+        public const float LassoCooldown = 12f;
         public const float LassoDuration = 3f;
         public const float LassoRange = 6;
         public const float TaserRange = 3;
@@ -24,14 +24,14 @@ namespace DefaultNamespace
         public const int BatonDamage = 20;
 
         /* Game Constants */
-        public static int ThiefResistancePoints = 130;
-        public static int MasksNeeded = 65;
-        public static float WaitAfterGameOver = 7.5f;
+        public const int ThiefResistancePoints = 130;
+        public const int MasksNeeded = 65;
+        public const float WaitAfterGameOver = 7.5f;
 
         /* NPC Constants */
-        public static int NpcCount = 100;
-        public static int NpcChangeShopPropability = 25;
-        public static int NpcMinWaitTime = 50 * 2;
-        public static int NpcMaxWaitTime = 50 * 15;
+        public const int NpcCount = 100;
+        public const int NpcChangeShopProbability = 25;
+        public const int NpcMinWaitTime = 50 * 2;
+        public const int NpcMaxWaitTime = 50 * 15;
     }
 }
