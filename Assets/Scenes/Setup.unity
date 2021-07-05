@@ -289,7 +289,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5597faced72e9804d90ea641674cc48d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  preferVR: 0
+  preferVR: 1
 --- !u!4 &2128490860
 Transform:
   m_ObjectHideFlags: 0
