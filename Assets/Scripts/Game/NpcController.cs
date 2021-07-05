@@ -87,8 +87,11 @@ public class NpcController : MonoBehaviour
     [PunRPC]
     private void SetDestination(Vector3 pos, Vector3 destination)
     {
-        transform.position = pos;
-        _navMeshAgent.destination = destination;
+        if (transform && _navMeshAgent)
+        {
+            transform.position = pos;
+            _navMeshAgent.destination = destination;
+        }
     }
 
     private void FindPath()
