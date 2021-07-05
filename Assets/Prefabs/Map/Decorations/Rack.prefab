@@ -1401,6 +1401,10 @@ PrefabInstance:
       value: rack_0
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 56bb0c9dbd915e146b4aab23e4871d16, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 56bb0c9dbd915e146b4aab23e4871d16, type: 3}
       propertyPath: m_NavMeshLayer
       value: 1
       objectReference: {fileID: 0}

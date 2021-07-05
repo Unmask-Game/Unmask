@@ -1,3 +1,4 @@
+using System;
 using Photon.Pun;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -34,9 +35,9 @@ public class CameraMovement : MonoBehaviour
     {
         // Getting mouse input and adjusting it with delta times 
         var input = context.ReadValue<Vector2>();
-        _mouseX = input.x * sensitivity * (smoothing == false ? Time.deltaTime : Time.smoothDeltaTime);
-        _mouseY = input.y * sensitivity * (smoothing == false ? Time.deltaTime : Time.smoothDeltaTime);
-        UpdateRotation();
+        _mouseX = input.x * sensitivity * 25;
+        _mouseY = input.y * sensitivity * 15;
+
     }
 
     public void LockCursor(InputAction.CallbackContext context)
@@ -48,12 +49,20 @@ public class CameraMovement : MonoBehaviour
         }
     }
 
+    private void Update()
+    {
+        UpdateRotation();
+    }
+
     private void UpdateRotation()
     {
-        _xRot -= _mouseY;
+        _xRot -= _mouseY * (smoothing == false ? Time.deltaTime : Time.smoothDeltaTime);
         _xRot = Mathf.Clamp(_xRot, -60, 60);
+        Vector3 targetRotation = transform.eulerAngles;
+        targetRotation.x = _xRot;
+        transform.eulerAngles = targetRotation;
 
-        transform.localRotation = Quaternion.Euler(_xRot, 0, 0);
-        player.Rotate(Vector3.up * _mouseX);
+        //transform.localRotation = Quaternion.Euler(_xRot, 0, 0);
+        player.Rotate(Vector3.up, _mouseX * (smoothing == false ? Time.deltaTime : Time.smoothDeltaTime));
     }
 }

@@ -24,7 +24,6 @@ public class RackScript : MonoBehaviour
         System.Random random = new System.Random(seed);
         foreach (Transform racks in transform)
         {
-            racks.transform.GetChild(0).gameObject.SetActive(false);
             var randomRackIndex = random.Next(0, racks.childCount - 1);
             racks.transform.GetChild(randomRackIndex).gameObject.SetActive(true);
         }
