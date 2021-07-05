@@ -31,7 +31,6 @@ public class ConnectingScreen : MonoBehaviourPunCallbacks
 
     public override void OnConnectedToMaster()
     {
-        Debug.Log("Joining room");
         PhotonNetwork.JoinRoom(_mainMenu.roomNameField.text);
     }
 

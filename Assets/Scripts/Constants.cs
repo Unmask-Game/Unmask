@@ -1,6 +1,5 @@
 namespace DefaultNamespace
 {
-
     public class Constants
     {
         /* Movement Constants */

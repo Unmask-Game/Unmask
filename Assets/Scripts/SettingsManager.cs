@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class SettingsManager
 {
+    // C# singleton pattern
+    // Handles Settings for the game
+    // Saves Options in Unity's PlayerPrefs
     private static SettingsManager _instance;
     public static SettingsManager Instance { get { return _instance; } }
 

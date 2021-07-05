@@ -35,10 +35,6 @@ public class NpcController : MonoBehaviour
         }
     }
 
-    void Update()
-    {
-    }
-
     private void FixedUpdate()
     {
         _animator.SetBool("walking", _navMeshAgent.velocity.magnitude > 0.6);
@@ -104,6 +100,7 @@ public class NpcController : MonoBehaviour
                 {
                     if (!_navMeshAgent.hasPath || _navMeshAgent.velocity.sqrMagnitude == 0f)
                     {
+                        // NPC reached destination and starts waiting random amount
                         _waiting = Random.Range(Constants.NpcMinWaitTime, Random.Range(Constants.NpcMinWaitTime, Constants.NpcMaxWaitTime));
                     }
                 }
@@ -111,6 +108,7 @@ public class NpcController : MonoBehaviour
         }
         else
         {
+            // Get new path if waiting time is over
             if (--_waiting == 0)
             {
                 CalculateNewPath();

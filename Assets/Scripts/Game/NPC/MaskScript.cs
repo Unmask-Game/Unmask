@@ -20,15 +20,13 @@ public class MaskScript : MonoBehaviour
     private Transform _attachTransform;
     private Vector3 _attachStartPosition;
     private Vector3 _attachOffset;
-
-    // Start is called before the first frame update
+    
     void Start()
     {
         _localOriginPosition = gameObject.transform.localPosition;
         _localOriginRotation = gameObject.transform.localRotation;
     }
-
-    // Update is called once per frame
+    
     void FixedUpdate()
     {
         if (_attached)
@@ -54,14 +52,11 @@ public class MaskScript : MonoBehaviour
         _attachStartPosition = transform.position;
         _attachTransform = args.interactor.transform;
         _attachOffset = gameObject.transform.transform.position - _attachTransform.position;
-
-        Debug.Log("Grabbed a Mask!");
     }
 
     public void OnRelease(SelectExitEventArgs args)
     {
         Detach();
-        Debug.Log("Released a Mask!");
     }
 
     private void Detach()

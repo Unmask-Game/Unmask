@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 
 public class VRMainMenu : MonoBehaviourPunCallbacks
 {
-
+    // Chars to be used for random room name
     const string chars = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
     public void CreateRoom()
     {
@@ -20,6 +20,7 @@ public class VRMainMenu : MonoBehaviourPunCallbacks
 
     public override void OnConnectedToMaster()
     {
+        // Create room
         PhotonNetwork.CreateRoom(generateRoomName(), new RoomOptions() { MaxPlayers = 4 });
     }
 
@@ -28,6 +29,7 @@ public class VRMainMenu : MonoBehaviourPunCallbacks
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 
+    // Generates 5 character room name
     private string generateRoomName()
     {
         string roomName = "";

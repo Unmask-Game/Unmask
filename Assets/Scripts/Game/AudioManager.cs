@@ -12,8 +12,10 @@ public class AudioManager : MonoBehaviour
 
     private void Start()
     {
+        // Create AudioSources for selected sounds
         foreach (var sound in Sounds)
         {
+            // Source: https://www.youtube.com/watch?v=6OT43pvUyfY
             ref var soundSource = ref sound.audioSource;
             soundSource = gameObject.AddComponent<AudioSource>();
             soundSource.clip = sound.clip;
@@ -21,6 +23,8 @@ public class AudioManager : MonoBehaviour
             soundSource.pitch = sound.pitch;
             soundSource.outputAudioMixerGroup = audioMixer.outputAudioMixerGroup;
             soundSource.rolloffMode = AudioRolloffMode.Custom;
+            
+            // Copy spatial values from template AudioSource
             soundSource.spatialBlend = _audioSourceTemplate.spatialBlend;
             soundSource.maxDistance = _audioSourceTemplate.maxDistance;
             var customCurve = _audioSourceTemplate.GetCustomCurve(AudioSourceCurveType.CustomRolloff);

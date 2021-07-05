@@ -40,6 +40,8 @@ public class CameraMovement : MonoBehaviour
 
     }
 
+    
+    // Lock cursor in unity window
     public void LockCursor(InputAction.CallbackContext context)
     {
         if (context.ReadValueAsButton())
@@ -54,15 +56,15 @@ public class CameraMovement : MonoBehaviour
         UpdateRotation();
     }
 
+    // Update camera and player rotation
     private void UpdateRotation()
     {
         _xRot -= _mouseY * (smoothing == false ? Time.deltaTime : Time.smoothDeltaTime);
+        // Limit up and down range for camera
         _xRot = Mathf.Clamp(_xRot, -60, 60);
         Vector3 targetRotation = transform.eulerAngles;
         targetRotation.x = _xRot;
         transform.eulerAngles = targetRotation;
-
-        //transform.localRotation = Quaternion.Euler(_xRot, 0, 0);
         player.Rotate(Vector3.up, _mouseX * (smoothing == false ? Time.deltaTime : Time.smoothDeltaTime));
     }
 }

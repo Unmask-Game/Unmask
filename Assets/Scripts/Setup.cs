@@ -11,12 +11,13 @@ using ParrelSync;
 public class Setup : MonoBehaviour
 {
     [SerializeField] private bool preferVR;
+    
+    // Runs on game launch and enables XR depending on launch arg
     void Start()
     {
         bool useVr = GetArg("-hmd");
-        Debug.Log(useVr);
         #if (UNITY_EDITOR)
-                useVr = ClonesManager.GetArgument().Equals("vr") || preferVR;
+        useVr = ClonesManager.GetArgument().Equals("vr") || preferVR;
         #endif
         if (useVr)
             VRManager.Instance.StartXR(SceneManager.GetActiveScene().buildIndex + 1);
@@ -25,6 +26,8 @@ public class Setup : MonoBehaviour
 
     }
     
+    // Check for launch arg
+    // Source: https://forum.unity.com/threads/pass-custom-parameters-to-standalone-on-launch.429144/
     private static bool GetArg(string name)
     {
         var args = System.Environment.GetCommandLineArgs();

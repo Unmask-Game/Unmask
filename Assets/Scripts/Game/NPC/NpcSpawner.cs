@@ -23,12 +23,15 @@ public class NpcSpawner : MonoBehaviour
 
         List<GameObject> shopFloorTiles = GameObject.FindGameObjectsWithTag("ShopFloor").ToList();
         _shopFloorTiles = shopFloorTiles.Select(f => f.GetComponent<BoxCollider>()).ToList();
+        // Only spawn NPCs on master client (they will be instantiated by Photon on the other connected peers)
         if (PhotonNetwork.IsMasterClient)
         {
             SpawnPlayers();
         }
     }
 
+    // Spawn players on random positions on random floor and shopFloorTiles
+    // Each floor tile only allows one NPC to spawn
     void SpawnPlayers()
     {
         List<BoxCollider> floorTiles = new List<BoxCollider>();
@@ -47,6 +50,7 @@ public class NpcSpawner : MonoBehaviour
         }
     }
 
+    // Gets random floor shop floor tile
     public Vector3 RandomShopFloorTile(Vector3 position)
     {
         // Flip a weighted coin and use a smaller radius if false
@@ -57,6 +61,7 @@ public class NpcSpawner : MonoBehaviour
         return RandomPointInBounds(collider.bounds);
     }
 
+    // Get random position in floor tile bounds
     public static Vector3 RandomPointInBounds(Bounds bounds)
     {
         return new Vector3(
@@ -68,6 +73,8 @@ public class NpcSpawner : MonoBehaviour
 
     void FixedUpdate()
     {
+        // Sync NPC positions with queue system
+        // Every fixedUpdate cycle only one NPC is synced and gets put to the back of the queue
         if (_npcControllers.Count > 0 && !GameStateManager.Instance.hasEnded)
         {
             NpcController npc = _npcControllers.Dequeue();

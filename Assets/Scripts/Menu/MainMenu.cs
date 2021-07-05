@@ -20,6 +20,7 @@ public class MainMenu : MonoBehaviourPunCallbacks
 
     public void Start()
     {
+        // Enable vsync for desktop players to combat screen tearing
         QualitySettings.vSyncCount = 1;
 
         // Replace all letters with their uppercase variant

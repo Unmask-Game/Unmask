@@ -11,6 +11,7 @@ public class VRManager : MonoBehaviour
 
     public bool isVR;
     
+    // Unity global Singleton pattern
     void Awake()
     {
         if (_instance != null && _instance != this)
@@ -22,11 +23,13 @@ public class VRManager : MonoBehaviour
         }
     }
     
+    // XR needs to be stopped when closing the game for SteamVR (and others) to detect it properly
     void OnApplicationQuit()
     {
         StopXR();
     }
 
+    // Activates Unity's XR Implementation
     public void StartXR()
     {
         isVR = true;
@@ -59,6 +62,8 @@ public class VRManager : MonoBehaviour
             XRGeneralSettings.Instance.Manager.StartSubsystems();
         }
     }
+    
+    // Stops Unity's OpenXR Implementation
     void StopXR()
     {
         Debug.Log("Stopping XR...");

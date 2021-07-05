@@ -17,6 +17,7 @@ public class SettingsMenu : MonoBehaviour
 
     public void OnEnable()
     {
+        // Set values from settings
         usernameText.text = SettingsManager.Instance.GetUsername();
         volumeSlider.value = SettingsManager.Instance.GetVolume();
         if (sensitivitySlider)

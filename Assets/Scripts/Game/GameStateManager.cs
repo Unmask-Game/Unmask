@@ -14,12 +14,8 @@ public class GameStateManager
     {
         get { return _instance; }
     }
-
+    
     private int collectedMasks;
-
-    private void Start()
-    {
-    }
 
     public void StartGame()
     {
@@ -27,6 +23,7 @@ public class GameStateManager
         collectedMasks = 0;
     }
 
+    // Infinity War
     public void EndGame(bool vrHasWon)
     {
         hasEnded = true;
@@ -46,12 +43,12 @@ public class GameStateManager
 
     public void MaskCollected()
     {
-        Debug.Log("Thief collected a mask!");
         collectedMasks++;
         if (GetCollectedMasksPercentile() >= 1)
         {
-            EndGame(true);
+            // Thief wins the game
             Debug.Log("Thief collected enough masks to win");
+            EndGame(true);
         }
     }
 

@@ -14,6 +14,7 @@ public class RoomMenu : MonoBehaviourPunCallbacks
     private GameObject[] playerNames;
     void Start()
     {
+        // Set timescale back to one for consecutive games (timescale is set to 0 after the game is over)
         Time.timeScale = 1;
         _view = GetComponent<PhotonView>();
         roomCodeText.text = PhotonNetwork.CurrentRoom.Name;

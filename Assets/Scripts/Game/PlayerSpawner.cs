@@ -13,11 +13,14 @@ public class PlayerSpawner : MonoBehaviour
 
     private void Start()
     {
+        // Spawn players on correct spawn spots
         GameObject vrSpawn = vrSpots[Random.Range(0, vrSpots.Count - 1)];
         foreach (var player in PhotonNetwork.CurrentRoom.Players)
         {
+            // Find own player
             if (player.Value.IsLocal)
             {
+                // Is VR player?
                 if (player.Value.IsMasterClient)
                 {
                     xrRig.transform.position = vrSpawn.transform.position;
