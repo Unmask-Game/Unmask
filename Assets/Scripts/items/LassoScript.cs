@@ -40,7 +40,6 @@ public class LassoScript : Item
             if (objectHit.CompareTag(VrPlayerTag))
             {
                 PlayAnimation(playerAnimator, playerAudio);
-                view.RPC("PlayItemAnimationRemote", RpcTarget.Others);
                 objectHit.GetComponent<VRPlayerController>().OnLassoHit(Constants.LassoCooldown);
                 yield return new WaitForSeconds(0);
                 itemController.CooldownAllItems(Constants.AttackCooldownAfterHit, Constants.LassoCooldown);
