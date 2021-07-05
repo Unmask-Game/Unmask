@@ -64,6 +64,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -7511558181221131132, guid: 432828fe4efecd7429115211d6eb350f, type: 3}
+      propertyPath: m_CastShadows
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: 432828fe4efecd7429115211d6eb350f, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 1fb776ada6f300044b1a6db9075317d7, type: 2}
@@ -73,7 +77,7 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 15cb6b096bb78c7479c93c6e26153387, type: 2}
     - target: {fileID: 919132149155446097, guid: 432828fe4efecd7429115211d6eb350f, type: 3}
       propertyPath: m_Name
-      value: dome
+      value: dome Variant
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 432828fe4efecd7429115211d6eb350f, type: 3}
