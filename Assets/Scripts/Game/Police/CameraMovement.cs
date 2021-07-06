@@ -60,6 +60,7 @@ public class CameraMovement : MonoBehaviour
     private void UpdateRotation()
     {
         _xRot -= _mouseY * (smoothing == false ? Time.deltaTime : Time.smoothDeltaTime);
+        
         // Limit up and down range for camera
         _xRot = Mathf.Clamp(_xRot, -60, 60);
         Vector3 targetRotation = transform.eulerAngles;

@@ -36,6 +36,7 @@ public class PoliceMovement : MonoBehaviour
     {
         if (_view.IsMine)
         {
+            // Check if player is walking and sync outcome with others
             var walking = playerController.velocity.magnitude > 0;
             if (walking != isWalking)
             {
@@ -55,6 +56,7 @@ public class PoliceMovement : MonoBehaviour
 
     public void PlayerMove(InputAction.CallbackContext context)
     {
+        // Get horizontal and vertical controller / keyboard input and set move direction
         var input = Vector3.ClampMagnitude(context.ReadValue<Vector2>(), 1);
         _moveDirection = new Vector3(input.x, 0, input.y);
     }
@@ -73,21 +75,22 @@ public class PoliceMovement : MonoBehaviour
                 // No vertical velocity / gravity when standing on ground
                 _verticalVelocity = 0;
             }
-
-            // Gravity
+            
+            // Apply gravity
             _verticalVelocity += Gravity * Time.deltaTime;
             playerController.Move(new Vector3(0, _verticalVelocity, 0) * Time.deltaTime);
 
+            // Sprint when holding Shift 
             if (Keyboard.current.shiftKey.wasPressedThisFrame)
             {
                 playerSpeed = Constants.DesktopSprintSpeed;
-
             }
             else if (Keyboard.current.shiftKey.wasReleasedThisFrame)
             {
                 playerSpeed = Constants.DesktopWalkSpeed;
             }
 
+            // Move player in set direction and apply rotation
             playerController.Move(playerSpeed * Time.deltaTime * (transform.rotation * _moveDirection));
         }
     }

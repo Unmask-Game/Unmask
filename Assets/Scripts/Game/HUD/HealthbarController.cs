@@ -10,7 +10,6 @@ public class HealthbarController : MonoBehaviour
     private Text _percentage;
     private VRPlayerController _vrController;
 
-    // Start is called before the first frame update
     private void Start()
     {
         _healthbar = GetChildComponentByName<Image>("Bar");
@@ -18,15 +17,15 @@ public class HealthbarController : MonoBehaviour
         _percentage = GetChildComponentByName<Text>("Percentage");
     }
 
-    // Update is called once per frame
     private void Update()
     {
         if (!_vrController)
         {
+            // Try to get the vr player to update fill amount with percentages
             GetVrPlayer();
-            Debug.Log("The VR Controller: " + _vrController);
             return;
         }
+        // Update fill amount and decrease animation speed linear to fill amount
         _healthbar.fillAmount = _vrController.GetResistancePointsPercentile();
         _shieldAnimator.speed = 2 - _healthbar.fillAmount;
         _percentage.text = (int)Math.Round(_healthbar.fillAmount * 100) + "%";
@@ -42,7 +41,7 @@ public class HealthbarController : MonoBehaviour
 
         return null;
     }
-
+    
     private VRPlayerController GetVrPlayer()
     {
         if (_vrController == null)

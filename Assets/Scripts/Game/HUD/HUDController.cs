@@ -22,6 +22,8 @@ public class HUDController : MonoBehaviour
         _cooldownNoticeText = cooldownNotice.GetComponentInChildren<Text>();
         _cooldownNoticeBackground = cooldownNotice.gameObject.GetComponent<Image>();
         _infoBubbleText = infoBubble.GetComponentInChildren<Text>();
+        
+        // Deselect / Disable all notices or selections in the beginning
         cooldownNotice.SetActive(false);
         _slotSelectionList = GetSlotSelections();
         messagePanel.SetActive(false);

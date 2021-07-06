@@ -19,6 +19,7 @@ public class GameOverScript : MonoBehaviour
     {
         if (!GetComponent<PhotonView>() || GetComponent<PhotonView>().IsMine)
         {
+            // VR Player is always master client
             if (PhotonNetwork.IsMasterClient == vrHasWon)
             {
                 GameObject.FindWithTag("Global").transform.Find("VictoryAudio").GetComponent<AudioSource>().Play();
@@ -45,14 +46,17 @@ public class GameOverScript : MonoBehaviour
 
     IEnumerator LoadLobbyScene()
     {
+        // Stop game
         Time.timeScale = 0f;
         yield return new WaitForSecondsRealtime(Constants.WaitAfterGameOver);
         if (PhotonNetwork.IsMasterClient)
         {
+            // VR Player returns to the VR Room
             SceneManager.LoadScene(2);
         }
         else
         {
+            // Desktop Player returns to the normal room
             SceneManager.LoadScene(4);
         }
     }

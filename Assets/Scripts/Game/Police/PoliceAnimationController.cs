@@ -17,7 +17,7 @@ public class PoliceAnimationController : MonoBehaviour
 
     private void Update()
     {
-        // if item in hand
+        // If item in hand -> choose correct walking animation to be displayed
         if (_items.currentItem)
         {
             if (_items.currentItem.itemName == Item.ItemName.Baton)

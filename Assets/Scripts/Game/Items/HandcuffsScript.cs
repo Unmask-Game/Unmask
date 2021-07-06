@@ -17,6 +17,7 @@ public class HandcuffsScript : Item
         AudioManager playerAudio, PhotonView view)
     {
         PlayAnimation(playerAnimator, playerAudio);
+        // Send RPC to others to also play the item's animation ("PlayAnimation") for them 
         view.RPC("PlayItemAnimationRemote", RpcTarget.Others);
         yield return new WaitForSeconds(WaitForAnimationTime);
 

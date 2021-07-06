@@ -16,7 +16,7 @@ public class PhotonPlayerManager : MonoBehaviour
         _view = GetComponent<PhotonView>();
         if (!_view.IsMine)
         {
-            // disable hud and camera for remote players
+            // Disable hud and camera for remote players
             cam.SetActive(false);
             hud.SetActive(false);
             GetComponent<PlayerInput>().enabled = false;
